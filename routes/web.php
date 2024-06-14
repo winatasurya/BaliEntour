@@ -21,3 +21,8 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
+
+// Route untuk halaman register
+Route::get('/pilihan', function () {
+    return view('pilihan');
+})->name('pilihan');
