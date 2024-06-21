@@ -88,7 +88,7 @@
   </div>
   <!-- Right Pane -->
   <div class="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
-  <div class="max-w-md w-full p-6 mt-8">
+  <div class="max-w-md w-full p-6 mt-2">
     <div class="flex items-center justify-center mb-6">
       <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
       <h1 class="text-3xl font-semibold text-black">Bali EnTour</h1>
