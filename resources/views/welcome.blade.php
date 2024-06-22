@@ -3,9 +3,64 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel Landing Page</title>
+  <title>Bali Entertainment Tourism</title>
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+  <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- JavaScript for Carousel -->
+
+  @vite(['resources/css/app.css','resources/js/app.js'])
+<script>
+
+  
+document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('controls-carousel');
+    const items = carousel.querySelectorAll('[data-carousel-item]');
+    const prevButton = carousel.querySelector('[data-carousel-prev]');
+    const nextButton = carousel.querySelector('[data-carousel-next]');
+    
+    let activeIndex = 0;
+
+    const updateCarousel = () => {
+        items.forEach((item, index) => {
+            if (index === activeIndex) {
+                item.classList.remove('hidden');
+                item.classList.add('block');
+            } else {
+                item.classList.remove('block');
+                item.classList.add('hidden');
+            }
+        });
+    };
+
+    prevButton.addEventListener('click', () => {
+        activeIndex = (activeIndex === 0) ? items.length - 1 : activeIndex - 1;
+        updateCarousel();
+    });
+
+    nextButton.addEventListener('click', () => {
+        activeIndex = (activeIndex === items.length - 1) ? 0 : activeIndex + 1;
+        updateCarousel();
+    });
+
+    updateCarousel(); // Initialize carousel
+});
+</script>
+
   @vite('resources/css/app.css')
   <style>
+   .scrollable-container {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+ #map {
+      height: 300px; /* Adjust height as needed */
+      width: 100%;
+    }
+
     .navbar-transparent {
       background: transparent;
       color: white;
@@ -30,7 +85,7 @@
 <nav class="navbar-transparent fixed w-full z-10">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Travel Logo" />
+        <img src="img/2.png" class="h-12" alt="Travel Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap">Bali EnTour</span>
     </a>
     <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600">
@@ -45,19 +100,19 @@
           <a href="#" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
         </li>
         <li>
-          <a href="#services" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Services</a>
+          <a href="#services" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Event</a>
         </li>
         <li>
-          <a href="#pricing" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Pricing</a>
+          <a href="#pricing" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Accommodation</a>
         </li>
         <li>
-          <a href="#gallery" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Gallery</a>
+          <a href="#gallery" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Whistlist</a>
         </li>
         <li>
           <a href="#testimonials" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Testimonials</a>
         </li>
         <li>
-          <a href="#contact" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Contact</a>
+          <a href="#contact" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Contact us</a>
         </li>
       </ul>
     </div>
@@ -65,161 +120,535 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="hero-bg">
-  <div class="flex items-center justify-center h-full bg-gray-900 bg-opacity-50">
-    <div class="text-center text-white">
-      <h1 class="text-5xl font-bold">Discover Your Next Adventure</h1>
-      <p class="mt-4 text-lg">Explore the world with us</p>
-      <a href="#services" class="mt-8 px-6 py-3 bg-blue-600 rounded hover:bg-blue-700">Get Started</a>
+<section class="hero-bg bg-cover bg-center relative" style="background-image: url('{{ asset('img/sanc.jpg') }}');">
+  <div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
+  <div class="flex items-center justify-between h-full relative z-20">
+    <!-- Left Content -->
+    <div class="text-white z-30 px-8 md:px-16 lg:px-24 xl:px-32">
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">Discover Your Next Adventure In Bali</h1>
+      <p class="text-lg leading-relaxed mb-8">Explore the world with us. Find the best destinations, guides, and experiences.</p>
+      <a href="#services" class="px-8 py-4 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out inline-block">Get Started</a>
+    </div>
+
+    <!-- Right Content (Carousel) -->
+    <div id="controls-carousel" class="relative w-full z-20 md:w-2/3 hidden md:block ml-auto mr-8">
+      <!-- Carousel wrapper -->
+      <div class="relative h-64 md:h-96 overflow-hidden rounded-lg" data-carousel="slide">
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="{{ asset('img/14.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
+        </div>
+        <!-- Item 2 -->
+        <div class="duration-700 ease-in-out" data-carousel-item="active">
+          <img src="{{ asset('img/12.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
+        </div>
+        <!-- Item 3 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="{{ asset('img/spa.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
+        </div>
+        <!-- Item 4 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="{{ asset('img/res1.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
+        </div>
+        <!-- Item 5 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <img src="{{ asset('img/bar.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
+        </div>
+      </div>
+      <!-- Slider controls -->
+      <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+          </svg>
+          <span class="sr-only">Previous</span>
+        </span>
+      </button>
+      <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <span class="sr-only">Next</span>
+        </span>
+      </button>
     </div>
   </div>
 </section>
 
-<!-- Services Section -->
-<section id="services" class="py-16 bg-white">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold">Our Services</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <div class="p-6 bg-gray-100 rounded">
-        <h3 class="text-2xl font-semibold">Guided Tours</h3>
-        <p class="mt-4">Experience the best guided tours with our experienced guides.</p>
+
+<!-- Categori Section -->
+<section class="bg-[#fff9f9]">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+      <div class="max-w-screen-md mb-8 lg:mb-16">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Services</h2>
+          <p class="text-gray-500 sm:text-xl dark:text-gray-400">Explore the variety of services we offer to cater to your business needs.</p>
       </div>
-      <div class="p-6 bg-gray-100 rounded">
-        <h3 class="text-2xl font-semibold">Travel Packages</h3>
-        <p class="mt-4">Get exclusive travel packages tailored to your needs.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-blue-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3a1 1 0 011-1h16a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V3z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8v8m-4-4h4"/>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Beach Club & Bar</h3>
+          </div>
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-green-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Karaoke</h3>
+          </div>
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-purple-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Spa</h3>
+          </div>
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-yellow-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">villa & suites </h3>
+          </div>
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-red-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21v-2m0 0V5m0 2H7m3 0h6"/>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white"> Restaurant</h3>
+          </div>
+          <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
+              <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-indigo-500 text-white">
+                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3a1 1 0 00-.788 0l-5 2a1 1 0 000 1.732L4 9.732l2.212-1.414A1 1 0 018 9.732v4.536a1 1 0 01-.788.974l-4.5 1a1 1 0 01-.588-.105l-2-1A1 1 0 010 13.268V4.732a1 1 0 01.712-.955l6-2a1 1 0 01.576-.023L7 3zM23 10l-4.5 6h-9L1 10"></path>
+                  </svg>
+              </div>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">24/7 Support</h3>
+          </div>
       </div>
-      <div class="p-6 bg-gray-100 rounded">
-        <h3 class="text-2xl font-semibold">Custom Itineraries</h3>
-        <p class="mt-4">Plan your trip with custom itineraries designed just for you.</p>
-      </div>
+  </div>
+</section>
+
+
+
+<!-- About Us Section -->
+<section class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('img/paja.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="container mx-auto py-10 md:py-14">
+        <div class="flex justify-center items-center py-12 md:py-20">
+            <div class="w-full md:flex md:items-center md:justify-center">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 md:pt-12 relative -top-28">
+    <div class="container mx-auto">
+        <div class="flex flex-wrap items-center">
+            <!-- Column for Image -->
+            <div class="w-full md:w-1/2">
+                <!-- Container for Image with Frame -->
+                <div class="border border-gray-300 p-0.5"> <!-- Tambahkan kelas Tailwind CSS untuk bingkai -->
+                    <div class="bg-cover bg-center h-96" style="background-image: url('img/ul.jpg');">
+                    </div>
+                </div>
+            </div>
+            <!-- Column for Text -->
+            <div class="w-full md:w-1/2 md:pl-8 py-15 md:py-0">
+                <div class="flex justify-start pb-3 mt-5 md:mt-10"> <!-- Tambahkan margin atas -->
+                    <div class="w-full">
+                        <span class="text-sm font-semibold uppercase">About Us</span>
+                        <h2 class="text-3xl font-bold mb-4">Make Your Tour Memorable and Safe With Us</h2>
+                        <p>"Jendela Wisata" adalah situs web yang akan memandu Anda sepanjang perjalanan wisata Anda di pulau Bali. Mulai dari atraksi darat seperti gunung hingga ekskursi laut seperti pantai-pantai indah, kami menyediakan panduan untuk setiap tempat, termasuk rekomendasi akomodasi terbaik dan kuliner lokal yang harus dicoba. Mari kita jelajahi Pulau Bali dengan panduan komprehensif dari situs web kami!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="block max-h-full bg-[#fffcfc]">
+  <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <h2 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+      Testimonials
+    </h2>
+
+    <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
+      <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+        <div class="flex items-center gap-4">
+          <img
+            alt=""
+            src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+            class="size-14 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="flex justify-center gap-0.5 text-green-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+          </div>
+        </div>
+
+        <p class="mt-4 text-gray-700">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
+          error officiis atque voluptates magnam!
+        </p>
+      </blockquote>
+
+      <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+        <div class="flex items-center gap-4">
+          <img
+            alt=""
+            src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+            class="size-14 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="flex justify-center gap-0.5 text-green-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+          </div>
+        </div>
+
+        <p class="mt-4 text-gray-700">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
+          error officiis atque voluptates magnam!
+        </p>
+      </blockquote>
+
+      <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+        <div class="flex items-center gap-4">
+          <img
+            alt=""
+            src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+            class="size-14 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="flex justify-center gap-0.5 text-green-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+          </div>
+        </div>
+
+        <p class="mt-4 text-gray-700">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
+          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
+          error officiis atque voluptates magnam!
+        </p>
+      </blockquote>
     </div>
   </div>
 </section>
 
-<!-- Pricing Section -->
-<section id="pricing" class="py-16 bg-gray-50">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold">Pricing</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <div class="p-6 bg-white rounded shadow">
-        <h3 class="text-2xl font-semibold">Basic</h3>
-        <p class="mt-4 text-gray-600">$99 / trip</p>
-        <ul class="mt-4">
-          <li>Guided Tours</li>
-          <li>Basic Travel Packages</li>
-        </ul>
-        <a href="#" class="mt-8 inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Choose Plan</a>
-      </div>
-      <div class="p-6 bg-white rounded shadow">
-        <h3 class="text-2xl font-semibold">Standard</h3>
-        <p class="mt-4 text-gray-600">$199 / trip</p>
-        <ul class="mt-4">
-          <li>All Basic Features</li>
-          <li>Custom Itineraries</li>
-        </ul>
-        <a href="#" class="mt-8 inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Choose Plan</a>
-      </div>
-      <div class="p-6 bg-white rounded shadow">
-        <h3 class="text-2xl font-semibold">Premium</h3>
-        <p class="mt-4 text-gray-600">$299 / trip</p>
-        <ul class="mt-4">
-          <li>All Standard Features</li>
-          <li>Exclusive Travel Packages</li>
-        </ul>
-        <a href="#" class="mt-8 inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Choose Plan</a>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- tst -->
-<main class="py-6 px-4 sm:p-6 md:py-10 md:px-8">
-  <div class="max-w-4xl mx-auto grid grid-cols-1 lg:max-w-5xl lg:gap-x-20 lg:grid-cols-2">
-    <div class="relative p-3 col-start-1 row-start-1 flex flex-col-reverse rounded-lg bg-gradient-to-t from-black/75 via-black/0 sm:bg-none sm:row-start-2 sm:p-0 lg:row-start-1">
-      <h1 class="mt-1 text-lg font-semibold text-white sm:text-slate-900 md:text-2xl dark:sm:text-white">Beach House in Collingwood</h1>
-      <p class="text-sm leading-4 font-medium text-white sm:text-slate-500 dark:sm:text-slate-400">Entire house</p>
-    </div>
-    <div class="grid gap-4 col-start-1 col-end-3 row-start-1 sm:mb-6 sm:grid-cols-4 lg:gap-6 lg:col-start-2 lg:row-end-6 lg:row-span-6 lg:mb-0">
-      <img src="/beach-house.jpg" alt="" class="w-full h-60 object-cover rounded-lg sm:h-52 sm:col-span-2 lg:col-span-full" loading="lazy">
-      <img src="/beach-house-interior-1.jpg" alt="" class="hidden w-full h-52 object-cover rounded-lg sm:block sm:col-span-2 md:col-span-1 lg:row-start-2 lg:col-span-2 lg:h-32" loading="lazy">
-      <img src="/beach-house-interior-2.jpg" alt="" class="hidden w-full h-52 object-cover rounded-lg md:block lg:row-start-2 lg:col-span-2 lg:h-32" loading="lazy">
-    </div>
-    <dl class="mt-4 text-xs font-medium flex items-center row-start-2 sm:mt-1 sm:row-start-3 md:mt-2.5 lg:row-start-2">
-      <dt class="sr-only">Reviews</dt>
-      <dd class="text-indigo-600 flex items-center dark:text-indigo-400">
-        <svg width="24" height="24" fill="none" aria-hidden="true" class="mr-1 stroke-current dark:stroke-indigo-500">
-          <path d="m12 5 2 5h5l-4 4 2.103 5L12 16l-5.103 3L9 14l-4-4h5l2-5Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <span>4.89 <span class="text-slate-400 font-normal">(128)</span></span>
-      </dd>
-      <dt class="sr-only">Location</dt>
-      <dd class="flex items-center">
-        <svg width="2" height="2" aria-hidden="true" fill="currentColor" class="mx-3 text-slate-300">
-          <circle cx="1" cy="1" r="1" />
-        </svg>
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-slate-400 dark:text-slate-500" aria-hidden="true">
-          <path d="M18 11.034C18 14.897 12 19 12 19s-6-4.103-6-7.966C6 7.655 8.819 5 12 5s6 2.655 6 6.034Z" />
-          <path d="M14 11a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
-        </svg>
-        Collingwood, Ontario
-      </dd>
-    </dl>
-    <div class="mt-4 col-start-1 row-start-3 self-center sm:mt-0 sm:col-start-2 sm:row-start-2 sm:row-span-2 lg:mt-6 lg:col-start-1 lg:row-start-3 lg:row-end-4">
-      <button type="button" class="bg-indigo-600 text-white text-sm leading-6 font-medium py-2 px-3 rounded-lg">Check availability</button>
-    </div>
-    <p class="mt-4 text-sm leading-6 col-start-1 sm:col-span-2 lg:mt-6 lg:row-start-4 lg:col-span-1 dark:text-slate-400">
-      This sunny and spacious room is for those traveling light and looking for a comfy and cosy place to lay their head for a night or two. This beach house sits in a vibrant neighborhood littered with cafes, pubs, restaurants and supermarkets and is close to all the major attractions such as Edinburgh Castle and Arthur's Seat.
-    </p>
-  </div>
-</main>
 
-<!-- Gallery Section -->
-<section id="gallery" class="py-16 bg-white">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold">Gallery</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <img src="https://example.com/gallery1.jpg" alt="Gallery 1" class="w-full h-64 object-cover rounded">
-      <img src="https://example.com/gallery2.jpg" alt="Gallery 2" class="w-full h-64 object-cover rounded">
-      <img src="https://example.com/gallery3.jpg" alt="Gallery 3" class="w-full h-64 object-cover rounded">
-    </div>
-  </div>
-</section>
 
-<!-- Testimonials Section -->
-<section id="testimonials" class="py-16 bg-gray-50">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold">Testimonials</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-      <div class="p-6 bg-white rounded shadow">
-        <p class="text-gray-600">"Amazing experience! Highly recommend TravelCo for your next adventure."</p>
-        <p class="mt-4 font-semibold">- John Doe</p>
+<h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+      Place</h1>
+        <div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md">
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 1">
+                <div class="p-4 h-32">
+                    <h5 class="text-lg font-semibold">Card Title 1</h5>
+                    <p class="text-gray-600">This is a description for card 1.locale_filter_matches Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis deserunt animi sit enim dolores voluptatem quidem eos molestias? Repudiandae eligendi a officiis cumque earum perspiciatis minima quis non corporis maxime.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 2">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 2</h5>
+                    <p class="text-gray-600">This is a description for card 2.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 3">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 3</h5>
+                    <p class="text-gray-600">This is a description for card 3.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 4">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 4</h5>
+                    <p class="text-gray-600">This is a description for card 4.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 5">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 5</h5>
+                    <p class="text-gray-600">This is a description for card 5.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 6</h5>
+                    <p class="text-gray-600">This is a description for card 6.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 6</h5>
+                    <p class="text-gray-600">This is a description for card 6.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 6</h5>
+                    <p class="text-gray-600">This is a description for card 6.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 6</h5>
+                    <p class="text-gray-600">This is a description for card 6.</p>
+                </div>
+            </div>
+            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+                <div class="p-4">
+                    <h5 class="text-lg font-semibold">Card Title 6</h5>
+                    <p class="text-gray-600">This is a description for card 6.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+<footer class="relative bg-blueGray-200 pt-8 pb-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap text-left lg:text-left">
+        <div class="w-full lg:w-6/12 px-4">
+          <h4 class="text-3xl font-semibold text-blueGray-700">Let's keep in touch!</h4>
+          <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+            Find us on any of these platforms, we respond 1-2 business days.
+          </h5>
+          <div class="mt-6 lg:mb-0 mb-6">
+            <button class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i class="fab fa-twitter"></i></button><button class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i class="fab fa-facebook-square"></i></button><button class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i class="fab fa-dribbble"></i></button><button class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div id="map"></div>
+        </div>
       </div>
-      <div class="p-6 bg-white rounded shadow">
-        <p class="text-gray-600">"The custom itineraries were perfect. We had the best trip ever!"</p>
-        <p class="mt-4 font-semibold">- Jane Smith</p>
-      </div>
-      <div class="p-6 bg-white rounded shadow">
-        <p class="text-gray-600">"TravelCo made everything so easy and enjoyable. Fantastic service!"</p>
-        <p class="mt-4 font-semibold">- Emily Johnson</p>
+      <hr class="my-6 border-blueGray-300">
+      <div class="flex flex-wrap items-center md:justify-between justify-center">
+        <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+          <div class="text-sm text-blueGray-500 font-semibold py-1">
+            Copyright © <span id="get-current-year">2024</span><a href="https://www.creative-tim.com/product/notus-js" class="text-blueGray-500 hover:text-gray-800" target="_blank"> PNB by
+            <a href="https://www.creative-tim.com?ref=njs-profile" class="text-blueGray-500 hover:text-blueGray-800"> Bali EnTour</a>.
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- Contact Section -->
-<section id="contact" class="py-16 bg-white">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <h2 class="text-4xl font-bold">Contact Us</h2>
-    <form class="mt-8 max-w-lg mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="text" placeholder="Name" class="p-4 border rounded">
-        <input type="email" placeholder="Email" class="p-4 border rounded">
-      </div>
-      <textarea placeholder="Message" class="p-4 border rounded mt-4 w-full"></textarea>
-      <button type="submit" class="mt-8 px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700">Send Message</button>
-    </form>
-  </div>
-</section>
+  <script>
+    // Initialize map
+    var map = L.map('map').setView([-8.409518, 115.188919], 10); // Centered on Bali, adjust as needed
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add markers
+    var locations = [
+      [-8.409518, 115.188919], // Example location 1
+      [-8.650000, 115.216667], // Example location 2
+      [-8.300000, 115.083333], // Example location 3
+    ];
+
+    locations.forEach(function(location) {
+      L.marker(location).addTo(map);
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 </body>
 </html>

@@ -26,3 +26,8 @@ Route::get('/welcome', function () {
 Route::get('/pilihan', function () {
     return view('pilihan');
 })->name('pilihan');
+
+// Route untuk halaman register
+Route::get('/aboutus', function () {
+    return view('about');
+})->name('aboutus');
