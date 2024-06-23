@@ -77,7 +77,7 @@
   </style>
 </head>
 <body>
-  <div class="form">
+  <div class="form" id ="pilihan">
     <div class="col-1">
       <img src="img/bar.jpg" alt="">
       <h1>Register Your Account</h1>

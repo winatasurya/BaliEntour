@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>Register Page</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Login Page</title>
 </head>
 <body>
     <div class="container" id="container">
@@ -30,7 +31,10 @@
                 <div class="toggle-panel toggle-right">
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
-                    <button class="hidden" id="register">Sign Up</button>
+                    <a href="{{url('/pilihan')}}">
+
+                        <button class="hidden" id="tst">Sign Up</button>
+                    </a>
                 </div>
             </div>
         </div>
