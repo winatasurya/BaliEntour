@@ -22,6 +22,7 @@
     .navbar-transparent {
       background: transparent;
       color: white;
+      z-index: 1000;
     }
     .navbar-transparent a {
       color: white;
@@ -30,7 +31,7 @@
       color: #4A90E2; /* Change color on hover */
     }
     .hero-bg {
-      background-image: url('https://example.com/hero.jpg');
+      background-image: url('img/sanc.jpg'); 
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -38,7 +39,9 @@
   </style>
 </head>
 <body>
+
    <!-- Navbar -->
+   <section>
 <nav class="navbar-transparent fixed w-full z-10">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -75,14 +78,13 @@
     </div>
   </div>
 </nav> 
-
-<section>
-    <divc></divc>
 </section>
+
+
 <!-- Hero Section -->
-<section class="hero-bg bg-cover bg-center bg" style="background-image: url('img/sanc.jpg');">
-  <div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
-  <!-- <div class="flex items-center justify-between h-full relative z-20"> -->
+<section class="hero-bg bg-cover bg-center bg" style="background-image: url('{{ asset('img/sanc.jpg') }}');">
+<div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
+  <div class="flex items-center justify-between h-full relative z-20"></div>
     </section>
 
 <footer class="relative bg-blueGray-200 pt-8 pb-6">

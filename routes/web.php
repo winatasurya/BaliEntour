@@ -31,5 +31,5 @@ Route::get('/pilihan', function () {
 
 // Route untuk halaman register
 Route::get('/aboutus', function () {
-    return view('about');
+    return view('aboutus');
 })->name('aboutus');
