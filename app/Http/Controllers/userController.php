@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\usermodel;
 use Illuminate\Http\Request;
 
-class userController extends Controller
+class usercontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('registeruser');
     }
 
     /**
@@ -28,7 +28,22 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data = [
+            'nama' => $request->input('nama'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => $request->input('role'),
+        ];
+
+        usermodel::create($data);
+
+        return redirect('/user')->with('succes', 'Berhasil Membuat Akun');
     }
 
     /**

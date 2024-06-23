@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Register Page</title>
+    
 </head>
 <body>
     <div class="container" id="container">
@@ -14,11 +15,10 @@
                 @csrf
                 <h1>Create Account</h1>
                 <span>Use your email for registration</span>
-                <input type="text" name="nama_user" placeholder="Username" required />
+                <input type="text" name="nama" placeholder="Username" required />
                 <input type="email" name="email" placeholder="Email" required />
-                <input type="password" name="password_user" placeholder="Password" required />
-                <input type="text" name="telp_user" placeholder="Phone" required />
-                <input type="text" name="alamat_user" placeholder="Address" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <input type="hidden" name="enum" required />
                 <button>Sign Up</button>
             </form>
         </div>
