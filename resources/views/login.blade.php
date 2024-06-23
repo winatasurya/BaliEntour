@@ -32,7 +32,6 @@
                     <h1>Hello, Friend!</h1>
                     <p>Enter your personal details and start journey with us</p>
                     <a href="{{url('/pilihan')}}">
-
                         <button class="hidden" id="tst">Sign Up</button>
                     </a>
                 </div>
