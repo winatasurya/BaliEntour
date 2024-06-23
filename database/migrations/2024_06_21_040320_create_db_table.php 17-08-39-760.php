@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('nama');
             $table->string('password');
             $table->enum('role', ['wisatawan', 'perusahaan', 'admin'])->default('wisatawan');
-            $table->string('token')->nullable();
+            $table->string('token');
+            $table->enum('is_verif',['0','1'])->default(0);
         });
 
         Schema::create('wisatawan', function (Blueprint $table) {
