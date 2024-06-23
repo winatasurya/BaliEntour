@@ -241,7 +241,7 @@
     <form action="{{url('/perusahaan')}}">
       <h1>Register Your Company!</h1>
       <p>Register your company to spread some happiness</p>
-      <button class="ghost" id="signUp" >Sign Up</button>
+      <button class="" id="signUp" >Sign Up</button>
     </form>
   </div>
   <div class="overlay-container">
@@ -256,6 +256,5 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>

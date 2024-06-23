@@ -29,8 +29,8 @@
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
+                    <h1> Bali EnTour</h1>
+                    <p>Discover Your Next Adventure In Bali</p>
                     <a href="{{url('/pilihan')}}">
                         <button class="hidden" id="tst">Sign Up</button>
                     </a>
