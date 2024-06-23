@@ -14,8 +14,10 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 
 // Route untuk register
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+Route::get('/register', [Registrasi::class, 'showLoginForm'])->name('showLoginForm');
+Route::post('/cek_login', [Registrasi::class, 'cekLogin'])->name('cekLogin');
+Route::post('/ProReg', [Registrasi::class, 'ProReg'])->name('ProReg');
+Route::get('/Verif/{token}', [Registrasi::class, 'Verif'])->name('Verif');
 
 // Route untuk halaman welcome
 Route::get('/welcome', function () {
