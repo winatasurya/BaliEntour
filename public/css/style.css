@@ -164,7 +164,7 @@ body {
 }
 
 .toggle {
-  background-color: #8b5e3c; /* warna coklat tua */
+  background-color: #745fff; /* warna coklat tua */
   height: 100%;
   color: #fff;
   position: relative;
@@ -194,6 +194,10 @@ body {
   transition: all 0.6s ease-in-out;
 }
 
+.toggle-panel p {
+  color: #fff; /* Mengubah warna teks menjadi putih */
+}
+
 .toggle-left {
   transform: translateX(-200%);
 }
@@ -209,4 +213,15 @@ body {
 
 .container.active .toggle-right {
   transform: translateX(200%);
+}
+
+.forget.password {
+  color: #745fff; /* Ubah warna teks menjadi biru */
+  display: block; /* Menjadikan tautan sebagai blok untuk memastikan klik di seluruh teks */
+  margin-top: 10px; /* Memberikan sedikit margin atas */
+  text-decoration: none; /* Menghilangkan garis bawah dari tautan */
+}
+
+.forget.password:hover {
+  text-decoration: underline; /* Memberikan garis bawah saat tautan disorot */
 }

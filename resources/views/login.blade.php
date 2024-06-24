@@ -17,22 +17,23 @@
             </form>
         </div>
         <div class="form-container sign-in">
-            <form action="" method="post">
-                @csrf
-                <h1>Sign In</h1>
-                <span>Use your username & password</span>
-                <input type="text" name="nama_user" placeholder="Username" required />
-                <input type="password" name="password_user" placeholder="Password" required />
-                <button>Sign In</button>
-            </form>
-        </div>
+    <form action="" method="post">
+        @csrf
+        <h1>LOGIN</h1>
+        <span>Use your username & password</span>
+        <input type="text" name="nama_user" placeholder="Username" required />
+        <input type="password" name="password_user" placeholder="Password" required />
+        <a href="" class="forget.password">Forget password ???</a>
+        <button>LOGIN</button>
+    </form>
+</div>
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-right">
                     <h1> Bali EnTour</h1>
-                    <p>Discover Your Next Adventure In Bali</p>
+                    <p>Do you already have an account??</p>
                     <a href="{{url('/pilihan')}}">
-                        <button class="hidden" id="tst">Sign Up</button>
+                        <button class="hidden" id="tst"> Register </button>
                     </a>
                 </div>
             </div>

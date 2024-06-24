@@ -27,7 +27,6 @@
                 <div class="toggle-panel toggle-right">
                     <h1>Welcome Back!</h1>
                     <p>To keep connected with us please login with your personal info</p>
-                    <button class="hidden" id="login">Sign In</button>
                 </div>
             </div>
         </div>

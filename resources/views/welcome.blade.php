@@ -187,57 +187,44 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-blue-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3a1 1 0 011-1h16a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V3z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8v8m-4-4h4"/>
-                  </svg>
+                  <img src="img/bar.png" alt="Beach Club & Bar" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Beach Club & Bar</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-green-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                  </svg>
+                  <img src="path/to/karaoke.png" alt="Karaoke" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Karaoke</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-purple-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
-                  </svg>
+                  <img src="path/to/spa.png" alt="Spa" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Spa</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-yellow-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                  </svg>
+                  <img src="path/to/villa-suites.png" alt="Villa & Suites" class="w-6 h-6">
               </div>
-              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">villa & suites </h3>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Villa & Suites</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-red-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21v-2m0 0V5m0 2H7m3 0h6"/>
-                  </svg>
+                  <img src="path/to/restaurant.png" alt="Restaurant" class="w-6 h-6">
               </div>
-              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white"> Restaurant</h3>
+              <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Restaurant</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-indigo-500 text-white">
-                  <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3a1 1 0 00-.788 0l-5 2a1 1 0 000 1.732L4 9.732l2.212-1.414A1 1 0 018 9.732v4.536a1 1 0 01-.788.974l-4.5 1a1 1 0 01-.588-.105l-2-1A1 1 0 010 13.268V4.732a1 1 0 01.712-.955l6-2a1 1 0 01.576-.023L7 3zM23 10l-4.5 6h-9L1 10"></path>
-                  </svg>
+                  <img src="path/to/support.png" alt="24/7 Support" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">24/7 Support</h3>
           </div>
       </div>
   </div>
 </section>
+
 
 
 

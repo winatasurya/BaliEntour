@@ -10,7 +10,7 @@
     }
     
     body {
-      background: #f6f5f7;
+      background: #f5f5dc;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -42,7 +42,6 @@
       /* font-size: 12px; */
       color: #987070 ;
     }
-    
     a {
       color: #333;
       font-size: 14px;
@@ -179,7 +178,7 @@
     
     .overlay {
       background: #FF416C;
-      background: linear-gradient(to right, #F1E5D1, #C39898);
+      background: linear-gradient(to right, #F1E5D1, #6f4e37);
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 0 0;
@@ -250,7 +249,7 @@
         <h1>Register Yourself!</h1>
         <p>Enter your personal details and start journey with us</p>
         <a href="{{url('/user')}}">
-          <button class="ghost" id="signUp" >Sign Up</button>
+          <button class="" id="signUp" >Sign Up</button>
         </a>
       </div>
     </div>
