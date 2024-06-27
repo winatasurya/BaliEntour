@@ -61,12 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
       width: 100%;
     }
 
+  
     .navbar-transparent {
       background: transparent;
       color: white;
+      z-index: 1000;
     }
     .navbar-transparent a {
       color: white;
+    }
+    .navbar-dropdown {
+      display: block; 
     }
     .navbar-transparent a:hover {
       color: #4A90E2; /* Change color on hover */
@@ -84,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- Navbar -->
 <nav class="navbar-transparent fixed w-full z-10">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a href="{{url('/welcome')}}"  class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="img/2.png" class="h-12" alt="Travel Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap">Bali EnTour</span>
     </a>
@@ -95,9 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
         </svg>
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
-      <ul class="flex flex-col font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
+      <ul class="flex flex-col font-medium p-4 mt-4 border border-gray-100 rounded-lg bg-gray-900 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-transparent">
         <li>
-          <a href="#" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
+          <a href="{{url('/welcome')}}" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
         </li>
         <li>
           <a href="#services" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Event</a>
@@ -106,28 +111,29 @@ document.addEventListener('DOMContentLoaded', function () {
           <a href="#pricing" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Accommodation</a>
         </li>
         <li>
-          <a href="#gallery" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Whistlist</a>
+          <a href="#testi" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Testimonials</a>
         </li>
         <li>
-          <a href="#testimonials" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Testimonials</a>
+          <a href="{{url('/about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
         </li>
         <li>
-          <a href="#contact" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Contact us</a>
+          <a href="{{url('/login')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Login </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="hero-bg bg-cover bg-center relative" style="background-image: url('{{ asset('img/sanc.jpg') }}');">
-  <div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
-  <div class="flex items-center justify-between h-full relative z-20">
+  <!-- Hero Section -->
+  <section class="hero-bg bg-cover bg-center relative" style="background-image: url('{{ asset('img/sanc.jpg') }}');">
+    <div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
+    <div class="flex items-center justify-between h-full relative z-20">
+      
     <!-- Left Content -->
     <div class="text-white z-30 px-8 md:px-16 lg:px-24 xl:px-32">
       <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">Discover Your Next Adventure In Bali</h1>
       <p class="text-lg leading-relaxed mb-8">Explore the world with us. Find the best destinations, guides, and experiences.</p>
-      <a href="#services" class="px-8 py-4 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out inline-block">Get Started</a>
+      <a href="{{url('/login')}}" class="px-8 py-4 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out inline-block">Get Started</a>
     </div>
 
     <!-- Right Content (Carousel) -->
@@ -187,37 +193,37 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-blue-500 text-white">
-                  <img src="img/bar.png" alt="Beach Club & Bar" class="w-6 h-6">
+                  <img src="img/landingpage/barr.png" alt="Beach Club & Bar" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Beach Club & Bar</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-green-500 text-white">
-                  <img src="path/to/karaoke.png" alt="Karaoke" class="w-6 h-6">
+                  <img src="img/landingpage/karaoke.png" alt="Karaoke" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Karaoke</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-purple-500 text-white">
-                  <img src="path/to/spa.png" alt="Spa" class="w-6 h-6">
+                  <img src="img/landingpage/spa.png" alt="Spa" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Spa</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-yellow-500 text-white">
-                  <img src="path/to/villa-suites.png" alt="Villa & Suites" class="w-6 h-6">
+                  <img src="img/landingpage/villa.png" alt="Villa & Suites" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Villa & Suites</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-red-500 text-white">
-                  <img src="path/to/restaurant.png" alt="Restaurant" class="w-6 h-6">
+                  <img src="img/landingpage/restaurant.png" alt="Restaurant" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Restaurant</h3>
           </div>
           <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
               <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-indigo-500 text-white">
-                  <img src="path/to/support.png" alt="24/7 Support" class="w-6 h-6">
+                  <img src="img/landingpage/call.png" alt="24/7 Support" class="w-6 h-6">
               </div>
               <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">24/7 Support</h3>
           </div>
@@ -268,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<section class="block max-h-full bg-[#fffcfc]">
+<section class="block max-h-full bg-[#fffcfc]" id="testi">
   <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h2 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
       Testimonials

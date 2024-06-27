@@ -22,6 +22,10 @@ Route::get('/Verif/{token}', [Registrasi::class, 'Verif'])->name('Verif');
 Route::get('/user', [usercontroller::class, 'index']);
 Route::post('/user', [usercontroller::class, 'store']);
 
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::get('/perusahaan', function () {
     return view('registerperusahaan');
 })->name('registerperusahaan');
@@ -36,6 +40,11 @@ Route::get('/pilihan', function () {
 })->name('pilihan');
 
 // Route untuk halaman register
-Route::get('/aboutus', function () {
+Route::get('/about', function () {
     return view('aboutus');
-})->name('aboutus');
+});
+
+// Route untuk halaman register
+Route::get('/abut', function () {
+    return view('about');
+});

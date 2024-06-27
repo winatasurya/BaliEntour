@@ -25,7 +25,7 @@
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-right">
-                    <h1>Welcome Back!</h1>
+                    <h1>Register ur company here !!!</h1>
                     <p>To keep connected with us please login with your personal info</p>
                 </div>
             </div>
