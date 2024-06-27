@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
     <!-- Left Content -->
     <div class="text-white z-30 px-8 md:px-16 lg:px-24 xl:px-32">
-      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">Discover Your Next Adventure In Bali</h1>
+      <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">Discover Your Next Holidays In Bali</h1>
       <p class="text-lg leading-relaxed mb-8">Explore the world with us. Find the best destinations, guides, and experiences.</p>
       <a href="{{url('/login')}}" class="px-8 py-4 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-300 ease-in-out inline-block">Get Started</a>
     </div>

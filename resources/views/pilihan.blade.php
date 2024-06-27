@@ -240,7 +240,7 @@
     <form action="{{url('/perusahaan')}}">
       <h1>Register Your Company!</h1>
       <p>Register your company to spread some happiness</p>
-      <button class="" id="signUp" >Sign Up</button>
+      <button class="" id="signUp" > REGISTER NOW</button>
     </form>
   </div>
   <div class="overlay-container">
@@ -249,7 +249,7 @@
         <h1>Register Yourself!</h1>
         <p>Enter your personal details and start journey with us</p>
         <a href="{{url('/user')}}">
-          <button class="" id="signUp" >Sign Up</button>
+          <button class="" id="signUp" >REGISTER NOW</button>
         </a>
       </div>
     </div>

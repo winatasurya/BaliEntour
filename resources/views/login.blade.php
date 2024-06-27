@@ -22,9 +22,9 @@
         <span>Use your username & password</span>
         <input type="text" name="email" placeholder="email" required />
         <input type="password" name="password" placeholder="password" required />
-        <a href="" class="forget.password">Forget password ???</a>
+        <a href=""><span class="forget-password">Forget password ???</span></a>
         <button>LOGIN</button>
-        <a href="{{url('/pilihan')}}" class="">Do you already have an account??</a>
+        <p>Do you already have an account? <span><a href="{{url('/pilihan')}}" class= "sign-up">Sign Up</a></span> </p>
     </form>
 </div>
     </div>

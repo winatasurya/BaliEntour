@@ -72,11 +72,19 @@ body {
   outline: none;
 }
 
-.forget.password {
+a .forget-password {
   color: #745fff; /* Ubah warna teks menjadi biru */
   display: block; /* Menjadikan tautan sebagai blok untuk memastikan klik di seluruh teks */
   margin-top: 10px; /* Memberikan sedikit margin atas */
   text-decoration: none; /* Menghilangkan garis bawah dari tautan */
+}
+
+p{
+  padding: 10px;
+}
+
+p .sign-up {
+  color: #745fff;
 }
 
 .forget.password:hover {
