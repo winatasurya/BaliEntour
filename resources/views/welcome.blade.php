@@ -117,7 +117,14 @@ document.addEventListener('DOMContentLoaded', function () {
           <a href="{{url('/about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
         </li>
         <li>
-          <a href="{{url('/login')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Login </a>
+          @guest
+            <a href="{{url('/login')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Login </a>
+          @else
+            <a href="{{ route('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"> Logout </a>
+            <form action="{{ route('logout')}}" method="post" style="display: none" id="logout-form">
+              @csrf
+            </form>
+          @endguest
         </li>
       </ul>
     </div>

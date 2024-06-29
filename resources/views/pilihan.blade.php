@@ -79,7 +79,6 @@
 <body>
 <!-- <h1>Bali<span>EnTour</span></h1> -->
 <div class="container" id="container">
-
   <div class="form-container sign-in-container">
     <form action="{{url('/perusahaan')}}">
       <h1>Register Your Company!</h1>
