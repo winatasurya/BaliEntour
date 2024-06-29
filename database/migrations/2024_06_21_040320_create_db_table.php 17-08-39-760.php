@@ -11,19 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user', function (Blueprint $table) {
-            $table->id();
-            $table->string('email')->unique();
-            $table->string('nama');
-            $table->string('password');
-            $table->enum('role', ['wisatawan', 'perusahaan', 'admin'])->default('wisatawan');
-            $table->string('token');
-            $table->enum('is_verif',['0','1'])->default(0);
-        });
-
         Schema::create('wisatawan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('user');
+            $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
             $table->date('tgl_lahir');
             $table->enum('gender', ['L', 'P']);
             $table->string('wa_wisatawan');
@@ -31,7 +21,7 @@ return new class extends Migration
 
           Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('user');
+            $table->foreignId('id_users')->constrained('users')->onDelete('cascade');;
             $table->string('lokasi');
             $table->string('bidang');
             $table->string('wa_perusahaan');
@@ -42,8 +32,8 @@ return new class extends Migration
 
           Schema::create('rating', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_perusahaan')->constrained('perusahaan');
-            $table->foreignId('id_wisatawan')->constrained('wisatawan');
+            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');;
+            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('cascade');;
             $table->float('nilai');
             $table->text('komentar');
             $table->timestamps();
@@ -51,7 +41,7 @@ return new class extends Migration
 
           Schema::create('penawaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_perusahaan')->constrained('perusahaan');
+            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');;
             $table->string('nama_penawaran');
             $table->float('harga');
             $table->text('deskripsi');
@@ -60,14 +50,14 @@ return new class extends Migration
 
           Schema::create('subfoto_penawaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_penawaran')->constrained('penawaran');
+            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');;
             $table->string('subfoto');
           });
 
           Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_wisatawan')->constrained('wisatawan');
-            $table->foreignId('id_penawaran')->constrained('penawaran');
+            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('cascade');;
+            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');;
             $table->date('tgl_reservasi');
             $table->integer('jumlah_pemesanan');
             $table->float('total_harga');
@@ -76,14 +66,14 @@ return new class extends Migration
 
           Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_reservasi')->constrained('reservasi');
+            $table->foreignId('id_reservasi')->constrained('reservasi')->onDelete('cascade');;
             $table->string('metode_pembayaran');
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
           });
 
           Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_payment')->constrained('payment');
+            $table->foreignId('id_payment')->constrained('payment')->onDelete('cascade');;
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
           });
     }
@@ -94,7 +84,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user');
         Schema::dropIfExists('wisatawan');
         Schema::dropIfExists('perusahaan');
         Schema::dropIfExists('rating');

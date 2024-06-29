@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usermodel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class usercontroller extends Controller
@@ -12,7 +12,7 @@ class usercontroller extends Controller
      */
     public function index()
     {
-        return view('registeruser');
+        return view('user/register');
     }
 
     /**
@@ -29,21 +29,22 @@ class usercontroller extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
         ]);
 
         $data = [
-            'nama' => $request->input('nama'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'role' => $request->input('role'),
+            'is_verif' => $request->input('is_verif'),
         ];
 
-        usermodel::create($data);
+        User::create($data);
 
-        return redirect('/user')->with('succes', 'Berhasil Membuat Akun');
+        return redirect('/user')->with('success', 'Berhasil Membuat Akun');
     }
 
     /**

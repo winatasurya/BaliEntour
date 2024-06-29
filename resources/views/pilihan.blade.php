@@ -77,18 +77,25 @@
   </style>
 </head>
 <body>
-  <div class="form">
-    <div class="col-1">
-      <img src="img/bar.jpg" alt="">
-      <h3>Register Your Account</h3>
-      <p>Register and get more joy here!</p>
-      <button>Register</button>
-    </div>
-    <div class="col-2">
-      <img src="img/spa.jpg" alt="">
-      <h3>Register Your Company</h3>
-      <p>Register your company and grow with us!</p>
-      <button>Register</button>
+<!-- <h1>Bali<span>EnTour</span></h1> -->
+<div class="container" id="container">
+
+  <div class="form-container sign-in-container">
+    <form action="{{url('/perusahaan')}}">
+      <h1>Register Your Company!</h1>
+      <p>Register your company to spread some happiness</p>
+      <button class="" id="signUp" > REGISTER NOW</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-right">
+        <h1>Register Yourself!</h1>
+        <p>Enter your personal details and start journey with us</p>
+        <a href="{{url('/user')}}">
+          <button class="" id="signUp" >REGISTER NOW</button>
+        </a>
+      </div>
     </div>
   </div>
 </body>

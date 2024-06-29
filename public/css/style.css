@@ -154,7 +154,7 @@ body {
   height: 100%;
   overflow: hidden;
   transition: all 0.6s ease-in-out;
-  border-radius: 150px 0 0 100px;
+  border-radius: 250px 0 0 250px;
   z-index: 1000;
 }
 
@@ -164,7 +164,7 @@ body {
 }
 
 .toggle {
-  background-color: #745fff; /* warna coklat tua */
+  background-color: #745fff; /* warna  BIRU */
   height: 100%;
   color: #fff;
   position: relative;
