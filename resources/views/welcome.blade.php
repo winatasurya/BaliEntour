@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
     .navbar-transparent {
       background: transparent;
-      color: white;
+      color: black;
       z-index: 1000;
     }
     .navbar-transparent a {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </a>
     <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600">
         <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <svg class="w-5 h-5 text-[#000000]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </nav>
 
   <!-- Hero Section -->
-  <section class="hero-bg bg-cover bg-center relative" style="background-image: url('{{ asset('img/sanc.jpg') }}');">
+  <section class="hero-bg bg-cover bg-center relative" style="background-image: url('{{ asset('img/ewdf.jpg') }}');">
     <div class="absolute inset-0 bg-gray-400 bg-opacity-10 z-10"></div> <!-- Background overlay -->
     <div class="flex items-center justify-between h-full relative z-20">
       
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <!-- Categori Section -->
-<section class="bg-[#fff9f9]">
+<section class="bg-[#f4f0f0]">
   <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
       <div class="max-w-screen-md mb-8 lg:mb-16">
           <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Services</h2>
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <!-- About Us Section -->
-<section class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('img/paja.jpg');">
+<section class="relative bg-cover bg-center bg-no-repeat " style="background-image: url('img/paja.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-50"></div>
     <div class="container mx-auto py-10 md:py-14">
         <div class="flex justify-center items-center py-12 md:py-20">
@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="w-full">
                         <span class="text-sm font-semibold uppercase">About Us</span>
                         <h2 class="text-3xl font-bold mb-4">Make Your Tour Memorable and Safe With Us</h2>
-                        <p>"Jendela Wisata" adalah situs web yang akan memandu Anda sepanjang perjalanan wisata Anda di pulau Bali. Mulai dari atraksi darat seperti gunung hingga ekskursi laut seperti pantai-pantai indah, kami menyediakan panduan untuk setiap tempat, termasuk rekomendasi akomodasi terbaik dan kuliner lokal yang harus dicoba. Mari kita jelajahi Pulau Bali dengan panduan komprehensif dari situs web kami!</p>
+                        <p>" Bali Entertainment Tourism " adalah sebuah infrastruktur yang terintegrasi secara komprehensif, yang dirancang untuk mengumpulkan, mengolah, mengolah, dan menyebarkan informasi yang berkaitan dengan industri pariwisata di suatu daerah khususnya di daerah Bali atau destinasi tertentu. Fungsi utama sistem ini adalah untuk mendukung pengembangan, pengelolaan, dan promosi sektor pariwisata dengan lebih efektif </p>
                     </div>
                 </div>
             </div>
@@ -274,12 +274,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<section class="block max-h-full bg-[#fffcfc]" id="testi">
+<section class="block max-h-full bg-[#f6eeee]" id="testi">
   <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h2 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
       Testimonials
     </h2>
-
     <div class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-8">
       <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
         <div class="flex items-center gap-4">
@@ -288,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function () {
             src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
             class="size-14 rounded-full object-cover"
           />
-
           <div>
             <div class="flex justify-center gap-0.5 text-green-500">
               <svg
@@ -343,14 +341,78 @@ document.addEventListener('DOMContentLoaded', function () {
               </svg>
             </div>
 
-            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Angga Prayoga</p>
           </div>
         </div>
 
         <p class="mt-4 text-gray-700">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
-          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
-          error officiis atque voluptates magnam!
+          Bali Entour adalah pilihan tepat untuk pengalaman wisata yang luar biasa di Pulau Dewata. Saya sangat terkesan dengan profesionalisme tim mereka dalam mengatur tur saya. Panduan wisata yang ramah dan informatif 
+        </p>
+      </blockquote>
+
+      <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
+        <div class="flex items-center gap-4">
+          <img
+            alt=""
+            src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+            class="size-14 rounded-full object-cover"
+          />
+
+          <div>
+            <div class="flex justify-center gap-0.5 text-green-500">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Stefanus</p>
+          </div>
+        </div>
+
+        <p class="mt-4 text-gray-700">
+        Bali Entour menawarkan pelayanan yang ramah dan informatif serta destinasi wisata yang memukau. Semua berjalan sempurna dan saya menikmati setiap momen. Lima bintang untuk Bali Entour!
         </p>
       </blockquote>
 
@@ -416,87 +478,12 @@ document.addEventListener('DOMContentLoaded', function () {
               </svg>
             </div>
 
-            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
+            <p class="mt-0.5 text-lg font-medium text-gray-900">Oka Wiyana</p>
           </div>
         </div>
 
         <p class="mt-4 text-gray-700">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
-          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
-          error officiis atque voluptates magnam!
-        </p>
-      </blockquote>
-
-      <blockquote class="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
-        <div class="flex items-center gap-4">
-          <img
-            alt=""
-            src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-            class="size-14 rounded-full object-cover"
-          />
-
-          <div>
-            <div class="flex justify-center gap-0.5 text-green-500">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                />
-              </svg>
-            </div>
-
-            <p class="mt-0.5 text-lg font-medium text-gray-900">Paul Starr</p>
-          </div>
-        </div>
-
-        <p class="mt-4 text-gray-700">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa sit rerum incidunt, a
-          consequuntur recusandae ab saepe illo est quia obcaecati neque quibusdam eius accusamus
-          error officiis atque voluptates magnam!
+        Liburan saya di Bali bersama Bali Entour sangat terorganisir dan menyenangkan. Panduan wisata yang berpengetahuan luas dan ramah membuat perjalanan saya berkesan. Sangat direkomendasikan!
         </p>
       </blockquote>
     </div>
@@ -506,81 +493,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-      Place</h1>
-        <div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md">
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 1">
-                <div class="p-4 h-32">
-                    <h5 class="text-lg font-semibold">Card Title 1</h5>
-                    <p class="text-gray-600">This is a description for card 1.locale_filter_matches Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis deserunt animi sit enim dolores voluptatem quidem eos molestias? Repudiandae eligendi a officiis cumque earum perspiciatis minima quis non corporis maxime.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 2">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 2</h5>
-                    <p class="text-gray-600">This is a description for card 2.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 3">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 3</h5>
-                    <p class="text-gray-600">This is a description for card 3.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 4">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 4</h5>
-                    <p class="text-gray-600">This is a description for card 4.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 5">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 5</h5>
-                    <p class="text-gray-600">This is a description for card 5.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 6</h5>
-                    <p class="text-gray-600">This is a description for card 6.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 6</h5>
-                    <p class="text-gray-600">This is a description for card 6.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 6</h5>
-                    <p class="text-gray-600">This is a description for card 6.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 6</h5>
-                    <p class="text-gray-600">This is a description for card 6.</p>
-                </div>
-            </div>
-            <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-                <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
-                <div class="p-4">
-                    <h5 class="text-lg font-semibold">Card Title 6</h5>
-                    <p class="text-gray-600">This is a description for card 6.</p>
-                </div>
-            </div>
-        </div>
+<h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl my-12">
+  Place
+</h1>
+<div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md mb-32 ">
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 1">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 1</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 1.locale_filter_matches Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis deserunt animi sit enim dolores voluptatem quidem eos molestias? Repudiandae eligendi a officiis cumque earum perspiciatis minima quis non corporis maxime.</p>
     </div>
+  </div>
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 2">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 2</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 2.</p>
+    </div>
+  </div>
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 3">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 3</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 3.</p>
+    </div>
+  </div>
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 4">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 4</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 4.</p>
+    </div>
+  </div>
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 5">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 5</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 5.</p>
+    </div>
+  </div>
+  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 6">
+    <div class="p-4 h-32 overflow-hidden">
+      <h5 class="text-lg font-semibold">Card Title 6</h5>
+      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 6.</p>
+    </div>
+  </div>
+</div>
+
 
 
 
