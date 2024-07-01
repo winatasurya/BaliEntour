@@ -74,13 +74,19 @@ document.addEventListener('DOMContentLoaded', function () {
       display: block; 
     }
     .navbar-transparent a:hover {
-      color: #4A90E2; /* Change color on hover */
+      color: #543310; /* Change color on hover */
     }
     .hero-bg {
       background-image: url('https://example.com/hero.jpg');
       background-size: cover;
       background-position: center;
       height: 100vh;
+    }
+    .px-8 a{
+      background-color: #74512D;
+    }
+    .px-8 a:hover{
+      background-color: #543310;
     }
   </style>
 </head>

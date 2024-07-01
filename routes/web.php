@@ -53,3 +53,8 @@ Route::get('/login', function () {
 // Route::get('/abut', function () {
 //     return view('about');
 // });
+
+// Route untuk halaman register
+Route::get('/main', function () {
+    return view('admin/main');
+});
