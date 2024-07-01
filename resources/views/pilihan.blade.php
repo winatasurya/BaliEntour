@@ -79,13 +79,13 @@
 <body>
   <div class="form" id ="pilihan">
     <div class="col-1">
-      <img src="img/bar.jpg" alt="">
+      <img src="img/loginregis/1.png" alt="">
       <h1>Register Your Account</h1>
       <p>Register and get more joy here!</p>
       <a href="{{route('register')}}"><button>Register</button></a>
     </div>
     <div class="col-2">
-      <img src="img/spa.jpg" alt="">
+      <img src="img/loginregis/2.png" alt="">
       <h1>Register Your Company</h1>
       <p>Register your company and grow with us!</p>
       <a href="{{route('register')}}"><button>Register</button></a>
