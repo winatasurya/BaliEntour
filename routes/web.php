@@ -30,3 +30,22 @@ Route::get('/pilihan', function () {
 Route::get('/main', function () {
     return view('admin/main');
 });
+
+// Route untuk halaman register
+Route::get('/verif', function () {
+    return view('verif');
+});
+
+Route::get('/admin', function () {
+    return view('admin.content.admin');
+});
+
+Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
+Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');
+Route::post('/produk', [CKopiController::class, 'produk'])->name('produk');
+Route::put('/update/{id}', [CKopiController::class, 'update'])->name('update');
+Route::delete('/produk/delete/{id}', [CKopiController::class, 'destroy'])->name('destroy');
+Route::post('/createuser', [CKopiController::class, 'createuser'])->name('createuser');
+Route::put('/updateuser/{id}', [CKopiController::class, 'updateuser'])->name('updateuser');
+Route::delete('/user/delete/{id}', [CKopiController::class, 'destroyuser'])->name('destroyuser');
+Route::get('/logout', [CKopiController::class, 'logout'])->name('logout');
