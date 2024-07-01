@@ -28,23 +28,7 @@ class usercontroller extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-
-        $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role' => $request->input('role'),
-            'is_verif' => $request->input('is_verif'),
-        ];
-
-        User::create($data);
-
-        return redirect('/user')->with('success', 'Berhasil Membuat Akun');
+        
     }
 
     /**
