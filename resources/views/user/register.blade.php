@@ -7,45 +7,45 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>Register Page</title>
     <style>      
-    body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: url("img/paja.jpg");
-        background-color: cover;
-        background-position: center;
-      }
-      .container{
-        height: 350px;
-        width: 600px;
-        /* display: flex; */
-        align-items: center;
-        justify-content: center;
-        border-radius: 50px;
-        backdrop-filter: blur(15px);
-        background: rgba(255, 255, 255, .1);
-    }
-    .container h1{
-        font-size: 2.1rem;
-        color: #543310;
-    }
-    /* glass effect */
-    .form-container{
-        width: 60%;
-      }
-      /* .form-container a{
-        color: brown;
-      }
-      .form-container span{
-        color: brown;
-      } */
-       .toggle-panel{
-        padding-left: 70px;
-       }
-       .form-container input{
-        accent-color: #543310;
-       }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url("img/paja.jpg");
+            background-color: cover;
+            background-position: center;
+        }
+        .container{
+            height: 350px;
+            width: 600px;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, .1);
+        }
+        .container h1{
+            font-size: 2.1rem;
+            color: #543310;
+        }
+        /* glass effect */
+        .form-container{
+            width: 60%;
+        }
+        /* .form-container a{
+            color: brown;
+        }
+        .form-container span{
+            color: brown;
+        } */
+        .toggle-panel{
+            padding-left: 70px;
+        }
+        .form-container input{
+            accent-color: #543310;
+        }
       </style>
 </head>
 <body>
@@ -65,7 +65,6 @@
                 <input type="password" name="password" placeholder="Password" required />
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
                 <input type="hidden" name="role" value="wisatawan" required />
-                <input type="hidden" name="is_verif" value="1" required />
                 <p><a href="{{ route('login') }}">Already Have an Account?</a></p>
                 <button type="submit">Sign Up</button>
             </form>
