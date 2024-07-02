@@ -18,7 +18,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['wisatawan', 'perusahaan', 'admin'])->default('wisatawan');
-            $table->enum('is_verif',['0','1'])->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
