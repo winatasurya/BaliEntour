@@ -13,6 +13,10 @@ Route::get('/dashboard', function () {
     return view('welcome');
 })->middleware(['auth','verified']);
 
+Route::get('upload', [ImageController::class, 'showUploadForm']);
+Route::post('upload', [ImageController::class, 'store']);
+Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
+Route::get('/', [ImageController::class, 'index']);
 
 // Route::get('/perusahaan', function () {
 //     return view('registerperusahaan');
