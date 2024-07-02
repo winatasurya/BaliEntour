@@ -64,18 +64,25 @@
                 <input type="email" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
-                <input type="hidden" name="role" value="wisatawan" required />
+                <input type="hidden" name="role" id="role"/>
                 <p><a href="{{ route('login') }}">Already Have an Account?</a></p>
                 <button type="submit">Sign Up</button>
             </form>
         </div>
-    
-                <div class="toggle-panel toggle-right">
-                    <h1>Register Your Account</h1>
-                    <p>Welcome to our community! Join us by creating an account to access exclusive features and stay updated with the latest news.</p>
-                </div>
-
+        <div class="toggle-panel toggle-right">
+            <h1>Register Your Account</h1>
+            <p>Welcome to our community! Join us by creating an account to access exclusive features and stay updated with the latest news.</p>
         </div>
     </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role');
+            if (role) {
+                document.getElementById('role').value = role;
+            }
+        });
+    </script>
 </body>
 </html>

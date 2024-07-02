@@ -82,13 +82,13 @@
       <img src="img/loginregis/1.png" alt="">
       <h1>Register Your Account</h1>
       <p>Register and get more joy here!</p>
-      <a href="{{route('register')}}"><button>Register</button></a>
+      <a href="{{route('register')}}?wisatawan"><button>Register As tourist</button></a>
     </div>
     <div class="col-2">
       <img src="img/loginregis/2.png" alt="">
       <h1>Register Your Company</h1>
       <p>Register your company and grow with us!</p>
-      <a href="{{route('register')}}"><button>Register</button></a>
+      <a href="{{route('register')}}?perusahaan"><button>Register As Company</button></a>
     </div>
   </div>
 </body>
