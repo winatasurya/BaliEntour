@@ -4,45 +4,44 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\ImageController;
+use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+    return view('registerperusahaan');
+})->name('home');
 
-Route::get('/dashboard', function () {
-    return view('welcome');
-})->middleware(['auth','verified']);
+// route role perusahaan
+Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
+    Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
+});
+
+// route role wisatawan
+Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
+    Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
+});
+
 
 Route::get('upload', [ImageController::class, 'showUploadForm']);
 Route::post('upload', [ImageController::class, 'store']);
 Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
 Route::get('/', [ImageController::class, 'index']);
 
-// Route::get('/perusahaan', function () {
-//     return view('registerperusahaan');
-// })->name('registerperusahaan');
-
-// Route untuk halaman register
+// Route untuk halaman pilihan register
 Route::get('/pilihan', function () {
     return view('pilihan');
 })->name('pilihan');
 
-// Route untuk halaman register
+
 Route::get('/about', function () {
     return view('aboutus');
 });
 
-// // Route untuk halaman register
-// Route::get('/abut', function () {
-//     return view('about');
-// });
 
-// Route untuk halaman register
 Route::get('/main', function () {
     return view('admin/main');
 });
 
-// Route untuk halaman register
+
 Route::get('/verif', function () {
     return view('user.verif');
 });

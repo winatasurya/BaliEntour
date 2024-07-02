@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Providers;
 
@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\LoginResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Event;
+use Laravel\Fortify\Features;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -20,7 +25,20 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(LoginResponse::class, function () {
+            return new class implements LoginResponse {
+                public function toResponse($request)
+                {
+                    if (Auth::user()->role === 'wisatawan') {
+                        return redirect()->route('welcome');
+                    } elseif (Auth::user()->role === 'perusahaan') {
+                        return redirect()->route('dashboard');
+                    } else {
+                        return redirect()->route('home');
+                    }
+                }
+            };
+        });
     }
 
     /**
@@ -56,6 +74,17 @@ class FortifyServiceProvider extends ServiceProvider
         // verify email
         Fortify::verifyEmailView(function () {
             return view('user.verify-email');
+        });
+
+        Event::listen(Verified::class, function ($event) {
+            $user = $event->user;
+            if ($user->role === 'wisatawan') {
+                return redirect()->route('welcome');
+            } elseif ($user->role === 'perusahaan') {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->route('home');
+            }
         });
     }
 }
