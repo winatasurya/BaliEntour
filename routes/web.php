@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usercontroller;
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,10 +17,10 @@ Route::get('/pilihan', function () {
     return view('pilihan');
 })->name('pilihan');
 
-// // Route untuk halaman register
-// Route::get('/about', function () {
-//     return view('aboutus');
-// });
+// Route untuk halaman register
+Route::get('/about', function () {
+    return view('aboutus');
+});
 
 // // Route untuk halaman register
 // Route::get('/abut', function () {
@@ -39,6 +40,12 @@ Route::get('/verif', function () {
 Route::get('/admin', function () {
     return view('admin.content.admin');
 });
+
+Route::get('upload', [ImageController::class, 'showUploadForm']);
+Route::post('upload', [ImageController::class, 'store']);
+Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
+Route::get('/', [ImageController::class, 'index']);
+
 
 Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
 Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');

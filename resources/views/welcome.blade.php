@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
         <!-- Item 5 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
           <img src="{{ asset('img/bar.jpg') }}" class="absolute block w-full h-full object-cover" alt="...">
-        </div>
       </div>
       <!-- Slider controls -->
       <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -505,19 +504,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-<h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl my-12">
-  Place
-</h1>
-<div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md mb-32 ">
-  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
-    <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 1">
-    <div class="p-4 h-32 overflow-hidden">
-      <h5 class="text-lg font-semibold">Card Title 1</h5>
-      <p class="text-gray-600 text-ellipsis overflow-hidden">This is a description for card 1.locale_filter_matches Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reiciendis deserunt animi sit enim dolores voluptatem quidem eos molestias? Repudiandae eligendi a officiis cumque earum perspiciatis minima quis non corporis maxime.</p>
+    <!-- Place Section -->
+    <h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl my-12">Place</h1>
+    <div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md mb-32">
+      @foreach ($images->take(4) as $image)
+        <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+            <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset($image->path) }}" alt="{{ $image->title }}" alt="Image {{ $loop->index + 1 }}">
+            <div class="p-4 h-32 overflow-hidden">
+                <h5 class="text-lg font-semibold">{{ $image->title }}</h5>
+                <p class="text-gray-600">{{ $image->description }}</p>
+            </div>
+        </div>
+        @endforeach
     </div>
-  </div>
-  <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
+  <!-- <div class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md">
     <img class="w-full h-32 object-cover rounded-t-lg" src="https://via.placeholder.com/150" alt="Image 2">
     <div class="p-4 h-32 overflow-hidden">
       <h5 class="text-lg font-semibold">Card Title 2</h5>
@@ -553,12 +553,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
   </div>
 </div>
-
-
-
-
-
-
+ -->
 
 
 <footer class="relative bg-blueGray-200 pt-8 pb-6">
