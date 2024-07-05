@@ -49,6 +49,21 @@ Route::get('/verif', function () {
 Route::get('/admin', function () {
     return view('admin.content.admin');
 });
+Route::get('/db_perusahaan', function () {
+    return view('perusahaan/db_perusahaan');
+});
+Route::get('/detail', function () {
+    return view('perusahaan/detail');
+});
+Route::get('/daftar', function () {
+    return view('admin.content.daftar');
+});
+Route::get('/antrian', function () {
+    return view('admin.content.antrian');
+});
+Route::get('/daftaruser', function () {
+    return view('admin.content.daftaruser');
+});
 
 // Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
 // Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');
