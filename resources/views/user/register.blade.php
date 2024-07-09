@@ -79,8 +79,12 @@
         window.addEventListener('load', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const role = urlParams.get('role');
-            if (role) {
+            if (role === 'wisatawan') {
                 document.getElementById('role').value = role;
+            } else if (role === 'perusahaan') {
+                document.getElementById('role').value = role;
+            } else {
+                window.location.href = 'pilihan';
             }
         });
     </script>

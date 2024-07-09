@@ -4,21 +4,24 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\ImageController;
-use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
-    return view('registerperusahaan');
-})->name('home');
+    return view('welcome');
+})->name('welcome');
 
-// route role perusahaan
-Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
-    Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
-});
+// // route role perusahaan
+// Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
+//     Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
+// });
 
-// route role wisatawan
-Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
-    Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
-});
+// // route role wisatawan
+// Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
+//     Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
+// });
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified']);
 
 
 Route::get('upload', [ImageController::class, 'showUploadForm']);
@@ -30,7 +33,6 @@ Route::get('/', [ImageController::class, 'index']);
 Route::get('/pilihan', function () {
     return view('pilihan');
 })->name('pilihan');
-
 
 Route::get('/about', function () {
     return view('aboutus');
