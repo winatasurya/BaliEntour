@@ -2,7 +2,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
             <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{asset('img/1.png')}}" class="h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bali EnTour</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bali Entour</span>
             </a>
 
 
@@ -17,12 +17,12 @@
                 <!-- Dropdown menu -->
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                     id="user-dropdown">
-                    <!-- <div class="px-4 py-3">
-                        <span class="block text-sm text-gray-900 dark:text-black">{{ session('nama_admin') }}</span>
+                    <div class="px-4 py-3">
+                        <span class="block text-sm text-gray-900 dark:text-white">{{ session('nama_admin') }}</span>
                         <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ session('email_admin') }}</span>
-                    </div> -->
+                    </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
-                        <!-- <li>
+                        <li>
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                         </li>
@@ -33,14 +33,14 @@
                         <li>
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                        </li> -->
+                        </li>
                         <li>
                             <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
                         </li>
                     </ul>
                 </div>
-                <!-- <button data-collapse-toggle="navbar-user" type="button"
+                <button data-collapse-toggle="navbar-user" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                     aria-controls="navbar-user" aria-expanded="false" id="toggle-sidebar">
                     <span class="sr-only">Toggle sidebar</span>
@@ -72,6 +72,6 @@
         <li>
                 </ul>
             </div>
-        </div> -->
+        </div>
     </nav>
     

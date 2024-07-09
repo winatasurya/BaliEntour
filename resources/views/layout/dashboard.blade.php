@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    @include('layout.header')
-    <title>@yield('Title')</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <style>
         body {
@@ -63,13 +63,32 @@
         }
     </style>
 <body>
-    @include('layout.navbar')
-    @include('layout.sidebar')
-    @yield('content')
-    @include('layout.script')
-    <div class="main-content">
+<div class="main-content">
         <div class="dashboard-header">
             Selamat datang Admin
+        </div>
+        <div class="dashboard">
+            <a href="{{ url('/daftar') }}" class="box box-1">
+                <div class="info">
+                    <div class="count">58</div>
+                    <h3>Daftar Perusahaan</h3>
+                </div>
+                
+            </a>
+            <a href="{{ url('/antrian') }}" class="box box-2">
+                <div class="info">
+                    <div class="count">12</div>
+                    <h3>Antrian Perusahaan</h3>
+                </div>
+                
+            </a>
+            <a href="{{ url('/daftaruser') }}" class="box box-3">
+                <div class="info">
+                    <div class="count">15</div>
+                    <h3>Daftar Wisatawan</h3>
+                </div>
+                
+            </a>
         </div>
     </div>
 </body>

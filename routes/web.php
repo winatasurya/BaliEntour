@@ -4,21 +4,24 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\ImageController;
-use App\Http\Middleware\CheckRole;
 
 Route::get('/', function () {
-    return view('registerperusahaan');
-})->name('home');
+    return view('welcome');
+})->name('welcome');
 
-// route role perusahaan
-Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
-    Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
-});
+// // route role perusahaan
+// Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
+//     Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
+// });
 
-// route role wisatawan
-Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
-    Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
-});
+// // route role wisatawan
+// Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
+//     Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
+// });
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->middleware(['auth', 'verified']);
 
 
 Route::get('upload', [ImageController::class, 'showUploadForm']);
@@ -30,7 +33,6 @@ Route::get('/', [ImageController::class, 'index']);
 Route::get('/pilihan', function () {
     return view('pilihan');
 })->name('pilihan');
-
 
 Route::get('/about', function () {
     return view('aboutus');
@@ -48,6 +50,21 @@ Route::get('/verif', function () {
 
 Route::get('/admin', function () {
     return view('admin.content.admin');
+});
+Route::get('/db_perusahaan', function () {
+    return view('perusahaan/db_perusahaan');
+});
+Route::get('/detail', function () {
+    return view('perusahaan/detail');
+});
+Route::get('/daftar', function () {
+    return view('admin.content.daftar');
+});
+Route::get('/antrian', function () {
+    return view('admin.content.antrian');
+});
+Route::get('/daftaruser', function () {
+    return view('admin.content.daftaruser');
 });
 
 Route::get('/ada', function () {
