@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Upload Image</title>
@@ -35,4 +35,4 @@
 </form>
 
 </body>
-</html>
+</html> -->

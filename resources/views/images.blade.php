@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Images</title>
@@ -13,4 +13,4 @@
         @endforeach
     </div>
 </body>
-</html>
+</html> -->

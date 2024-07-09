@@ -50,6 +50,14 @@ Route::get('/admin', function () {
     return view('admin.content.admin');
 });
 
+Route::get('/ada', function () {
+    return view('landing/detail');
+});
+
+
+Route::get('/all', function () {
+    return view('landing/viewall');
+});
 // Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
 // Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');
 // Route::post('/produk', [CKopiController::class, 'produk'])->name('produk');
