@@ -60,13 +60,22 @@
                     {{ session('success') }}
                 </div>
                 @endif
-                <input type="text" name="name" placeholder="Username" required />
-                <input type="email" name="email" placeholder="Email" required />
+                <input type="text" name="name" placeholder="Username" value="{{ old('name') }}" required />
+                @error('name')
+                    {{ $message }}
+                @enderror
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required />
+                @error('email')
+                    {{ $message }}
+                @enderror
                 <input type="password" name="password" placeholder="Password" required />
+                @error('password')
+                    {{ $message }}
+                @enderror
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
                 <input type="hidden" name="role" id="role"/>
+                <button type="submit">Register</button>
                 <p><a href="{{ route('login') }}">Already Have an Account?</a></p>
-                <button type="submit">Sign Up</button>
             </form>
         </div>
         <div class="toggle-panel toggle-right">

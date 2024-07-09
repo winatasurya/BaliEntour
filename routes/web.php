@@ -1,51 +1,48 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\usercontroller;
-use App\Http\Controllers\ImageController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// halaman awal
+Route::view('/', 'welcome')->name('welcome');
 
-// // route role perusahaan
-// Route::middleware(['auth', 'verified', CheckRole::class . ':perusahaan'])->group(function () {
-//     Route::get('/dashboard', [ImageController::class, 'index'])->name('dashboard');
-// });
+// Route guest
+Route::middleware('guest')->group(function(){
+    // Route untuk register
+    Route::view('/register', 'auth.register')->name('register');;
+    Route::post('/register', [AuthController::class, 'register']);
+    
+    // Route untuk login
+    Route::view('/login', 'auth.login')->name('login');;
+    Route::post('/login', [AuthController::class, 'login']);
 
-// // route role wisatawan
-// Route::middleware(['auth', 'verified', CheckRole::class . ':wisatawan'])->group(function () {
-//     Route::get('/welcome', [ImageController::class, 'index'])->name('welcome');
-// });
-
-Route::get('/welcome', function () {
-    return view('welcome');
-})->middleware(['auth', 'verified']);
-
-
-Route::get('upload', [ImageController::class, 'showUploadForm']);
-Route::post('upload', [ImageController::class, 'store']);
-Route::post('/upload', [ImageController::class, 'upload'])->name('upload');
-Route::get('/', [ImageController::class, 'index']);
-
-// Route untuk halaman pilihan register
-Route::get('/pilihan', function () {
-    return view('pilihan');
-})->name('pilihan');
-
-Route::get('/about', function () {
-    return view('aboutus');
+    // Route untuk halaman pilihan register
+    Route::view('/pilihan', 'pilihan')->name('pilihan');;
 });
+
+// Route auth
+Route::middleware('auth')->group(function(){
+    // Route dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+    
+    // Route untuk logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Route verif email
+    Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['signed'])->name('verification.verify');
+
+    // Resend email verif
+    Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware(['throttle:6,1'])->name('verification.send');
+});
+
+Route::view('/about', 'aboutus')->name('about');;
 
 
 Route::get('/main', function () {
     return view('admin/main');
-});
-
-
-Route::get('/verif', function () {
-    return view('user.verif');
 });
 
 Route::get('/admin', function () {

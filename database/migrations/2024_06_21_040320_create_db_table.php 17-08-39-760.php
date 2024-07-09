@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('wisatawan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
-            $table->date('tgl_lahir');
-            $table->enum('gender', ['L', 'P']);
-            $table->string('wa_wisatawan');
+            $table->date('tgl_lahir')->nullable();
+            $table->enum('gender', ['L', 'P'])->nullable();
+            $table->string('wa_wisatawan')->nullable();
+            $table->timestamps();
           });
 
           Schema::create('perusahaan', function (Blueprint $table) {
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('logo');
             $table->float('penilaian');
             $table->text('deskripsi');
+            $table->timestamps();
           });
 
           Schema::create('rating', function (Blueprint $table) {
@@ -46,12 +48,14 @@ return new class extends Migration
             $table->float('harga');
             $table->text('deskripsi');
             $table->string('foto');
+            $table->timestamps();
           });
 
           Schema::create('subfoto_penawaran', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');;
             $table->string('subfoto');
+            $table->timestamps();
           });
 
           Schema::create('reservasi', function (Blueprint $table) {
@@ -62,6 +66,7 @@ return new class extends Migration
             $table->integer('jumlah_pemesanan');
             $table->float('total_harga');
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
+            $table->timestamps();
           });
 
           Schema::create('payment', function (Blueprint $table) {
@@ -69,12 +74,14 @@ return new class extends Migration
             $table->foreignId('id_reservasi')->constrained('reservasi')->onDelete('cascade');;
             $table->string('metode_pembayaran');
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
+            $table->timestamps();
           });
 
           Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_payment')->constrained('payment')->onDelete('cascade');;
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
+            $table->timestamps();
           });
     }
 
