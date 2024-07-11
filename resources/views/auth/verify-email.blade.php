@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,27 +9,46 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Verify Account</title>
 </head>
+
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <h1>Verify Account</h1>
-            @csrf
-            @if (session('status') == 'verification-link-sent')
+            <h1>Verify Your Account</h1>
+
+            @if (session('message'))
                 <div class="mb-4 font-medium text-sm text-green-600">
-                    A new email verification link has been emailed to you!
+                    {{ session('message') }}
                 </div>
             @endif
-            <p>Please Verif your account on email : {{ auth()->user()->email }}</p>
-            <a href="{{ route('verification.send') }}" style="cursor: pointer" onclick="event.preventDefault(); document.getElementById('verify-form').submit()">
-                <button class="button">
+
+            @if (session('warning'))
+                <div class="alert alert-warning">
+                    {{ session('warning') }}
+                </div>
+            @endif  
+
+            @if ($errors->any())
+                <div class="mb-4 font-medium text-sm text-red-600">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <p>Verification email has been sent to: {{ $email }}</p>
+
+            <form action="{{ route('verification.send') }}" method="POST">
+                @csrf
+                <input type="hidden" name="email" value="{{ $email }}">
+                <button type="submit" class="button">
                     <i class="fas fa-envelope"></i>
-                    <p></p>Resend Email Verification
+                    Resend Verification Email
                 </button>
-            </a>
-            <form action="{{ route('verification.send') }}" method="post" style="display: none" id="verify-form">
-            @csrf
             </form>
         </div>
     </div>
 </body>
+
 </html>

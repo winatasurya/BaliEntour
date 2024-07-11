@@ -24,30 +24,11 @@ class AuthController extends Controller
         // Register
         $user = User::create($data);
 
-        // Login
-        Auth::login($user);
-
         // Email verif
         event(new Registered($user));
 
         // Redirect
-        return redirect()->route('login')->with('success', 'Account created successfully');
-    }
-
-    public function verifyNotice()
-    {
-        return view('auth.verify-email');
-    }
-
-    public function verifyEmail(EmailVerificationRequest $request)
-    {
-        return redirect()->route('dashboard');
-    }
-
-    public function verifyHandler(Request $request) {
-        $request->user()->sendEmailVerificationNotification();
-     
-        return back()->with('message', 'Verification link sent!');
+        return redirect()->route('verification.notice', ['email' => $user->email])->with('success', 'Registrasi berhasil. Silakan verifikasi email Anda.');
     }
 
     public function login(Request $request)
@@ -58,12 +39,25 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        $user = User::where('email', $data['email'])->first();
+        
+        if ($user && !$user->hasVerifiedEmail()) {
+            event(new Registered($user));
+            return redirect()->route('verification.notice', ['email' => $user->email])->with('warning', 'Anda harus memverifikasi email terlebih dahulu. Email verifikasi telah dikirim ulang.');
+        }
+
         // Try to login user
-        if (Auth::attempt($data, $request -> remember)){
-            return redirect()->intended('dashboard');
+        if (Auth::attempt($data)){
+            $request->session()->regenerate();
+            if ($user->role === 'wisatawan') {
+                return redirect()->route('dashboard');
+            } elseif ($user->role === 'perusahaan') {
+                // Redirect other roles (e.g., admin) to their respective dashboards
+                return redirect()->route('db_perusahaan');
+            }
         } else {
             return back()->withErrors([
-                'failed' => 'Akun belum terdaftar atau belum terverivikasi'
+                'failed' => 'Email atau password salah.'
             ]);
         }
     }
@@ -72,11 +66,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {   
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 }

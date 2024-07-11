@@ -22,7 +22,7 @@ return new class extends Migration
 
           Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_users')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
             $table->string('lokasi');
             $table->string('bidang');
             $table->string('wa_perusahaan');
@@ -34,8 +34,8 @@ return new class extends Migration
 
           Schema::create('rating', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');;
-            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('cascade');;
+            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');
+            $table->foreignId('id_wisatawan')->constrained('wisatawan');
             $table->float('nilai');
             $table->text('komentar');
             $table->timestamps();
@@ -43,7 +43,7 @@ return new class extends Migration
 
           Schema::create('penawaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');;
+            $table->foreignId('id_perusahaan')->constrained('perusahaan')->onDelete('cascade');
             $table->string('nama_penawaran');
             $table->float('harga');
             $table->text('deskripsi');
@@ -53,15 +53,15 @@ return new class extends Migration
 
           Schema::create('subfoto_penawaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');;
+            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');
             $table->string('subfoto');
             $table->timestamps();
           });
 
           Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('cascade');;
-            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');;
+            $table->foreignId('id_wisatawan')->constrained('wisatawan');
+            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');
             $table->date('tgl_reservasi');
             $table->integer('jumlah_pemesanan');
             $table->float('total_harga');
@@ -71,7 +71,7 @@ return new class extends Migration
 
           Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_reservasi')->constrained('reservasi')->onDelete('cascade');;
+            $table->foreignId('id_reservasi')->constrained('reservasi')->onDelete('cascade');
             $table->string('metode_pembayaran');
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
             $table->timestamps();
@@ -79,7 +79,7 @@ return new class extends Migration
 
           Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_payment')->constrained('payment')->onDelete('cascade');;
+            $table->foreignId('id_payment')->constrained('payment')->onDelete('cascade');
             $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
             $table->timestamps();
           });

@@ -55,7 +55,7 @@
                 <ul
                     class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                   <li>
-          <a href="{{url('/')}}" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
+          <a href="{{route('welcome')}}" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
         </li>
         <li>
           <a href="#services" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Event</a>
@@ -67,7 +67,7 @@
           <a href="#testi" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Testimonials</a>
         </li>
         <li>
-          <a href="{{url('/about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
+          <a href="{{route('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
         </li>
         <li>
                 </ul>

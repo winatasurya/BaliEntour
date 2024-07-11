@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\VerifyEmailController;
 
 // halaman awal
 Route::view('/', 'welcome')->name('welcome');
@@ -19,59 +22,39 @@ Route::middleware('guest')->group(function(){
 
     // Route untuk halaman pilihan register
     Route::view('/pilihan', 'pilihan')->name('pilihan');;
-});
-
-// Route auth
-Route::middleware('auth')->group(function(){
-    // Route dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
-    
-    // Route untuk logout
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Route verif email
-    Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
-
-    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])->middleware(['signed'])->name('verification.verify');
-
-    // Resend email verif
-    Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware(['throttle:6,1'])->name('verification.send');
-});
-
-Route::view('/about', 'aboutus')->name('about');;
-
-
-Route::get('/main', function () {
-    return view('admin/main');
-});
-
-Route::get('/admin', function () {
-    return view('admin.content.admin');
-});
-Route::get('/db_perusahaan', function () {
-    return view('perusahaan/db_perusahaan');
-});
-Route::get('/detail', function () {
-    return view('perusahaan/detail');
-});
-Route::get('/daftar', function () {
-    return view('admin.content.daftar');
-});
-Route::get('/antrian', function () {
-    return view('admin.content.antrian');
-});
-Route::get('/daftaruser', function () {
-    return view('admin.content.daftaruser');
-});
-
-Route::get('/ada', function () {
-    return view('landing/detail');
+    Route::get('/email/verify', [VerifyEmailController::class, 'notice'])->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
+    Route::post('/email/verification-notification', [VerifyEmailController::class, 'resend'])->middleware(['throttle:6,1'])->name('verification.send');
 });
 
 
-Route::get('/all', function () {
-    return view('landing/viewall');
+// Route auth
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Route dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Route perusahaan
+    Route::resource('perusahaan', PerusahaanController::class);
+    Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
+    Route::view('/detail', 'perusahaan.detail')->name('detail');
+
+    // Route untuk logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::view('/about', 'aboutus')->name('about');
+
+Route::resource('admin', AdminController::class);
+Route::view('/main', 'admin.main')->name('main');
+Route::get('/daftarperusahaan', [AdminController::class, 'perusahaan'])->name('daftarperusahaan');
+Route::view('/antrian', 'admin.content.antrian')->name('antrian');
+Route::get('/daftarwisatawan', [AdminController::class, 'wisatawan'])->name('daftarwisatawan');
+Route::view('/admin', 'admin.content.admin')->name('admin');
+
+Route::view('/ada', 'landing.detail')->name('ada');
+Route::view('/all', 'landing.viewall')->name('all');
 // Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
 // Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');
 // Route::post('/produk', [CKopiController::class, 'produk'])->name('produk');

@@ -43,12 +43,12 @@
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <h1>LOGIN</h1>
-                @if (session('success'))
+                {{-- @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                         <span class="close">&times;</span>
                     </div>
-                @endif
+                @endif --}}
                 <span>Use your username & password</span>
                 <input type="text" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />

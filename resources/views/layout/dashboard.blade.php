@@ -68,21 +68,21 @@
             Selamat datang Admin
         </div>
         <div class="dashboard">
-            <a href="{{ url('/daftar') }}" class="box box-1">
+            <a href="{{ route('daftarperusahaan') }}" class="box box-1">
                 <div class="info">
                     <div class="count">58</div>
                     <h3>Daftar Perusahaan</h3>
                 </div>
                 
             </a>
-            <a href="{{ url('/antrian') }}" class="box box-2">
+            <a href="{{ route('antrian') }}" class="box box-2">
                 <div class="info">
                     <div class="count">12</div>
                     <h3>Antrian Perusahaan</h3>
                 </div>
                 
             </a>
-            <a href="{{ url('/daftaruser') }}" class="box box-3">
+            <a href="{{ route('daftarwisatawan') }}" class="box box-3">
                 <div class="info">
                     <div class="count">15</div>
                     <h3>Daftar Wisatawan</h3>
