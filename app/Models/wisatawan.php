@@ -9,10 +9,12 @@ class wisatawan extends Model
 {
     use HasFactory;
 
+    protected $table = 'wisatawan';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
+        'id_users',
+        'tgl_lahir',
+        'gender',
+        'wa_wisatawan'
     ];
 }

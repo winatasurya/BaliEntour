@@ -16,7 +16,9 @@ class PerusahaanController extends Controller
     public function index()
     {
         $user = User::where('email', auth()->user()->email)->first();
-        return view('perusahaan.db_perusahaan', compact('user'));
+        $perusahaan = perusahaan::where('id_users', $user->id)->first();
+
+        return view('perusahaan.db_perusahaan', compact('user','perusahaan'));
     }
 
     /**

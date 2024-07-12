@@ -23,12 +23,13 @@ return new class extends Migration
           Schema::create('perusahaan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
-            $table->string('lokasi');
-            $table->string('bidang');
-            $table->string('wa_perusahaan');
-            $table->string('logo');
-            $table->float('penilaian');
-            $table->text('deskripsi');
+            $table->enum('perizinan', ['setuju', 'tidak'])->default('tidak')->nullable();
+            $table->string('lokasi')->nullable();
+            $table->string('bidang')->nullable();
+            $table->string('wa_perusahaan')->nullable();
+            $table->string('logo')->nullable();
+            $table->float('penilaian')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
           });
 

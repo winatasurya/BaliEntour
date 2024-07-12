@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\user;
+use App\Models\perusahaan;
+use App\Models\wisatawan;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -20,9 +22,30 @@ class AuthController extends Controller
             'password' => ['required', 'min:5' ,'confirmed'],
             'role' => ['required']
         ]);
+        if ($data['role'] === 'perusahaan') {
+            $perusahaanData = $request->validate([
+                'wa_perusahaan' => ['required','max:20'],
+                'deskripsi' => ['required', 'max:1000'],
+                'bidang' => ['required', 'max:255']
+            ]);
+        }
 
         // Register
         $user = User::create($data);
+
+        if ($user->role === 'perusahaan') {
+            Perusahaan::create([
+                'id_users' => $user->id,
+                'wa_perusahaan' => $perusahaanData['wa_perusahaan'],
+                'deskripsi' => $perusahaanData['deskripsi'],
+                'bidang' => $perusahaanData['bidang']
+            ]);
+        } elseif ($user->role === 'wisatawan'){
+            Wisatawan::create([
+                'id_users' => $user->id,
+            ]);
+        }
+
 
         // Email verif
         event(new Registered($user));

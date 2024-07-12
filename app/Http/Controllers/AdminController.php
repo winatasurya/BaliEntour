@@ -6,6 +6,7 @@ use App\Http\Requests\StoreadminRequest;
 use App\Http\Requests\UpdateadminRequest;
 use App\Models\admin;
 use App\Models\User;
+use App\Models\perusahaan;
 
 class AdminController extends Controller
 {
@@ -32,6 +33,31 @@ class AdminController extends Controller
 
         return view('admin.content.daftar', compact('users', 'totalUsers'));
     }
+
+    public function antrian()
+    {
+        $users = User::where('role', 'perusahaan')->paginate(10);
+        $totalUsers = User::where('role', 'perusahaan')->count();
+
+        return view('admin.content.daftar', compact('users', 'totalUsers'));
+    }
+
+    // public function perizinan(Request $request)
+    // {
+    //     # Validate
+    //     $data = $request->validate([
+    //         'name' => ['required', 'max:255'],
+    //         'email' => ['required', 'max:255', 'email', 'unique:users,email'],
+    //         'password' => ['required', 'min:5' ,'confirmed'],
+    //         'role' => ['required']
+    //     ]);
+
+    //     // Register
+    //     $user = User::create($data);
+
+    //     // Redirect
+    //     return redirect()->route('verification.notice', ['email' => $user->email])->with('success', 'Registrasi berhasil. Silakan verifikasi email Anda.');
+    // }
 
     /**
      * Show the form for creating a new resource.

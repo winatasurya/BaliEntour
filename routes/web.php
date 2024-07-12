@@ -32,11 +32,13 @@ Route::middleware('guest')->group(function(){
 
 // Route auth
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::resource('perusahaan', PerusahaanController::class);
+    
     // Route dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Route perusahaan
-    Route::resource('perusahaan', PerusahaanController::class);
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
     Route::view('/detail', 'perusahaan.detail')->name('detail');
 
@@ -49,18 +51,9 @@ Route::view('/about', 'aboutus')->name('about');
 Route::resource('admin', AdminController::class);
 Route::view('/main', 'admin.main')->name('main');
 Route::get('/daftarperusahaan', [AdminController::class, 'perusahaan'])->name('daftarperusahaan');
-Route::view('/antrian', 'admin.content.antrian')->name('antrian');
+Route::get('/antrian', [AdminController::class, 'antrian'])->name('antrian');
 Route::get('/daftarwisatawan', [AdminController::class, 'wisatawan'])->name('daftarwisatawan');
 Route::view('/admin', 'admin.content.admin')->name('admin');
 
 Route::view('/ada', 'landing.detail')->name('ada');
 Route::view('/all', 'landing.viewall')->name('all');
-// Route::get('/listmember', [CKopiController::class, 'listmember'])->name('listmember');
-// Route::get('/listproduk', [CKopiController::class, 'listproduk'])->name('listproduk');
-// Route::post('/produk', [CKopiController::class, 'produk'])->name('produk');
-// Route::put('/update/{id}', [CKopiController::class, 'update'])->name('update');
-// Route::delete('/produk/delete/{id}', [CKopiController::class, 'destroy'])->name('destroy');
-// Route::post('/createuser', [CKopiController::class, 'createuser'])->name('createuser');
-// Route::put('/updateuser/{id}', [CKopiController::class, 'updateuser'])->name('updateuser');
-// Route::delete('/user/delete/{id}', [CKopiController::class, 'destroyuser'])->name('destroyuser');
-// Route::get('/logout', [CKopiController::class, 'logout'])->name('logout');

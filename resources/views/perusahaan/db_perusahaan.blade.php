@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Perusahaan</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <style>
         body {
@@ -168,9 +170,7 @@
             </div>
         </div>
         <div class="deskripsi">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam iste facere deserunt et voluptas odit qui
-                dicta? Tenetur quos consequuntur repudiandae dolorum. Culpa id ullam magnam alias nobis voluptatem
-                quaerat!</p>
+            <p>{{ $perusahaan->deskripsi }}</p>
         </div>
         <div class="header">
             <h2>Daftar Akomodasi</h2>
@@ -198,6 +198,86 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="akomodasiModal" tabindex="-1" role="dialog" aria-labelledby="akomodasiModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="akomodasiModalLabel">Tambah Akomodasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="akomodasiForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nama_penawaran">Nama Penawaran</label>
+                            <input type="text" class="form-control" id="nama_penawaran" name="nama_penawaran"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga Per Item</label>
+                            <input type="number" class="form-control" id="harga" name="harga" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="submitAkomodasi">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // Tampilkan modal saat tombol diklik
+            $('a:contains("Tambah Akomodasi")').click(function(e) {
+                e.preventDefault();
+                $('#akomodasiModal').modal('show');
+            });
+
+            // Handle submission
+            $('#submitAkomodasi').click(function() {
+                // Di sini Anda bisa menambahkan logika untuk mengirim data form
+                // Misalnya menggunakan AJAX untuk mengirim ke server
+                var formData = new FormData($('#akomodasiForm')[0]);
+
+                // Contoh penggunaan AJAX (perlu disesuaikan dengan backend Anda)
+                $.ajax({
+                    url: '/tambah-akomodasi', // Ganti dengan URL endpoint Anda
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert('Akomodasi berhasil ditambahkan!');
+                        $('#akomodasiModal').modal('hide');
+                        // Refresh halaman atau update tampilan
+                    },
+                    error: function() {
+                        alert('Terjadi kesalahan. Silakan coba lagi.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
