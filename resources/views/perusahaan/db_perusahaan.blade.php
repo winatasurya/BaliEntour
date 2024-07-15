@@ -163,6 +163,14 @@
         </a>
     </nav>
     <div class="main-content">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="title">
             <h1>{{ $user->name }}</h1>
             <div class="container">
@@ -177,10 +185,12 @@
             <a href="">Tambah Akomodasi</a>
         </div>
         <div class="card-container">
-            <div class="card">
-                <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
-                <h2 class="card-title">Nama Kamar Hotel 1</h2>
-            </div>
+            @foreach ($penawaran as $penawaran)
+                <div class="card">
+                    <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
+                    <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
+                </div>
+            @endforeach
         </div>
 
         <div class="info">
@@ -210,24 +220,30 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="akomodasiForm" enctype="multipart/form-data">
+                    <form id="akomodasiForm" action="{{ route('penawaran.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="nama_penawaran">Nama Penawaran</label>
                             <input type="text" class="form-control" id="nama_penawaran" name="nama_penawaran"
                                 required>
+                            @error('nama_penawaran')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="harga">Harga Per Item</label>
                             <input type="number" class="form-control" id="harga" name="harga" required>
+                            @error('harga')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="foto">Foto</label>
-                            <input type="file" class="form-control-file" id="foto" name="foto" required>
+                            @error('deskripsi')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </form>
                 </div>
@@ -255,27 +271,12 @@
 
             // Handle submission
             $('#submitAkomodasi').click(function() {
-                // Di sini Anda bisa menambahkan logika untuk mengirim data form
-                // Misalnya menggunakan AJAX untuk mengirim ke server
-                var formData = new FormData($('#akomodasiForm')[0]);
-
-                // Contoh penggunaan AJAX (perlu disesuaikan dengan backend Anda)
-                $.ajax({
-                    url: '/tambah-akomodasi', // Ganti dengan URL endpoint Anda
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        alert('Akomodasi berhasil ditambahkan!');
-                        $('#akomodasiModal').modal('hide');
-                        // Refresh halaman atau update tampilan
-                    },
-                    error: function() {
-                        alert('Terjadi kesalahan. Silakan coba lagi.');
-                    }
-                });
+                $('#akomodasiForm').submit();
             });
+            // Menghilangkan alert setelah 5 detik
+            setTimeout(function() {
+                $('.alert-success').alert('close');
+            }, 5000);
         });
     </script>
 </body>

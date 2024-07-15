@@ -3,12 +3,13 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
 
 // halaman awal
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', [DashboardController::class, 'index'])->name('welcome');
 
 // Route guest
 Route::middleware('guest')->group(function(){
@@ -36,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('perusahaan', PerusahaanController::class);
     
     // Route dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'perusahaan'])->name('dashboard');
 
     // Route perusahaan
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
@@ -44,8 +45,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route untuk logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-});
 
+    Route::resource('penawaran', PenawaranController::class);
+});
 Route::view('/about', 'aboutus')->name('about');
 
 Route::resource('admin', AdminController::class);

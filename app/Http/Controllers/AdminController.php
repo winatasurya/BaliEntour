@@ -28,36 +28,30 @@ class AdminController extends Controller
 
     public function perusahaan()
     {
-        $users = User::where('role', 'perusahaan')->paginate(10);
-        $totalUsers = User::where('role', 'perusahaan')->count();
+        $users = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->with('perusahaan')->paginate(10);
+
+        $totalUsers = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->count();
 
         return view('admin.content.daftar', compact('users', 'totalUsers'));
     }
+
 
     public function antrian()
     {
-        $users = User::where('role', 'perusahaan')->paginate(10);
-        $totalUsers = User::where('role', 'perusahaan')->count();
+        $users = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'tidak');
+        })->with('perusahaan')->paginate(10);
 
-        return view('admin.content.daftar', compact('users', 'totalUsers'));
+        $totalUsers = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'tidak');
+        })->count();
+
+        return view('admin.content.antrian', compact('users', 'totalUsers'));
     }
-
-    // public function perizinan(Request $request)
-    // {
-    //     # Validate
-    //     $data = $request->validate([
-    //         'name' => ['required', 'max:255'],
-    //         'email' => ['required', 'max:255', 'email', 'unique:users,email'],
-    //         'password' => ['required', 'min:5' ,'confirmed'],
-    //         'role' => ['required']
-    //     ]);
-
-    //     // Register
-    //     $user = User::create($data);
-
-    //     // Redirect
-    //     return redirect()->route('verification.notice', ['email' => $user->email])->with('success', 'Registrasi berhasil. Silakan verifikasi email Anda.');
-    // }
 
     /**
      * Show the form for creating a new resource.

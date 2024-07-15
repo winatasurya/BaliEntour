@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\user;
 use App\Models\perusahaan;
 use App\Models\wisatawan;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;

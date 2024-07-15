@@ -25,8 +25,18 @@
                 /* Adjust this value based on your navbar height */
             }
 
+            .dashboard-header {
+                background-color: green;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+
             .table-container {
                 margin-top: 20px;
+                display: flex;
+                justify-content: center;
             }
 
             table {
@@ -44,7 +54,8 @@
             th,
             td {
                 padding: 8px;
-                text-align: left;
+                text-align: center;
+                vertical-align: middle;
             }
 
             th {
@@ -103,6 +114,10 @@
             .pagination a.active {
                 background-color: #0275d8;
                 color: white;
+            }
+
+            .fas {
+                font-size: 1.5em;
             }
         </style>
     </head>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreperusahaanRequest;
 use App\Http\Requests\UpdateperusahaanRequest;
+use App\Models\penawaran;
 use App\Models\perusahaan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,9 @@ class PerusahaanController extends Controller
     {
         $user = User::where('email', auth()->user()->email)->first();
         $perusahaan = perusahaan::where('id_users', $user->id)->first();
+        $penawaran = penawaran::where('id_perusahaan', $perusahaan->id)->get();
 
-        return view('perusahaan.db_perusahaan', compact('user','perusahaan'));
+        return view('perusahaan.db_perusahaan', compact('user','perusahaan','penawaran'));
     }
 
     /**

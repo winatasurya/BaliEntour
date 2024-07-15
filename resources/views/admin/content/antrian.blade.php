@@ -10,6 +10,7 @@
         <meta charset="UTF-8">
         @include('layout.header')
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <!-- <title>@yield('Title')</title> -->
         <style>
             body {
@@ -35,6 +36,8 @@
 
             .table-container {
                 margin-top: 20px;
+                display: flex;
+                justify-content: center;
             }
 
             table {
@@ -52,7 +55,8 @@
             th,
             td {
                 padding: 8px;
-                text-align: left;
+                text-align: center;
+                vertical-align: middle;
             }
 
             th {
@@ -112,77 +116,89 @@
                 background-color: #0275d8;
                 color: white;
             }
+
+            .fas {
+                font-size: 1.5em;
+            }
         </style>
     </head>
 
     <body>
         @include('layout.navbar')
         <div class="main-content">
-        </div>
-        <h1>Antrian Perusahaan</h1>
-        <div class="search-container">
-            <span>{{ $users->count() }} / {{ $totalUsers }} Perusahaan</span>
-            <div>
-                <input type="text" placeholder="Cari Perusahaan...">
-                <button class="btn btn-blue">Cari</button>
+            <h1>Daftar Antrian Perusahaan</h1>
+            <div class="search-container">
+                <span>{{ $users->count() }} / {{ $totalUsers }} Perusahaan</span>
+                <div>
+                    <input type="text" placeholder="Cari Perusahaan...">
+                    <button class="btn btn-blue">Cari</button>
+                </div>
             </div>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Perusahaan</th>
-                        <th>Kategori</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
+            <div class="table-container">
+                <table style="">
+                    <thead>
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>Villa</td>
-                            <td>
-                                <button class="btn btn-green">Terima</button>
-                                <button class="btn btn-red">Tolak</button>
-                            </td>
+                            <th>No</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Kategori</th>
+                            <th>Verifikasi</th>
+                            <th>Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        @if ($users->hasPages())
-            <div class="pagination">
-                {{-- Previous Page Link --}}
-                @if ($users->onFirstPage())
-                    <span>&laquo;</span>
-                @else
-                    <a href="{{ $users->previousPageUrl() }}">&laquo;</a>
-                @endif
-
-                {{-- Pagination Elements --}}
-                @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
-                    @if ($page == $users->currentPage())
-                        <a href="#" class="active">{{ $page }}</a>
-                    @else
-                        <a href="{{ $url }}">{{ $page }}</a>
-                    @endif
-                @endforeach
-
-                {{-- Next Page Link --}}
-                @if ($users->hasMorePages())
-                    <a href="{{ $users->nextPageUrl() }}">&raquo;</a>
-                @else
-                    <span>&raquo;</span>
-                @endif
-
-                {{-- Last Page Link --}}
-                @if ($users->currentPage() != $users->lastPage())
-                    <a href="{{ $users->url($users->lastPage()) }}">Last</a>
-                @endif
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->perusahaan->bidang }}</td>
+                                <td>
+                                    @if (!$user->email_verified_at)
+                                        <i class="fas fa-times-circle" style="color: red;"></i>
+                                    @else
+                                        <i class="fas fa-check-circle" style="color: green;"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    <button class="btn btn-green">Terima</button>
+                                    <button class="btn btn-red">Tolak</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        @endif
+            @if ($users->hasPages())
+                <div class="pagination">
+                    {{-- Previous Page Link --}}
+                    @if ($users->onFirstPage())
+                        <span>&laquo;</span>
+                    @else
+                        <a href="{{ $users->previousPageUrl() }}">&laquo;</a>
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                        @if ($page == $users->currentPage())
+                            <a href="#" class="active">{{ $page }}</a>
+                        @else
+                            <a href="{{ $url }}">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($users->hasMorePages())
+                        <a href="{{ $users->nextPageUrl() }}">&raquo;</a>
+                    @else
+                        <span>&raquo;</span>
+                    @endif
+
+                    {{-- Last Page Link --}}
+                    @if ($users->currentPage() != $users->lastPage())
+                        <a href="{{ $users->url($users->lastPage()) }}">Last</a>
+                    @endif
+                </div>
+            @endif
+        </div>
     </body>
 
     </html>

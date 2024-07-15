@@ -15,7 +15,7 @@
             body {
                 display: flex;
             }
-
+    
             .main-content {
                 flex-grow: 1;
                 padding: 20px;
@@ -24,44 +24,55 @@
                 margin-top: 60px;
                 /* Adjust this value based on your navbar height */
             }
-
+    
+            .dashboard-header {
+                background-color: green;
+                color: white;
+                padding: 10px;
+                border-radius: 5px;
+                text-align: center;
+            }
+    
             .table-container {
                 margin-top: 20px;
+                display: flex;
+                justify-content: center;
             }
-
+    
             table {
                 width: 100%;
                 border-collapse: collapse;
                 margin-top: 10px;
             }
-
+    
             table,
             th,
             td {
                 border: 1px solid #ddd;
             }
-
+    
             th,
             td {
                 padding: 8px;
-                text-align: left;
+                text-align: center;
+                vertical-align: middle;
             }
-
+    
             th {
                 background-color: #f2f2f2;
             }
-
+    
             .search-container {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
             }
-
+    
             .search-container input[type="text"] {
                 width: 200px;
                 padding: 5px;
             }
-
+    
             .btn {
                 padding: 5px 10px;
                 border: none;
@@ -69,29 +80,29 @@
                 cursor: pointer;
                 color: white;
             }
-
+    
             .btn-green {
                 background-color: #5cb85c;
             }
-
+    
             .btn-blue {
                 background-color: #0275d8;
             }
-
+    
             .btn-orange {
                 background-color: #f0ad4e;
             }
-
+    
             .btn-red {
                 background-color: #d9534f;
             }
-
+    
             .pagination {
                 margin-top: 20px;
                 display: flex;
                 justify-content: flex-end;
             }
-
+    
             .pagination a {
                 margin: 0 5px;
                 padding: 5px 10px;
@@ -99,10 +110,14 @@
                 text-decoration: none;
                 color: #0275d8;
             }
-
+    
             .pagination a.active {
                 background-color: #0275d8;
                 color: white;
+            }
+    
+            .fas {
+                font-size: 1.5em;
             }
         </style>
     </head>
@@ -134,7 +149,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>Villa</td>
+                                <td>{{ $user->perusahaan->bidang }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <button class="btn btn-blue">Detail</button>
