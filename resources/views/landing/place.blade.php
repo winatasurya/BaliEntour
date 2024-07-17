@@ -1,4 +1,4 @@
-<div class="container mx-auto mt-8">
+<div class="container mx-auto mt-8" id="place">
 <div class="relative">
         <h1 class="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Place
@@ -13,7 +13,7 @@
     </div>
     <div class="scrollable-container flex space-x-4 p-4 bg-white rounded-lg shadow-md overflow-x-auto">
         @foreach ($penawaran as $penawaran)
-            <a href="{{route('ada')}}" class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md mb-8 no-underline">
+            <a href="{{ route('penawaran.show', $penawaran) }}" class="card w-64 bg-white border border-gray-200 rounded-lg shadow-md mb-8 no-underline">
                 <img class="w-full h-32 object-cover rounded-t-lg" src="img/1.png" alt="Image 1">
                 <div class="p-4">
                     <h5 class="text-lg font-semibold">{{ $penawaran->nama_penawaran }}</h5>

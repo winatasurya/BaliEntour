@@ -59,7 +59,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form action="{{ route('register') }}" method="post">
+            <form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <h1 >Create Account</h1>
                 <input type="text" name="name" placeholder="Username" value="{{ old('name') }}" required />
@@ -87,6 +87,11 @@
                     @enderror
                     <textarea name="deskripsi" placeholder="Deskripsi Perusahaan" value="{{ old('deskripsi') }}"></textarea>
                     @error('deskripsi')
+                        {{ $message }}
+                    @enderror
+                    <label for="logo">Foto Perusahaan</label>
+                    <input type="file" name="logo" id="logo">
+                    @error('logo')
                         {{ $message }}
                     @enderror
                 </div>

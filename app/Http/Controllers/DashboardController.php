@@ -16,7 +16,6 @@ class DashboardController extends Controller
         })->orderByRaw('RAND()')/*->limit(2)*/->get();
 
         return view('welcome', compact('penawaran'));
-
     }
 
     public function perusahaan()

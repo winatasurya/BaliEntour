@@ -159,8 +159,17 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="btn btn-green">Terima</button>
-                                    <button class="btn btn-red">Tolak</button>
+                                    <form action="{{ route('admin.approve', $user) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menyetujui perizinan perusahaan ini?');">
+                                        @csrf
+                                        <input type="hidden" name="perizinan" />
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-green">Terima</button>
+                                    </form>
+                                    <form action="{{ route('admin.destroy.perusahaan', $user) }}" method="POST" onsubmit="return confirm('Menolak perizinan akan menghapus perusahaan, Apakah Anda yakin ingin menolak perizinan perusahaan ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-red">Tolak</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

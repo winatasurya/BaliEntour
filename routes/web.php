@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PenawaranController;
@@ -33,11 +34,11 @@ Route::middleware('guest')->group(function(){
 
 // Route auth
 Route::middleware(['auth', 'verified'])->group(function () {
-
+ 
     Route::resource('perusahaan', PerusahaanController::class);
     
     // Route dashboard
-    Route::get('/dashboard', [DashboardController::class, 'perusahaan'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Route perusahaan
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
@@ -56,6 +57,8 @@ Route::get('/daftarperusahaan', [AdminController::class, 'perusahaan'])->name('d
 Route::get('/antrian', [AdminController::class, 'antrian'])->name('antrian');
 Route::get('/daftarwisatawan', [AdminController::class, 'wisatawan'])->name('daftarwisatawan');
 Route::view('/admin', 'admin.content.admin')->name('admin');
-
+Route::delete('/admin/wisatawan/{user}', [AdminController::class, 'destroyWisatawan'])->name('admin.destroy.wisatawan');
+Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusahaan'])->name('admin.destroy.perusahaan');
+Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
 Route::view('/ada', 'landing.detail')->name('ada');
 Route::view('/all', 'landing.viewall')->name('all');

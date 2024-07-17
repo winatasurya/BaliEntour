@@ -61,6 +61,21 @@
             margin-top: 10px;
             font-size: 14px;
         }
+        .notification-message {
+            background-color: #FF6868; /* Using the color from box-3 */
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeOut 5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
 <body>
     @include('layout.navbar')

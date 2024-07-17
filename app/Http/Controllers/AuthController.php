@@ -8,6 +8,7 @@ use App\Models\wisatawan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -25,19 +26,25 @@ class AuthController extends Controller
             $perusahaanData = $request->validate([
                 'wa_perusahaan' => ['required','max:20'],
                 'deskripsi' => ['required', 'max:1000'],
-                'bidang' => ['required', 'max:255']
+                'bidang' => ['required', 'max:255'],
+                'logo' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'] 
             ]);
         }
 
         // Register
         $user = User::create($data);
-
+        $logo = null;
         if ($user->role === 'perusahaan') {
+            if ($request->hasFile('logo')) {
+                $logo = Storage::disk('public')->put('gambar_perusahaan', $request->logo);
+            }
+
             Perusahaan::create([
                 'id_users' => $user->id,
                 'wa_perusahaan' => $perusahaanData['wa_perusahaan'],
                 'deskripsi' => $perusahaanData['deskripsi'],
-                'bidang' => $perusahaanData['bidang']
+                'bidang' => $perusahaanData['bidang'],
+                'logo' => $logo
             ]);
         } elseif ($user->role === 'wisatawan'){
             Wisatawan::create([
@@ -74,7 +81,6 @@ class AuthController extends Controller
             if ($user->role === 'wisatawan') {
                 return redirect()->route('dashboard');
             } elseif ($user->role === 'perusahaan') {
-                // Redirect other roles (e.g., admin) to their respective dashboards
                 return redirect()->route('db_perusahaan');
             }
         } else {

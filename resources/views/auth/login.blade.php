@@ -49,16 +49,12 @@
                         <span class="close">&times;</span>
                     </div>
                 @endif --}}
-                <span>Use your username & password</span>
+                <span>Use your email & password</span>
                 <input type="text" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
                 @error('failed')
                     {{ $message }}
                 @enderror
-                <div class="remember-me">
-                    <input type="checkbox" name="remember" id="remember">
-                    <label for="remember">Remember Me</label>
-                </div>
                 <p><a href=""><span class="forget-password">Forget password ???</span></a></p>
                 <button type="submit">LOGIN</button>
                 <p>Don't have an account? <span><a href="{{ route('pilihan') }}" class="sign-up">Sign Up</a></span></p>

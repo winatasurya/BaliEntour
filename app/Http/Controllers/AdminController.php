@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateadminRequest;
 use App\Models\admin;
 use App\Models\User;
 use App\Models\perusahaan;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -88,16 +89,39 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateadminRequest $request, admin $admin)
+    public function update(UpdateadminRequest $request, perusahaan $perusahaan)
     {
         //
+    }
+
+    public function approve(User $user)
+    {
+        $perusahaan = $user->perusahaan;
+        if ($perusahaan) {
+            $perusahaan->perizinan = 'setuju';
+            $perusahaan->save();
+            return redirect()->back()->with('success', 'Perizinan perusahaan telah disetujui.');
+        }
+        return redirect()->back()->with('error', 'Perusahaan tidak ditemukan.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(admin $admin)
+    public function destroyPerusahaan(user $user)
     {
-        //
+        if ($user->logo) {
+            Storage::disk('public')->delete($user->logo);
+        }
+
+        $user->delete();
+
+        return back()->with('delete', 'Perusahaan berhasil dihapus!');
+    }
+    public function destroyWisatawan(user $user)
+    {
+        $user->delete();
+
+        return back()->with('delete', 'Wisatawan berhasil dihapus!');
     }
 }

@@ -174,7 +174,11 @@
         <div class="title">
             <h1>{{ $user->name }}</h1>
             <div class="container">
-                <img src="img/sanc.jpg" alt="">
+                @if ($perusahaan->logo)
+                    <img src="{{ asset('storage/'. $perusahaan->logo) }}" alt="">
+                @else
+                    <img src="img/sanc.jpg" alt="">
+                @endif
             </div>
         </div>
         <div class="deskripsi">

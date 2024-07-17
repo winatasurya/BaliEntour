@@ -56,10 +56,6 @@ class usercontroller extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage by admin.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

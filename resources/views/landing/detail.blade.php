@@ -16,17 +16,17 @@
   <div class="container mx-auto mt-16 px-4">
     <div class="flex space-x-4 overflow-x-auto scrollable-container">
       <!-- Images -->
-      <img class="w-1/1 h-64 object-cover rounded-lg" src="img/12.jpg" alt="Image 1">
-      <img class="w-1/1 h-64 object-cover rounded-lg" src="img/14.jpg" alt="Image 2">
-      <img class="w-1/1 h-64 object-cover rounded-lg" src="img/14.jpg" alt="Image 3">
-      <img class="w-1/1 h-64 object-cover rounded-lg" src="img/12.jpg" alt="Image 4">
-      <img class="w-1/1 h-64 object-cover rounded-lg" src="img/13.jpg" alt="Image 5">
+      <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/12.jpg') }}" alt="Image 1">
+      <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/14.jpg') }}" alt="Image 2">
+      <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/14.jpg') }}" alt="Image 3">
+      <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/12.jpg') }}" alt="Image 4">
+      <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/13.jpg') }}" alt="Image 5">
     </div>
   </div>
 
   <!-- Title and Details -->
   <div class="mt-4">
-    <h1 class="text-2xl font-bold">Atlas Beach Club</h1>
+    <h1 class="text-2xl font-bold">{{ $penawaran->nama_penawaran }}</h1>
     <div class="flex items-center mt-2">
       <span class="text-purple-500 mr-2">★ 4.89 (128)</span>
 

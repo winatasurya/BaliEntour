@@ -27,6 +27,11 @@ class PenawaranController extends Controller
         ]);
 
         return redirect()->route('db_perusahaan')->with('success', 'Akomodasi berhasil ditambahkan.');
-        }
+    }
+
+    public function show(Penawaran $penawaran)
+    {
+        return view('landing.detail', ['penawaran' =>$penawaran]);
+    }
 }
 

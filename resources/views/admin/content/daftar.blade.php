@@ -126,6 +126,11 @@
         @include('layout.navbar')
         <div class="main-content">
             <h1>Daftar Perusahaan</h1>
+            @if(session('delete'))
+                <div class="notification-message">
+                    {{ session('delete') }}
+                </div>
+            @endif
             <div class="search-container">
                 <span>{{ $users->count() }} / {{ $totalUsers }} Perusahaan</span>
                 <div>
@@ -153,7 +158,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <button class="btn btn-blue">Detail</button>
-                                    <button class="btn btn-red">Hapus</button>
+                                    <form action="{{ route('admin.destroy.perusahaan', $user) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus perusahaan ini?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-red">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
