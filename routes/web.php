@@ -50,6 +50,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('penawaran', PenawaranController::class);
 });
 Route::view('/about', 'aboutus')->name('about');
+Route::view('/profile', 'user')->name('user');
+Route::view('/forgotpw', 'forgotpw')->name('forgotpw');
+Route::view('/changepw', 'changepw')->name('changepw');
 
 Route::resource('admin', AdminController::class);
 Route::view('/main', 'admin.main')->name('main');
