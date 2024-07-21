@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('tgl_lahir')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('wa_wisatawan')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
           });
 

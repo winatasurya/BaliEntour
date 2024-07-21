@@ -52,7 +52,7 @@ class VerifyEmailController extends Controller
     {
         $email = $request->query('email');
         if (auth()->check() && auth()->user()->hasVerifiedEmail()) {
-            return redirect()->route('dashboard');
+            return redirect()->route('welcome');
         }
         return view('auth.verify-email', compact('email'));
     }

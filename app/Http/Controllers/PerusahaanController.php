@@ -16,11 +16,11 @@ class PerusahaanController extends Controller
      */
     public function index()
     {
-        $user = User::where('email', auth()->user()->email)->first();
-        $perusahaan = perusahaan::where('id_users', $user->id)->first();
-        $penawaran = penawaran::where('id_perusahaan', $perusahaan->id)->get();
+        $user = auth()->user();
+        $perusahaan = $user->perusahaan;
+        $penawaran = $perusahaan ? $perusahaan->penawaran : collect();
 
-        return view('perusahaan.db_perusahaan', compact('user','perusahaan','penawaran'));
+        return view('perusahaan.db_perusahaan', compact('user', 'perusahaan', 'penawaran'));
     }
 
     /**
@@ -44,7 +44,7 @@ class PerusahaanController extends Controller
      */
     public function show(perusahaan $perusahaan)
     {
-        //
+        
     }
 
     /**

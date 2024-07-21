@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class perusahaan extends Model
 {
@@ -25,6 +26,14 @@ class perusahaan extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+    public function getSlugAttribute()
+    {
+        return 'show/' . Str::slug($this->user->name);
     }
 
     public function penawaran() :HasMany
