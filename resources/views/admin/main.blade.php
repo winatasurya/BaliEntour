@@ -82,10 +82,5 @@
     @include('layout.sidebar')
     @yield('content')
     @include('layout.script')
-    <div class="main-content">
-        <div class="dashboard-header">
-            Selamat datang Admin
-        </div>
-    </div>
 </body>
 </html>
