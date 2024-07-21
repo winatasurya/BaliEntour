@@ -78,43 +78,161 @@
         h4 a:hover{
             color: #543310;
         }
+        .navbar {
+            padding: 10px;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: rgba(248, 249, 250, 0.7);
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: rgba(233, 236, 239, 0.9);
+        }
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1001;
+            display: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #changePasswordBtn {
+            cursor: pointer;
+        }
+
+        #changePasswordBtn:hover {
+            transform: scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <a href="{{ route('welcome') }}" class="back-button">
+            <img src="{{ asset('img/arrow.png') }}" alt="Back" style="width: 30px; height: auto;">
+        </a>
+    </nav>
+    @if(session('success'))
+        <div id="custom-alert" class="custom-alert">
+            {{ session('success') . $user->name }}
+        </div>
+    @endif
+    @if(session('pesan'))
+        <div id="custom-alert" class="custom-alert">
+            {{ session('pesan')}}
+        </div>
+    @endif
     <div class="profile-container">
         <div class="profile-header">
-            <img src="img/home.jpeg" alt="Profile Picture">
-            <h2>Narendra Ganeshwara</h2>
+            @if ($wisatawan->gambar)
+                <img src="{{ asset('img/'. $wisatawan->gambar) }}" alt="Profile Picture">
+            @else
+                <img src="{{ asset('img/gambar_wisatawan/plain_profile.jpg') }}" alt="Profile Picture">
+            @endif
+            <h2>{{ $user->name }}</h2>
         </div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('wisatawan.update', $wisatawan) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
+
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" value="Narendra Ganeshwara" required>
+                <input type="text" id="name" name="name" value="{{ $user->name }}" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="narendra@gmail.com" required>
+                <input type="email" id="email" name="email" value="{{ $user->email }}" readonly>
             </div>
             <div class="form-group">
-                <label for="date_of_birth">Date of Birth</label>
-                <input type="date" id="date_of_birth" name="date_of_birth" required>
+                <label for="tgl_lahir">Date of Birth</label>
+                <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $wisatawan->tgl_lahir }}" required>
             </div>
             <div class="form-group">
-                <label for="address">Address</label>
-                <textarea id="address" name="address" required>Nusakarya</textarea>
+                <label for="wa_wisatawan">Whatshapp</label>
+                <input type="text" id="wa_wisatawan" name="wa_wisatawan" value="{{ $wisatawan->wa_wisatawan }}" required onkeypress="return isNumber(event)">
             </div>
             <div class="form-group">
-                <label for="photo">Photo</label>
-                <input type="file" id="photo" name="photo" accept="image/*">
+                <label for="photo">Foto Profil</label>
+                <input type="file" id="gambar" name="gambar" accept="image/*">
             </div>
             <div class="form-group">
-                <button type="submit">Save</button>
+                <button type="submit">Simpan Perubahan</button>
             </div>
         </form>
         <div class="order-history">
@@ -135,24 +253,72 @@
                         <td>Completed</td>
                         <td>$100.00</td>
                     </tr>
-                    <tr>
-                        <td>12346</td>
-                        <td>2024-02-01</td>
-                        <td>Pending</td>
-                        <td>$200.00</td>
-                    </tr>
-                    <tr>
-                        <td>12347</td>
-                        <td>2024-03-01</td>
-                        <td>Cancelled</td>
-                        <td>$50.00</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
-        <!-- <h4><a href="forgotpw">Forgot Password?</a></h4> -->
-        <h4><a href="changepw">Change Password</a></h4>
+        <h4><a id="changePasswordBtn" >Change Password</a></h4>
     </div>
-    
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Change Password</h2>
+            <form id="changePasswordForm" action="{{ route('change.password') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="current_password">Current Password:</label>
+                    <input type="password" id="current_password" name="current_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password:</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password_confirmation">Confirm New Password:</label>
+                    <input type="password" id="new_password_confirmation" name="new_password_confirmation" required>
+                </div>
+                <button type="submit">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("passwordModal");
+        var btn = document.getElementById("changePasswordBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        function isNumber(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var alert = document.getElementById('custom-alert');
+            if (alert) {
+                alert.style.display = 'block';
+                setTimeout(function() {
+                    alert.style.opacity = '0';
+                    alert.style.transition = 'opacity 0.5s';
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 500);
+                }, 5000);
+            }
+        });
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>

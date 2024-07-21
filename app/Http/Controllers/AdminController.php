@@ -21,8 +21,9 @@ class AdminController extends Controller
 
     public function wisatawan()
     {
-        $users = User::where('role', 'wisatawan')->paginate(10);
-        $totalUsers = User::where('role', 'wisatawan')->count();
+        $users = User::whereHas('wisatawan')->with('wisatawan')->paginate(10);
+
+        $totalUsers = User::whereHas('wisatawan')->with('wisatawan')->count();
 
         return view('admin.content.daftaruser', compact('users', 'totalUsers'));
     }
@@ -39,7 +40,6 @@ class AdminController extends Controller
 
         return view('admin.content.daftar', compact('users', 'totalUsers'));
     }
-
 
     public function antrian()
     {
@@ -110,17 +110,26 @@ class AdminController extends Controller
      */
     public function destroyPerusahaan(user $user)
     {
-        if ($user->logo) {
-            Storage::disk('public')->delete($user->logo);
+        $perusahaan = $user->perusahaan;
+
+        if ($perusahaan && $perusahaan->logo) {
+            Storage::disk('public')->delete($perusahaan->logo);
         }
 
         $user->delete();
 
         return back()->with('delete', 'Perusahaan berhasil dihapus!');
     }
-    public function destroyWisatawan(user $user)
+    
+    public function destroyWisatawan(User $user)
     {
-        $user->delete();
+        $wisatawan = $user->wisatawan;
+
+        if ($wisatawan && $wisatawan->gambar) {
+            Storage::disk('public')->delete($wisatawan->gambar);
+        }
+
+        $user->delete(); 
 
         return back()->with('delete', 'Wisatawan berhasil dihapus!');
     }

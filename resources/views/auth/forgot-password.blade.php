@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <title>Forgot Password</title>
     <style>
         body {
-            background-color: #f5f5dc; /* warna beige untuk latar belakang */
+            background-color: #f5f5dc;
+            /* warna beige untuk latar belakang */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -14,7 +18,7 @@
             margin: 0;
         }
 
-        .change-password-container {
+        .forgot-password-container {
             width: 50%;
             padding: 20px;
             background-color: #ffffff;
@@ -22,23 +26,28 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-        .change-password-container h2 {
+
+        .forgot-password-container h2 {
             margin-bottom: 20px;
         }
+
         .form-group {
             margin-bottom: 15px;
             text-align: left;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
         }
+
         .form-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .form-group button {
             padding: 10px 15px;
             background-color: #6f4e37;
@@ -47,11 +56,14 @@
             border-radius: 5px;
             cursor: pointer;
             display: block;
-            margin: 0 auto; /* Untuk menempatkan tombol di tengah */
+            margin: 0 auto;
+            /* Untuk menempatkan tombol di tengah */
         }
+
         .form-group button:hover {
             background-color: #4b3832;
         }
+
         .alert {
             margin-top: 15px;
             padding: 10px;
@@ -59,11 +71,13 @@
             border-radius: 5px;
             display: none;
         }
+
         .alert-success {
             color: #155724;
             background-color: #d4edda;
             border-color: #c3e6cb;
         }
+
         .alert-danger {
             color: #721c24;
             background-color: #f8d7da;
@@ -78,9 +92,7 @@
             var alertDanger = document.getElementById('alert-danger');
 
             if (email) {
-                alertSuccess.style.display = 'block';
-                alertDanger.style.display = 'none';
-                document.getElementById('email').value = '';
+                event.target.submit();
             } else {
                 alertSuccess.style.display = 'none';
                 alertDanger.style.display = 'block';
@@ -88,33 +100,32 @@
         }
     </script>
 </head>
+
 <body>
-    <div class="change-password-container">
-        <h2>Change Password</h2>
+    <div class="forgot-password-container">
+        <h2>Forgot Password</h2>
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
+            </div>
+        @endif
         <div id="alert-success" class="alert alert-success">
             Password reset link sent to your email address.
         </div>
         <div id="alert-danger" class="alert alert-danger">
             Please enter a valid email address.
         </div>
-        <form onsubmit="handleSubmit(event)">
+        <form action="{{ route('password.request') }}" method="post" onsubmit="handleSubmit(event)">
+            @csrf
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="newpass">New Password</label>
-                <input type="password" id="newpass" name="newpass" required>
-            </div>
-            <div class="form-group">
-                <label for="confirmpass">Confirm Password</label>
-                <input type="password" id="confirmpass" name="confirmpass" required>
-            </div>
-
-            <div class="form-group">
-                <button type="submit">Submit</button>
+                <button type="submit">Send Password Reset Link</button>
             </div>
         </form>
     </div>
 </body>
+
 </html>

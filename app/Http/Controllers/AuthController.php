@@ -25,8 +25,8 @@ class AuthController extends Controller
         if ($data['role'] === 'perusahaan') {
             $perusahaanData = $request->validate([
                 'wa_perusahaan' => ['required','max:20'],
-                'deskripsi' => ['required', 'max:1000'],
-                'bidang' => ['required', 'max:255'],
+                'deskripsi' => ['required', 'max:65535'],
+                'bidang' => ['required'],
                 'logo' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'] 
             ]);
         }
@@ -36,7 +36,7 @@ class AuthController extends Controller
         $logo = null;
         if ($user->role === 'perusahaan') {
             if ($request->hasFile('logo')) {
-                $logo = Storage::disk('public')->put('gambar_perusahaan', $request->logo);
+                $logo = $request->file('logo')->store('gambar_perusahaan', 'public');
             }
 
             Perusahaan::create([
@@ -79,7 +79,7 @@ class AuthController extends Controller
         if (Auth::attempt($data)){
             $request->session()->regenerate();
             if ($user->role === 'wisatawan') {
-                return redirect()->route('dashboard');
+                return redirect()->route('wisatawan')->with('success', 'Selamat Datang ');;
             } elseif ($user->role === 'perusahaan') {
                 return redirect()->route('db_perusahaan');
             }

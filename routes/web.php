@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\WisatawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PenawaranController;
@@ -22,6 +23,12 @@ Route::middleware('guest')->group(function(){
     Route::view('/login', 'auth.login')->name('login');;
     Route::post('/login', [AuthController::class, 'login']);
 
+    //  Reset password
+    Route::view('/forgot-password','auth.forgot-password')->name('password.request');
+    Route::post('/forgot-password', [PasswordController::class, 'passwordEmail']);
+    Route::get('/reset-password/{token}', [PasswordController::class, 'passwordReset'])->name('password.reset');
+    Route::post('/reset-password', [PasswordController::class, 'passwordUpdate'])->name('password.update');
+
     // Route untuk halaman pilihan register
     Route::view('/pilihan', 'pilihan')->name('pilihan');;
 
@@ -35,10 +42,8 @@ Route::middleware('guest')->group(function(){
 // Route auth
 Route::middleware(['auth', 'verified'])->group(function () {
  
+    // Perusahaan
     Route::resource('perusahaan', PerusahaanController::class);
-    
-    // Route dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Route perusahaan
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
@@ -48,11 +53,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::resource('penawaran', PenawaranController::class);
+
+    // Wisatawan
+    Route::resource('wisatawan', WisatawanController::class);
+
+    // Route dashboard wisatawan
+    Route::get('/wisatawan', [WisatawanController::class, 'index'])->name('wisatawan');
+    Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('change.password');
+
+    // Route lihat perusahaan
+    Route::get('/show/{perusahaan}', [WisatawanController::class, 'lihatPerusahaan'])->name('lihat.perusahaan');
 });
+
 Route::view('/about', 'aboutus')->name('about');
-Route::view('/profile', 'user')->name('user');
-Route::view('/forgotpw', 'forgotpw')->name('forgotpw');
-Route::view('/changepw', 'changepw')->name('changepw');
+Route::view('/payment', 'landing.payment')->name('payment');
 
 Route::resource('admin', AdminController::class);
 Route::view('/main', 'admin.main')->name('main');

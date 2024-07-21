@@ -43,21 +43,21 @@
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <h1>LOGIN</h1>
-                {{-- @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                        <span class="close">&times;</span>
+                @if (session('status'))
+                    <div class="mb-4 font-medium text-sm text-green-600">
+                        {{ session('status') }}
                     </div>
-                @endif --}}
+                @endif
                 <span>Use your email & password</span>
                 <input type="text" name="email" placeholder="Email" required />
                 <input type="password" name="password" placeholder="Password" required />
                 @error('failed')
                     {{ $message }}
                 @enderror
-                <p><a href=""><span class="forget-password">Forget password ???</span></a></p>
                 <button type="submit">LOGIN</button>
+                <br>
                 <p>Don't have an account? <span><a href="{{ route('pilihan') }}" class="sign-up">Sign Up</a></span></p>
+                <p><span><a href="{{ route('password.request') }}" class="sign-up">Forgot your password?</a></span></p>
             </form>
         </div>
     </div>

@@ -163,7 +163,9 @@
                                         @csrf
                                         <input type="hidden" name="perizinan" />
                                         @method('PATCH')
-                                        <button type="submit" class="btn btn-green">Terima</button>
+                                        <button type="submit" class="btn btn-green" @if (!$user->email_verified_at)
+                                            disabled
+                                        @endif>Terima</button>
                                     </form>
                                     <form action="{{ route('admin.destroy.perusahaan', $user) }}" method="POST" onsubmit="return confirm('Menolak perizinan akan menghapus perusahaan, Apakah Anda yakin ingin menolak perizinan perusahaan ini?');">
                                         @csrf

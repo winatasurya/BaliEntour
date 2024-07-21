@@ -21,27 +21,23 @@
         }
 
         .navbar {
-            width: 100%;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            padding: 10px 20px;
+            padding: 10px;
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 10px;
+            left: 10px;
             z-index: 1000;
-            background-color: #fff;
         }
 
         .back-button {
-            display: flex;
-            align-items: center;
-            margin-right: 20px;
+            display: inline-block;
+            padding: 5px;
+            border-radius: 50%;
+            background-color: rgba(248, 249, 250, 0.7);
+            transition: background-color 0.3s;
         }
 
-        .back-button img {
-            width: 24px;
-            height: 24px;
+        .back-button:hover {
+            background-color: rgba(233, 236, 239, 0.9);
         }
 
         .main-content {
@@ -159,11 +155,11 @@
 <body>
     <nav class="navbar">
         <a href="{{ route('welcome') }}" class="back-button">
-            <img src="img/arrow.png" alt="Back">
+            <img src="{{ asset('img/arrow.png') }}" alt="Back" style="width: 30px; height: auto;">
         </a>
     </nav>
     <div class="main-content">
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -175,9 +171,9 @@
             <h1>{{ $user->name }}</h1>
             <div class="container">
                 @if ($perusahaan->logo)
-                    <img src="{{ asset('storage/'. $perusahaan->logo) }}" alt="">
+                    <img src="{{ asset('img/' . $perusahaan->logo) }}" alt="">
                 @else
-                    <img src="img/sanc.jpg" alt="">
+                    <img src="{{ asset('img/gambar_perusahaan/plain_profile.jpg') }}" alt="">
                 @endif
             </div>
         </div>
@@ -246,6 +242,14 @@
                             <label for="deskripsi">Deskripsi</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
                             @error('deskripsi')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto Akomodasi</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto"
+                                accept="image/*" required>
+                            @error('foto')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

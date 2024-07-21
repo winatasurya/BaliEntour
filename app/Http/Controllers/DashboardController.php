@@ -11,15 +11,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $penawaran = Penawaran::whereHas('perusahaan', function ($query) {
+        $perusahaan = User::whereHas('perusahaan', function ($query) {
             $query->where('perizinan', 'setuju');
-        })->orderByRaw('RAND()')/*->limit(2)*/->get();
+        })->with('perusahaan')->orderByRaw('RAND()')/*->limit(2)*/->get();
 
-        return view('welcome', compact('penawaran'));
-    }
-
-    public function perusahaan()
-    {
-        return view('layout.dashboard');
+        return view('welcome', compact('perusahaan'));
     }
 }
