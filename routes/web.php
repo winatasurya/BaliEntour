@@ -5,6 +5,7 @@ use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\WisatawanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -63,10 +64,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route lihat perusahaan
     Route::get('/show/{perusahaan}', [WisatawanController::class, 'lihatPerusahaan'])->name('lihat.perusahaan');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
 });
 
 Route::view('/about', 'aboutus')->name('about');
-Route::view('/payment', 'landing.payment')->name('payment');
 
 Route::resource('admin', AdminController::class);
 Route::view('/main', 'admin.main')->name('main');

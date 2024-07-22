@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
             $table->date('tgl_lahir')->nullable();
-            $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('wa_wisatawan')->nullable();
             $table->string('gambar')->nullable();
             $table->timestamps();
@@ -62,14 +61,17 @@ return new class extends Migration
 
           Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_wisatawan')->constrained('wisatawan');
-            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('cascade');
-            $table->date('tgl_reservasi');
-            $table->integer('jumlah_pemesanan');
+            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('set null');
+            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('set null');
+            $table->string('no_transaksi');
+            $table->string('snap_token');
+            $table->dateTime('check_in');
+            $table->dateTime('check_out');
+            $table->integer('qty');
             $table->float('total_harga');
-            $table->enum('status', ['Belum Dibayar', 'Berhasil', 'Gagal'])->default('Belum Dibayar');
+            $table->string('status')->default('Belum Dibayar');
             $table->timestamps();
-          });
+        });
 
           Schema::create('payment', function (Blueprint $table) {
             $table->id();

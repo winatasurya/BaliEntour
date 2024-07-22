@@ -200,7 +200,7 @@
                 <input type="password" name="password_confirmation" placeholder="Confirm Password" required />
                 <input type="hidden" name="role" id="role" />
                 <div id="perusahaanFields" style="display: none;">
-                    <select name="bidang" id="bidang" required>
+                    <select name="bidang" id="bidang">
                         <option value="" disabled selected>Pilih Bidang Perusahaan</option>
                         <option value="Beach Club & Bar">Beach Club & Bar</option>
                         <option value="Karaoke">Karaoke</option>
