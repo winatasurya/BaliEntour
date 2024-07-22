@@ -201,11 +201,6 @@
                     width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="contact">
-                <div class="form">
-                    <h2>Hubungi Kami</h2>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Modal -->

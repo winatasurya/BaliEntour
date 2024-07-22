@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar-transparent fixed w-full z-10">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="{{ route('welcome')}}"  class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a href="{{ route('welcome')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="img/2.png" class="h-12" alt="Travel Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap">Bali EnTour</span>
     </a>
@@ -20,19 +20,32 @@
           <a href="#place" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Event</a>
         </li>
         <li>
-          <a href="#pricing" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Accommodation</a>
+          <a href="{{ route('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
         </li>
         <li>
           <a href="#testi" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Testimonials</a>
         </li>
-        <li>
-          <a href="{{ route('about')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">About Us</a>
-        </li>
+        <!-- Conditional Dashboard Link -->
+        @auth
+          @if (Auth::user()->role == 'admin')
+            <li>
+              <a href="{{ route('admin')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Dashboard</a>
+            </li>
+          @elseif (Auth::user()->role == 'perusahaan')
+            <li>
+              <a href="{{ route('db_perusahaan')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Dashboard</a>
+            </li>
+          @elseif (Auth::user()->role == 'wisatawan')
+            <li>
+              <a href="{{ route('wisawatan')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Dashboard</a>
+            </li>
+          @endif
+        @endauth
         <li>
           @guest
-            <a href="{{ route('login')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Login </a>
+            <a href="{{ route('login')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0">Login</a>
           @else
-            <a href="{{ route('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"> Logout </a>
+            <a href="{{ route('logout')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
             <form action="{{ route('logout')}}" method="post" style="display: none" id="logout-form">
               @csrf
             </form>

@@ -185,13 +185,13 @@
         <p>"Bali Entertainment Tourism" adalah sebuah infrastruktur yang terintegrasi secara komprehensif, yang dirancang untuk mengumpulkan, mengolah, mengolah, dan menyebarkan informasi yang berkaitan dengan industri pariwisata di suatu daerah khususnya di daerah Bali atau destinasi tertentu. Fungsi utama sistem ini adalah untuk mendukung pengembangan, pengelolaan, dan promosi sektor pariwisata dengan lebih efektif
         </p>
         <div class="button-container">
-        <a href="#" class="article-link">Contact Us</a>
-        </div>
+                    <a href="https://wa.me/6285738959574?text=Hello%20Bali%20Entertainment%20Tourism" class="article-link" target="_blank">Contact Us</a>
+                </div>
       </div>
     </div>
     <!-- Article 2 -->
     <div class="article">
-      <img src="{{ asset('img/jabapura.jpg') }}" alt="Descriptive Alt Text" class="article-img">
+      <img src="{{ asset('img/poltek.jpg') }}" alt="Descriptive Alt Text" class="article-img">
     </div>
   </div>
 </section>
@@ -202,7 +202,7 @@
   <div class="cards-container">
     <!-- Card 1 -->
     <div class="card">
-      <img src="{{ asset('img/spa.jpg') }}" alt="Image 1" class="card-img">
+      <img src="{{ asset('img/formal3.jpg') }}" alt="Image 1" class="card-img">
       <div class="card-content">
         <h3 class="card-title">Listya</h3>
       </div>
@@ -210,7 +210,7 @@
 
     <!-- Card 2 -->
     <div class="card">
-      <img src="{{ asset('img/spa.jpg') }}" alt="Image 2" class="card-img">
+      <img src="{{ asset('img/formal2.jpg') }}" alt="Image 2" class="card-img">
       <div class="card-content">
         <h3 class="card-title">Agung Dwitya</h3>
       </div>
@@ -218,7 +218,7 @@
 
     <!-- Card 3 -->
     <div class="card">
-      <img src="{{ asset('img/spa.jpg') }}" alt="Image 3" class="card-img">
+      <img src="{{ asset('img/formal.jpeg') }}" alt="Image 3" class="card-img">
       <div class="card-content">
         <h3 class="card-title">Fernando</h3>
       </div>
@@ -226,7 +226,7 @@
 
     <!-- Card 4 -->
     <div class="card">
-      <img src="{{ asset('img/spa.jpg') }}" alt="Image 4" class="card-img">
+      <img src="{{ asset('img/formal1.jpeg') }}" alt="Image 4" class="card-img">
       <div class="card-content">
         <h3 class="card-title">Surya</h3>
       </div>
