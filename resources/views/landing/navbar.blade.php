@@ -37,7 +37,7 @@
             </li>
           @elseif (Auth::user()->role == 'wisatawan')
             <li>
-              <a href="{{ route('wisawatan')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Dashboard</a>
+              <a href="{{ route('wisatawan')}}" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0"> Dashboard</a>
             </li>
           @endif
         @endauth
