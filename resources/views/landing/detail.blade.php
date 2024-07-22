@@ -150,7 +150,7 @@
                 <h3 class="text-lg font-semibold">{{ $penawaran->nama_penawaran }}</h3>
                 <p class="mt-2 text-gray-600">Mulai dari <span
                         class="text-red-500 font-bold">{{ $penawaran->harga }}</span></p>
-                <a href="{{ route('payment') }}"><button class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg" >Lihat Paket</button></a>
+                <a href="{{ route('payment', $penawaran->penawaran->id) }}"><button class="mt-4 w-full bg-blue-500 text-white px-4 py-2 rounded-lg" >Lihat Paket</button></a>
             </div>
         @endforeach
     </div>

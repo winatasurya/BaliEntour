@@ -61,8 +61,8 @@ return new class extends Migration
 
           Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_wisatawan')->constrained('wisatawan')->onDelete('set null');
-            $table->foreignId('id_penawaran')->constrained('penawaran')->onDelete('set null');
+            $table->foreignId('id_wisatawan')->nullable()->constrained('wisatawan')->onDelete('set null');
+            $table->foreignId('id_penawaran')->nullable()->constrained('penawaran')->onDelete('set null');
             $table->string('no_transaksi');
             $table->string('snap_token');
             $table->dateTime('check_in');
@@ -72,7 +72,6 @@ return new class extends Migration
             $table->string('status')->default('Belum Dibayar');
             $table->timestamps();
         });
-
           Schema::create('payment', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_reservasi')->constrained('reservasi')->onDelete('cascade');
