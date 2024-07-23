@@ -62,7 +62,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route lihat perusahaan
     Route::get('/show/{perusahaan}', [WisatawanController::class, 'lihatPerusahaan'])->name('lihat.perusahaan');
-    Route::get('/payment/{penawaran}', [PaymentController::class, 'index'])->name('payment');
+    Route::get('/reservasi/{penawaran}', [PaymentController::class, 'index'])->name('reservasi');
+    Route::post('/reservasi/{penawaran}', [PaymentController::class, 'reservasi'])->name('payment');
 });
 
 Route::view('/about', 'aboutus')->name('about');
