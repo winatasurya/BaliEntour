@@ -185,12 +185,15 @@
             <a href="">Tambah Akomodasi</a>
         </div>
         <div class="card-container">
-            @foreach ($penawaran as $penawaran)
-                <div class="card">
-                    <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
-                    <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
-                </div>
-            @endforeach
+        @foreach ($penawaran as $penawaran)
+    <div class="card">
+        <a href="{{ route('penawaran.show', $penawaran->id) }}">
+            <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
+            <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
+        </a>
+    </div>
+@endforeach
+
         </div>
 
         <div class="info">
