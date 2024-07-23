@@ -53,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route untuk logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::resource('penawaran', PenawaranController::class);
+
     // Wisatawan
     Route::resource('wisatawan', WisatawanController::class);
 
@@ -78,13 +80,3 @@ Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusa
 Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
 Route::view('/ada', 'landing.detail')->name('ada');
 Route::view('/all', 'landing.viewall')->name('all');
-
-
-
-
-
-// routes/web.php
-Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show'); // Rute untuk detail penawaran
-Route::get('/penawaran/{penawaran}/edit', [PenawaranController::class, 'edit'])->name('penawaran.edit'); // Rute untuk form edit penawaran
-Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update'); // Rute untuk update penawaran
-Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
