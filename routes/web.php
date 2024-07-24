@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Wisatawan
     Route::resource('wisatawan', WisatawanController::class);
+    Route::get('/place', [DashboardController::class, 'allplace'])->name('place');
 
     // Route payment
     Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
@@ -84,7 +85,6 @@ Route::delete('/admin/wisatawan/{user}', [AdminController::class, 'destroyWisata
 Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusahaan'])->name('admin.destroy.perusahaan');
 Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
 Route::view('/ada', 'landing.detail')->name('ada');
-Route::view('/all', 'landing.viewall')->name('all');
 
 
 Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');

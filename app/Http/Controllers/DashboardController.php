@@ -17,4 +17,13 @@ class DashboardController extends Controller
 
         return view('welcome', compact('perusahaan'));
     }
+
+    public function allplace()
+    {
+        $perusahaan = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->with('perusahaan')->get();
+
+        return view('landing.viewall', compact('perusahaan'));
+    }
 }
