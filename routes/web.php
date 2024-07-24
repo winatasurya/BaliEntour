@@ -10,6 +10,7 @@ use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
+use App\Models\perusahaan;
 
 // halaman awal
 Route::get('/', [DashboardController::class, 'index'])->name('welcome');
@@ -82,6 +83,14 @@ Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name
 Route::view('/ada', 'landing.detail')->name('ada');
 Route::view('/all', 'landing.viewall')->name('all');
 
+Route::get('/all', function(){
+    $query = perusahaan::query();
+    if (request('search')){
+        $query->where('title', 'like', '%' . request('search') . '%');
+    }
+    $all = $query->get();
+    return view('all', ['all'=>$all]);
+});
 
 
 

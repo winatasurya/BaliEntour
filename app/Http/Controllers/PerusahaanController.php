@@ -19,6 +19,7 @@ class PerusahaanController extends Controller
         $user = auth()->user();
         $perusahaan = $user->perusahaan;
         $penawaran = $perusahaan ? $perusahaan->penawaran : collect();
+        $all = perusahaan::query();
 
         return view('perusahaan.db_perusahaan', compact('user', 'perusahaan', 'penawaran'));
     }
