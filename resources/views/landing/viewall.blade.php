@@ -13,7 +13,7 @@
        <div class="container mx-auto py-8 mt-20">
         <!-- Search Bar -->
         <div class="mb-4 flex justify-center">
-    <input type="text" name="search" placeholder="Search..." class="border border-gray-300 px-4 py-2 rounded-full w-1/2 mr-2">
+    <input type="text" placeholder="Search..." class="border border-gray-300 px-4 py-2 rounded-full w-1/2 mr-2">
     <button class="bg-teal-500 text-white px-4 py-2 rounded-full">Cari</button>
 </div>
 
