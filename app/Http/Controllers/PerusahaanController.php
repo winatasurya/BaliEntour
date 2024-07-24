@@ -52,7 +52,13 @@ class PerusahaanController extends Controller
      */
     public function edit(perusahaan $perusahaan)
     {
-        //
+     
+    // Get the currently authenticated user
+    $user = Auth::user();
+    // Fetch the company associated with the user
+    $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
+
+    return view('perusahaan.edit', compact('perusahaan'));
     }
 
     /**

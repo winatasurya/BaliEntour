@@ -83,7 +83,7 @@ Route::view('/ada', 'landing.detail')->name('ada');
 Route::view('/all', 'landing.viewall')->name('all');
 
 
-
+Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.update');
 
 
 // routes/web.php
