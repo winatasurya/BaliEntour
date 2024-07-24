@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreperusahaanRequest;
-use App\Http\Requests\UpdateperusahaanRequest;
-use App\Models\penawaran;
-use App\Models\perusahaan;
-use App\Models\User;
+use App\Models\Penawaran;
+use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PerusahaanController extends Controller
 {
@@ -25,50 +24,49 @@ class PerusahaanController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreperusahaanRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(perusahaan $perusahaan)
-    {
-        
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(perusahaan $perusahaan)
+    public function edit(Perusahaan $perusahaan)
     {
-        //
+        // Get the currently authenticated user
+        $user = Auth::user();
+        // Fetch the company associated with the user
+        $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
+
+        return view('perusahaan.edit', compact('perusahaan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateperusahaanRequest $request, perusahaan $perusahaan)
+    public function update(Request $request, Perusahaan $perusahaan)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'wa_perusahaan' => 'required|string|max:20',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'deskripsi' => 'required|string',
+        ]);
+
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
+
+        $user->name = $request->input('name');
+        $user->save();
+
+        $perusahaan->wa_perusahaan = $request->input('wa_perusahaan');
+        $perusahaan->deskripsi = $request->input('deskripsi');
+
+        if ($request->hasFile('logo')) {
+            // Delete the previous logo if it exists
+            if ($perusahaan->logo) {
+                Storage::disk('public')->delete($perusahaan->logo);
+            }
+
+            $path = $request->file('logo')->store('gambar_perusahaan', 'public');
+            $perusahaan->update(['logo' => $path]);
+        }
+
+        $perusahaan->save();
+
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(perusahaan $perusahaan)
-    {
-        //
-    }
 }

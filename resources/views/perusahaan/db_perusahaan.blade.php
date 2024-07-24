@@ -24,8 +24,13 @@
             padding: 10px;
             position: fixed;
             top: 10px;
-            left: 10px;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .back-button {
@@ -157,6 +162,9 @@
         <a href="{{ route('welcome') }}" class="back-button">
             <img src="{{ asset('img/arrow.png') }}" alt="Back" style="width: 30px; height: auto;">
         </a>
+        <a href="{{ route('perusahaan.edit', $perusahaan->id) }}" class="ml-auto">
+        <button class="btn btn-primary">Edit</button>
+    </a>
     </nav>
     <div class="main-content">
         @if (session('success'))

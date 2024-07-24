@@ -40,4 +40,9 @@ class perusahaan extends Model
     {
         return $this->HasMany(penawaran::class, 'id_perusahaan');
     }
+
+    public function rating() :HasMany
+    {
+        return $this->HasMany(rating::class, 'id_perusahaan');
+    }
 }

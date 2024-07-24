@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{ $perusahaan->nama }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -42,63 +42,28 @@
             <p class="text-gray-600">{{ $perusahaan->deskripsi }}</p>
         </div>
 
-        <!-- Check Availability Button -->
-        <div class="mt-4">
-            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg">Check availability</button>
-        </div>
-
         <!-- Reviews Section -->
         <div class="mt-8">
-            <h2 class="text-xl font-bold">Review</h2>
-            <div class="mt-4 flex items-center">
-                <span class="text-4xl font-bold">4.3/5</span>
-                <span class="ml-2 text-lg text-gray-500">Bagus dari 10335 review</span>
-            </div>
-            <div class="mt-4 flex space-x-4 overflow-x-auto scrollable-container">
-                <div class="p-4 border rounded-lg shadow flex-none w-96">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Seru sekali bisa kasih makan hewan secara langsung. Wahana juga
-                        banyak.</p>
-                    <p class="text-gray-500 mt-1">DN • Pasangan</p>
+            <h2 class="text-3xl font-bold">Rating</h2>
+            @if ($ratings->isEmpty())
+                <p class="text-gray-600">Belum ada review.</p>
+            @else
+                <span class="text-2xl font-bold">{{ $rate }}/5</span>
+                <div class="mt-4 flex space-x-4 overflow-x-auto scrollable-container">
+                    @foreach ($ratings as $rating)
+                        <div class="p-4 border rounded-lg shadow flex-none w-80">
+                            <div class="flex items-center justify-between">
+                                <span class="text-lg font-bold">Rate: {{ $rating->nilai }}/5</span>
+                                <span class="text-gray-500">{{ $rating->created_at->format('d M Y') }}</span>
+                            </div>
+                            <p class="text-gray-600 mt-2">{{ $rating->komentar }}</p>
+                            <p class="text-gray-500 mt-1">By {{ $rating->wisatawan->user->name }}</p>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-96">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Mantul pesan dan digunakan di hari yang sama aman banget jadi ga perlu
-                        takut ya sobat tiket</p>
-                    <p class="text-gray-500 mt-1">Ratna Dhanyanti • Keluarga</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-96">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Sangat kerennn dan istimewa</p>
-                    <p class="text-gray-500 mt-1">Dewi Dewi • Keluarga</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Pengalaman yang luar biasa, saya sangat menyukainya.</p>
-                    <p class="text-gray-500 mt-1">Agus Santoso • Solo</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Tempat yang sangat menyenangkan untuk keluarga.</p>
-                    <p class="text-gray-500 mt-1">Budi Hartono • Keluarga</p>
-                </div>
-            </div>
+            @endif
         </div>
+        
 
         <!-- Button to Open Modal -->
         <div class="mt-4">
@@ -126,8 +91,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <!-- Info Lainnya Section -->
         <div class="mt-8">
@@ -168,18 +131,14 @@
             <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
                 <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Tambahkan Review</h3>
-                    <form class="mt-4">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Nama</label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="name" type="text" placeholder="Nama">
-                        </div>
+                    <form class="mt-4" method="POST" action="{{ route('rating.store') }}">
+                        @csrf
+                        <input type="hidden" name="id_perusahaan" value="{{ $perusahaan->id }}">
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="rating">Rating</label>
                             <select
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="rating">
+                                name="nilai" id="rating">
                                 <option value="5">5</option>
                                 <option value="4">4</option>
                                 <option value="3">3</option>
@@ -191,30 +150,12 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="review">Review</label>
                             <textarea
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="review" placeholder="Tulis review Anda di sini..." rows="4"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="date">Tanggal</label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="date" type="date">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2"
-                                for="relationship">Hubungan</label>
-                            <select
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="relationship">
-                                <option value="Pasangan">Pasangan</option>
-                                <option value="Keluarga">Keluarga</option>
-                                <option value="Solo">Solo</option>
-                                <option value="Teman">Teman</option>
-                            </select>
+                                name="komentar" id="review" placeholder="Tulis review Anda di sini..." rows="4"></textarea>
                         </div>
                         <div class="flex items-center justify-between">
                             <button
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button">
+                                type="submit">
                                 Submit
                             </button>
                             <button id="closeModalButton"
@@ -249,8 +190,6 @@
             }
         });
     </script>
-
-
 </body>
 
 </html>
