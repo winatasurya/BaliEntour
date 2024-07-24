@@ -10,7 +10,6 @@ use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
-use App\Models\perusahaan;
 
 // halaman awal
 Route::get('/', [DashboardController::class, 'index'])->name('welcome');
@@ -51,6 +50,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
     Route::view('/detail', 'perusahaan.detail')->name('detail');
 
+    Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
+    Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.ubah');
+
+    Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show');
+    Route::get('/penawaran/{penawaran}/edit', [PenawaranController::class, 'edit'])->name('penawaran.edit');
+    Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update');
+    Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
+
     // Route untuk logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -82,21 +89,3 @@ Route::view('/admin', 'admin.content.admin')->name('admin');
 Route::delete('/admin/wisatawan/{user}', [AdminController::class, 'destroyWisatawan'])->name('admin.destroy.wisatawan');
 Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusahaan'])->name('admin.destroy.perusahaan');
 Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
-Route::view('/ada', 'landing.detail')->name('ada');
-
-Route::get('/all', function(){
-    $query = perusahaan::query();
-    if (request('search')){
-        $query->where('title', 'like', '%' . request('search') . '%');
-    }
-    $all = $query->get();
-    return view('all', ['all'=>$all]);
-});
-
-
-
-// routes/web.php
-Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show'); // Rute untuk detail penawaran
-Route::get('/penawaran/{penawaran}/edit', [PenawaranController::class, 'edit'])->name('penawaran.edit'); // Rute untuk form edit penawaran
-Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update'); // Rute untuk update penawaran
-Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');

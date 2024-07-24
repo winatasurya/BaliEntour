@@ -19,7 +19,7 @@
             flex-direction: column;
             align-items: center;
         }
-
+    
         .navbar {
             padding: 10px;
             position: fixed;
@@ -32,7 +32,7 @@
             justify-content: space-between;
             align-items: center;
         }
-
+    
         .back-button {
             display: inline-block;
             padding: 5px;
@@ -40,11 +40,11 @@
             background-color: rgba(248, 249, 250, 0.7);
             transition: background-color 0.3s;
         }
-
+    
         .back-button:hover {
             background-color: rgba(233, 236, 239, 0.9);
         }
-
+    
         .main-content {
             width: 100%;
             margin-top: 60px;
@@ -52,34 +52,34 @@
             flex-direction: column;
             align-items: center;
         }
-
+    
         .title h1 {
             text-align: center;
             font-size: 40px;
         }
-
+    
         .container {
             width: 100%;
             display: flex;
             justify-content: center;
         }
-
+    
         .container img {
             width: 50%;
             object-fit: cover;
         }
-
+    
         .deskripsi {
             display: flex;
             justify-content: center;
             padding: 0 20px;
         }
-
+    
         .deskripsi p {
             text-align: justify;
             font-size: 20px;
         }
-
+    
         .header {
             width: 85vw;
             display: flex;
@@ -87,11 +87,11 @@
             align-items: center;
             margin: 20px 0;
         }
-
+    
         .header h2 {
             font-size: 24px;
         }
-
+    
         .header a {
             background-color: #007bff;
             color: white;
@@ -99,7 +99,7 @@
             border-radius: 5px;
             text-decoration: none;
         }
-
+    
         .card-container {
             display: flex;
             overflow-x: auto;
@@ -108,7 +108,7 @@
             align-items: center;
             padding: 20px 0;
         }
-
+    
         .card {
             background-color: #fff;
             border-radius: 10px;
@@ -117,36 +117,40 @@
             text-align: center;
             flex-shrink: 0;
         }
-
+    
         .card-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
         }
-
+    
         .card-title {
             padding: 15px;
             font-size: 1.2em;
             color: #333;
         }
-
+    
         .info {
-            width: 90%;
+            width: 100%; /* Changed from 90% to 100% */
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             padding: 10px 20px;
             margin-top: 20px;
         }
-
+    
         .lokasi .contact {
             display: flex;
             align-items: center;
         }
 
+        .lokasi {
+            width: 100%;
+        }
+    
         .form p {
             font-size: 30px;
         }
-
+    
         .contact {
             display: flex;
             justify-content: center;
@@ -154,7 +158,15 @@
             width: 50%;
             color: white;
         }
+    
+        #map {
+            height: 600px; /* Adjust this value to make the map bigger */
+            width: 100%; /* Ensures the map takes full width */
+            margin-top: 20px; /* Optional: Adjust margin if needed */
+        }
     </style>
+    
+    
 </head>
 
 <body>
@@ -163,8 +175,8 @@
             <img src="{{ asset('img/arrow.png') }}" alt="Back" style="width: 30px; height: auto;">
         </a>
         <a href="{{ route('perusahaan.edit', $perusahaan->id) }}" class="ml-auto">
-        <button class="btn btn-primary">Edit</button>
-    </a>
+            <button class="btn btn-primary">Edit</button>
+        </a>
     </nav>
     <div class="main-content">
         @if (session('success'))
@@ -193,104 +205,35 @@
             <a href="">Tambah Akomodasi</a>
         </div>
         <div class="card-container">
-        @foreach ($penawaran as $penawaran)
-    <div class="card">
-        <a href="{{ route('penawaran.show', $penawaran->id) }}">
-            <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
-            <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
-        </a>
-    </div>
-@endforeach
-
+            @foreach ($penawaran as $penawaran)
+                <div class="card">
+                    <a href="{{ route('penawaran.show', $penawaran->id) }}">
+                        <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
+                        <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
+                    </a>
+                </div>
+            @endforeach
         </div>
 
-        <div class="info">
-            <div class="lokasi">
-                <h2>Lokasi</h2>
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.072187132447!2d115.26252877485332!3d-8.58905829145578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd23e3e6248225b%3A0xc3deac580c179df6!2sSanctoo%20Suites%20%26%20Villas!5e0!3m2!1sen!2sid!4v1720009583020!5m2!1sen!2sid"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="akomodasiModal" tabindex="-1" role="dialog" aria-labelledby="akomodasiModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="akomodasiModalLabel">Tambah Akomodasi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="akomodasiForm" action="{{ route('penawaran.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="nama_penawaran">Nama Penawaran</label>
-                            <input type="text" class="form-control" id="nama_penawaran" name="nama_penawaran"
-                                required>
-                            @error('nama_penawaran')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Harga Per Item</label>
-                            <input type="number" class="form-control" id="harga" name="harga" required>
-                            @error('harga')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="deskripsi">Deskripsi</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
-                            @error('deskripsi')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="foto">Foto Akomodasi</label>
-                            <input type="file" class="form-control-file" id="foto" name="foto"
-                                accept="image/*" required>
-                            @error('foto')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" id="submitAkomodasi">Simpan</button>
-                </div>
-            </div>
+    <div class="info">
+        <div class="lokasi">
+            <h2>Lokasi</h2>
+            <div id="map"></div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map').setView([{{ $perusahaan->latitude }}, {{ $perusahaan->longitude }}], 15);
 
-            // Tampilkan modal saat tombol diklik
-            $('a:contains("Tambah Akomodasi")').click(function(e) {
-                e.preventDefault();
-                $('#akomodasiModal').modal('show');
-            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-            // Handle submission
-            $('#submitAkomodasi').click(function() {
-                $('#akomodasiForm').submit();
-            });
-            // Menghilangkan alert setelah 5 detik
-            setTimeout(function() {
-                $('.alert-success').alert('close');
-            }, 5000);
+            L.marker([{{ $perusahaan->latitude }}, {{ $perusahaan->longitude }}]).addTo(map)
+                .bindPopup('<b>{{ $user->name }}</b><br>{{ $perusahaan->deskripsi }}')
+                .openPopup();
         });
     </script>
 </body>

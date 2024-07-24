@@ -23,11 +23,11 @@ return new class extends Migration {
       $table->id();
       $table->foreignId('id_users')->constrained('users')->onDelete('cascade');
       $table->enum('perizinan', ['setuju', 'tidak'])->default('tidak')->nullable();
-      $table->string('lokasi')->nullable();
+      $table->decimal('latitude', 10, 8)->nullable();
+      $table->decimal('longitude', 11, 8)->nullable();
       $table->string('bidang')->nullable();
       $table->string('wa_perusahaan')->nullable();
       $table->string('logo')->nullable();
-      $table->float('penilaian')->nullable();
       $table->text('deskripsi')->nullable();
       $table->timestamps();
     });

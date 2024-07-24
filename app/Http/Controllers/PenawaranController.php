@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Penawaran; // Use proper capitalization for model names
+use App\Models\Penawaran; 
 use Illuminate\Support\Facades\Storage;
 
 class PenawaranController extends Controller

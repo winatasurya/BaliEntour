@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $perusahaan = User::whereHas('perusahaan', function ($query) {
             $query->where('perizinan', 'setuju');
-        })->with('perusahaan')->orderByRaw('RAND()')->get();
+        })->with('perusahaan')->orderByRaw('RAND()')->limit(5)->get();
 
         return view('welcome', compact('perusahaan'));
     }
