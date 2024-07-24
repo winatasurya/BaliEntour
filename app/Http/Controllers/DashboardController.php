@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\perusahaan;
-use App\Models\user;
-use App\Models\penawaran;
+use App\Models\Perusahaan;
+use App\Models\User;
+use App\Models\Penawaran;
 
 class DashboardController extends Controller
 {
@@ -13,31 +13,30 @@ class DashboardController extends Controller
     {
         $perusahaan = User::whereHas('perusahaan', function ($query) {
             $query->where('perizinan', 'setuju');
-        })->with('perusahaan')->orderByRaw('RAND()')/*->limit(2)*/->get();
+        })->with('perusahaan')->orderByRaw('RAND()')->get();
 
         return view('welcome', compact('perusahaan'));
     }
+
     public function allplace(Request $request)
     {
-        // Ambil parameter pencarian dari permintaan
         $search = $request->input('search');
+        $bidang = $request->input('bidang');
         
-        // Mulai query untuk mengambil data perusahaan
-        $query = User::whereHas('perusahaan', function ($query) {
+        $perusahaan = User::whereHas('perusahaan', function ($query) use ($search, $bidang) {
             $query->where('perizinan', 'setuju');
-        })->with('perusahaan');
-        
-        // Terapkan pencarian jika parameter pencarian ada
-        if ($search) {
-            $query->whereHas('perusahaan', function ($query) use ($search) {
-                $query->where('nama', 'like', '%' . $search . '%');
-            });
-        }
-        
-        // Ambil hasil query
-        $perusahaan = $query->get();
-        
-        // Kembalikan view dengan data perusahaan
-        return view('landing.viewall', compact('perusahaan'));
+
+            if ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            }
+
+            if ($bidang) {
+                $query->where('bidang', $bidang);
+            }
+        })->with('perusahaan')->paginate(10);
+
+        $bidangs = Perusahaan::select('bidang')->distinct()->get();
+
+        return view('landing.viewall', compact('perusahaan', 'search', 'bidangs', 'bidang'));
     }
 }

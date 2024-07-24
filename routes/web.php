@@ -57,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Wisatawan
     Route::resource('wisatawan', WisatawanController::class);
     Route::get('/place', [DashboardController::class, 'allplace'])->name('place');
+    Route::get('/allplace', [DashboardController::class, 'allplace'])->name('allplace');
 
     // Route dashboard wisatawan
     Route::get('/wisatawan', [WisatawanController::class, 'index'])->name('wisatawan');

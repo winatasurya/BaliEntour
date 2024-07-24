@@ -6,7 +6,7 @@
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="beach-club.html" class="block">
+                <a href="{{ route('allplace', ['bidang' => 'Beach Club & Bar']) }}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-blue-500 text-white">
                         <img src="img/landingpage/barr.png" alt="Beach Club & Bar" class="w-6 h-6">
                     </div>
@@ -14,7 +14,7 @@
                 </a>
             </div>
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="karaoke.html" class="block">
+                <a href="{{ route('allplace', ['bidang' => 'Karaoke']) }}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-green-500 text-white">
                         <img src="img/landingpage/karaoke.png" alt="Karaoke" class="w-6 h-6">
                     </div>
@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="spa.html" class="block">
+                <a href="{{ route('allplace', ['bidang' => 'Spa']) }}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-purple-500 text-white">
                         <img src="img/landingpage/spa.png" alt="Spa" class="w-6 h-6">
                     </div>
@@ -30,7 +30,7 @@
                 </a>
             </div>
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="villa.html" class="block">
+                <a href="{{ route('allplace', ['bidang' => 'Villa & Suites']) }}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-yellow-500 text-white">
                         <img src="img/landingpage/villa.png" alt="Villa & Suites" class="w-6 h-6">
                     </div>
@@ -38,7 +38,7 @@
                 </a>
             </div>
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="restaurant.html" class="block">
+                <a href="{{ route('allplace', ['bidang' => 'Restaurant']) }}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-red-500 text-white">
                         <img src="img/landingpage/restaurant.png" alt="Restaurant" class="w-6 h-6">
                     </div>
@@ -55,4 +55,4 @@
             </div>
         </div>
     </div>
-  </section>
+</section>
