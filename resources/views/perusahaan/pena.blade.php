@@ -16,6 +16,8 @@
             @csrf
             @method('PUT')
 
+            <!-- Existing form fields -->
+
             <div class="mb-4">
                 <label for="nama_penawaran" class="block text-sm font-medium text-gray-700">Nama Penawaran</label>
                 <input type="text" id="nama_penawaran" name="nama_penawaran" value="{{ $penawaran->nama_penawaran }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
@@ -35,6 +37,12 @@
             <div class="mb-4">
                 <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
                 <textarea id="deskripsi" name="deskripsi" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">{{ $penawaran->deskripsi }}</textarea>
+            </div>
+
+            <!-- New subfoto input -->
+            <div class="mb-4">
+                <label for="subfotos" class="block text-sm font-medium text-gray-700">Subfotos (Max 5)</label>
+                <input type="file" id="subfotos" name="subfotos[]" class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500" multiple>
             </div>
 
             <div class="flex space-x-4">

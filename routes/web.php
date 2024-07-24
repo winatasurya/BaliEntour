@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\WisatawanController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
 
 // halaman awal
@@ -54,7 +54,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.ubah');
 
     Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show');
-    Route::get('/penawaran/{penawaran}/edit', [PenawaranController::class, 'edit'])->name('penawaran.edit');
     Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update');
     Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
 
