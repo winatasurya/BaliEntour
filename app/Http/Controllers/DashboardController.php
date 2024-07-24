@@ -17,4 +17,27 @@ class DashboardController extends Controller
 
         return view('welcome', compact('perusahaan'));
     }
+    public function allplace(Request $request)
+    {
+        // Ambil parameter pencarian dari permintaan
+        $search = $request->input('search');
+        
+        // Mulai query untuk mengambil data perusahaan
+        $query = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->with('perusahaan');
+        
+        // Terapkan pencarian jika parameter pencarian ada
+        if ($search) {
+            $query->whereHas('perusahaan', function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            });
+        }
+        
+        // Ambil hasil query
+        $perusahaan = $query->get();
+        
+        // Kembalikan view dengan data perusahaan
+        return view('landing.viewall', compact('perusahaan'));
+    }
 }
