@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SubfotoPenawaran;
 use Illuminate\Http\Request;
-use App\Models\Penawaran; // Use proper capitalization for model names
+use App\Models\Penawaran;
 use Illuminate\Support\Facades\Storage;
 
 class PenawaranController extends Controller
@@ -44,13 +45,6 @@ class PenawaranController extends Controller
         return view('perusahaan.pena', ['penawaran' => $penawaran]);
     }
 
-    // Method to show the edit form
-    public function edit($id)
-    {
-        $penawaran = Penawaran::findOrFail($id);
-        return view('perusahaan.edit', compact('penawaran'));
-    }
-
     // Method to update a penawaran
     public function update(Request $request, $id)
     {
@@ -61,7 +55,8 @@ class PenawaranController extends Controller
             'nama_penawaran' => ['required', 'max:255'],
             'harga' => ['required', 'numeric'],
             'deskripsi' => ['required'],
-            'foto' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg']
+            'foto' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'],
+            'subfotos.*' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg']
         ]);
 
         // Update nama
@@ -82,6 +77,24 @@ class PenawaranController extends Controller
         // Update harga dan deskripsi
         $penawaran->harga = $data['harga'];
         $penawaran->deskripsi = $data['deskripsi'];
+
+        // Handle subfotos
+        if ($request->hasFile('subfotos')) {
+            $currentSubfotos = SubfotoPenawaran::where('id_penawaran', $penawaran->id)->count();
+            $newSubfotosCount = count($request->file('subfotos'));
+
+            if ($currentSubfotos + $newSubfotosCount > 5) {
+                return redirect()->back()->withErrors(['subfotos' => 'Each penawaran can only have a maximum of 5 subfotos.']);
+            }
+
+            foreach ($request->file('subfotos') as $subfoto) {
+                $subfotoPath = $subfoto->store('subfoto_penawaran', 'public');
+                SubfotoPenawaran::create([
+                    'id_penawaran' => $penawaran->id,
+                    'subfoto' => $subfotoPath
+                ]);
+            }
+        }
 
         // Simpan perubahan
         $penawaran->save();

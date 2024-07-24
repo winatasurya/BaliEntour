@@ -24,4 +24,8 @@ class penawaran extends Model
     {
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
+    public function subfoto()
+    {
+        return $this->hasMany(SubfotoPenawaran::class, 'id_penawaran');
+    }
 }

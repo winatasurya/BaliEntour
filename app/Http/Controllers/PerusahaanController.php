@@ -18,6 +18,7 @@ class PerusahaanController extends Controller
         $user = auth()->user();
         $perusahaan = $user->perusahaan;
         $penawaran = $perusahaan ? $perusahaan->penawaran : collect();
+        $all = perusahaan::query();
 
         return view('perusahaan.db_perusahaan', compact('user', 'perusahaan', 'penawaran'));
     }
@@ -42,6 +43,8 @@ class PerusahaanController extends Controller
             'wa_perusahaan' => 'required|string|max:20',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
         $user = Auth::user();
@@ -52,20 +55,20 @@ class PerusahaanController extends Controller
 
         $perusahaan->wa_perusahaan = $request->input('wa_perusahaan');
         $perusahaan->deskripsi = $request->input('deskripsi');
+        $perusahaan->latitude = $request->input('latitude');
+        $perusahaan->longitude = $request->input('longitude');
 
         if ($request->hasFile('logo')) {
-            // Delete the previous logo if it exists
             if ($perusahaan->logo) {
                 Storage::disk('public')->delete($perusahaan->logo);
             }
 
             $path = $request->file('logo')->store('gambar_perusahaan', 'public');
-            $perusahaan->update(['logo' => $path]);
+            $perusahaan->logo = $path;
         }
 
         $perusahaan->save();
 
         return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
     }
-
 }

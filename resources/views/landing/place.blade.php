@@ -4,7 +4,7 @@
             Place
         </h1>
         <div class="absolute top-0 right-0 mt-2 mr-2">
-            <a href="{{route('all')}}"  class="text-gray-500 hover:text-gray-700">
+        <a href="{{route('place')}}"  class="text-gray-500 hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>

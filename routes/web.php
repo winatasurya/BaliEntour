@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\WisatawanController;
@@ -8,8 +9,6 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\RatingController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
 
 // halaman awal
@@ -51,16 +50,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/db_perusahaan', [PerusahaanController::class, 'index'])->name('db_perusahaan');
     Route::view('/detail', 'perusahaan.detail')->name('detail');
 
+    Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
+    Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.ubah');
+
+    Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show');
+    Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update');
+    Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
+
     // Route untuk logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Wisatawan
     Route::resource('wisatawan', WisatawanController::class);
-
-    // Route payment
-    Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
-    Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
-    Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
+    Route::get('/place', [DashboardController::class, 'allplace'])->name('place');
+    Route::get('/allplace', [DashboardController::class, 'allplace'])->name('allplace');
 
     // Route dashboard wisatawan
     Route::get('/wisatawan', [WisatawanController::class, 'index'])->name('wisatawan');
@@ -68,8 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route lihat perusahaan
     Route::get('/show/{perusahaan}', [WisatawanController::class, 'lihatPerusahaan'])->name('lihat.perusahaan');
-    Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
     Route::get('/reservasi/{penawaran}', [PaymentController::class, 'index'])->name('reservasi');
+    Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
+    Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
+    Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
 });
 
 Route::view('/about', 'aboutus')->name('about');
@@ -83,15 +88,3 @@ Route::view('/admin', 'admin.content.admin')->name('admin');
 Route::delete('/admin/wisatawan/{user}', [AdminController::class, 'destroyWisatawan'])->name('admin.destroy.wisatawan');
 Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusahaan'])->name('admin.destroy.perusahaan');
 Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
-Route::view('/ada', 'landing.detail')->name('ada');
-Route::view('/all', 'landing.viewall')->name('all');
-
-
-Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
-Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.ubah');
-
-
-// routes/web.php
-Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'showi'])->name('penawaran.show'); // Rute untuk detail penawaran
-Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update'); // Rute untuk update penawaran
-Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
