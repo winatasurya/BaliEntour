@@ -14,6 +14,12 @@
 <body class="bg-gray-100">
     <main class="py-5">
         <div class="container">
+              <!-- Back button -->
+              <a href="{{ url()->previous() }}" class="position-absolute top-0 start-0 m-3 text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.354 4.646a.5.5 0 0 0-.708 0L5.293 9.293a.5.5 0 1 0 .707.707L10 5.707V8.5a.5.5 0 1 0 1 0V4a.5.5 0 0 0-.5-.5H6a.5.5 0 1 0 0 1h4.5a.5.5 0 0 0 .5-.5z"/>
+                </svg>
+            </a>
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-8 col-12">
                     <h2 class="fs-5 py-4 text-center">Reservasi {{ $penawaran->nama_penawaran }}</h2>
