@@ -1,148 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservasi - {{ $penawaran->nama_penawaran }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100">
-    <div class="container mx-auto mt-8 p-4">
-        <h1 class="text-2xl font-bold mb-4">Reservasi {{ $penawaran->nama_penawaran }}</h1>
+    <main class="py-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8 col-12">
+                    <h2 class="fs-5 py-4 text-center">Reservasi {{ $penawaran->nama_penawaran }}</h2>
+                    
+                    <!-- Carousel -->
+                    <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 3">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 4">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 5">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    
+                    <div class="card border rounded shadow">
+                        <div class="card-body">
+                            <form id="reservationForm">
+                                <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
+                                <input type="hidden" name="nama_perusahaan" value="{{ $penawaran->perusahaan->user->name }}">
+                                <input type="hidden" name="nama_item" value="{{ $penawaran->nama_penawaran }}">
+                                <input type="hidden" id="qty" name="qty">
 
-        <div class="flex justify-center space-x-4 mb-4">
-            <img src="{{ asset('img/' . $penawaran->foto) }}" class="w-32 h-32 object-cover">
-            <img src="{{ asset('img/' . $penawaran->foto) }}" class="w-32 h-32 object-cover">
-            <img src="{{ asset('img/' . $penawaran->foto) }}" class="w-32 h-32 object-cover">
-            <img src="{{ asset('img/' . $penawaran->foto) }}" class="w-32 h-32 object-cover">
-            <img src="{{ asset('img/' . $penawaran->foto) }}" class="w-32 h-32 object-cover">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="nama_wisatawan" class="form-label">Nama Wisatawan</label>
+                                        <input type="text" id="nama_wisatawan" name="nama_pemesan" value="{{ auth()->user()->name }}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="harga_item_display" class="form-label">Harga per
+                                            @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
+                                                Hari
+                                            @else
+                                                Jam
+                                            @endif
+                                        </label>
+                                        <input type="text" id="harga_item_display" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="form-control" readonly>
+                                        <input type="hidden" id="harga_item" name="harga_item" value="{{ $penawaran->harga }}">
+                                    </div>
+                                    @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
+                                        <div class="col-md-6 mb-2">
+                                            <label for="tanggal_check_in" class="form-label">Tanggal Check-in</label>
+                                            <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="tanggal_check_out" class="form-label">Tanggal Check-out</label>
+                                            <input type="date" id="tanggal_check_out" name="tanggal_check_out" class="form-control" required>
+                                        </div>
+                                    @else
+                                        <div class="col-md-6 mb-2">
+                                            <label for="tanggal_check_in" class="form-label">Tanggal Reservasi</label>
+                                            <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="waktu_check_in" class="form-label">Waktu Check-in</label>
+                                            <input type="time" id="waktu_check_in" name="waktu_check_in" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="waktu_check_out" class="form-label">Waktu Check-out</label>
+                                            <input type="time" id="waktu_check_out" name="waktu_check_out" class="form-control" required>
+                                        </div>
+                                    @endif
+                                    <div class="col-md-6 mb-2">
+                                        <label for="total_harga_display" class="form-label">Total Harga</label>
+                                        <input type="text" id="total_harga_display" class="form-control" readonly>
+                                        <input type="hidden" id="total_harga" name="total_harga">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary" id="pay-button">Bayar Reservasi</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <form id="reservationForm" action="{{ route('payment', $penawaran->id) }}" method="POST"
-            class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            @csrf
-            <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
-            <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
-            <input type="hidden" name="nama_perusahaan" value="{{ $penawaran->perusahaan->user->name }}">
-            <input type="hidden" name="nama_item" value="{{ $penawaran->nama_penawaran }}">
-            <input type="hidden" id="qty" name="qty">
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="nama_wisatawan">
-                    Nama Wisatawan
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    value="{{ auth()->user()->name }}" id="nama_wisatawan" type="text" name="nama_pemesan" readonly>
-            </div>
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="harga_item_display">
-                    Harga per
-                    @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
-                        Hari
-                    @else
-                        Jam
-                    @endif
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    value="{{ number_format($penawaran->harga, 0, ',', '.') }}" id="harga_item_display" type="text"
-                    readonly>
-                <input type="hidden" id="harga_item" name="harga_item" value="{{ $penawaran->harga }}">
-            </div>
-
-            @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tanggal_check_in">
-                        Tanggal Check-in
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="tanggal_check_in" type="date" name="tanggal_check_in" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tanggal_check_out">
-                        Tanggal Check-out
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="tanggal_check_out" type="date" name="tanggal_check_out" required>
-                </div>
-            @else
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tanggal_check_in">
-                        Tanggal Reservasi
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="tanggal_check_in" type="date" name="tanggal_check_in" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="waktu_check_in">
-                        Waktu Check-in
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="waktu_check_in" type="time" name="waktu_check_in" required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="waktu_check_out">
-                        Waktu Check-out
-                    </label>
-                    <input
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="waktu_check_out" type="time" name="waktu_check_out" required>
-                </div>
-            @endif
-
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="total_harga_display">
-                    Total Harga
-                </label>
-                <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="total_harga_display" type="text" readonly>
-                <input type="hidden" id="total_harga" name="total_harga">
-            </div>
-
-            <div class="flex items-center justify-between">
-                <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    Buat Reservasi
-                </button>
-            </div>
-        </form>
-
-        @if(isset($reservasi))
-        <div id="reservationDetails" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8">
-            <h2 class="text-xl font-bold mb-4">Detail Reservasi</h2>
-            <p><strong>Nomor Transaksi:</strong> {{ $reservasi->no_transaksi }}</p>
-            <p><strong>Nama Pemesan:</strong> {{ $reservasi->nama_pemesan }}</p>
-            <p><strong>Nama Perusahaan:</strong> {{ $reservasi->nama_perusahaan }}</p>
-            <p><strong>Nama Item:</strong> {{ $reservasi->nama_item }}</p>
-            <p><strong>Jumlah:</strong> {{ $reservasi->qty }}</p>
-            <p><strong>Harga Item:</strong> {{ number_format($reservasi->harga_item, 0, ',', '.') }}</p>
-            <p><strong>Total Harga:</strong> {{ number_format($reservasi->total_harga, 0, ',', '.') }}</p>
-            <p><strong>Tanggal Check-in:</strong> {{ $reservasi->tanggal_check_in }}</p>
-            @if($reservasi->tanggal_check_out)
-                <p><strong>Tanggal Check-out:</strong> {{ $reservasi->tanggal_check_out }}</p>
-            @endif
-            @if($reservasi->waktu_check_in)
-                <p><strong>Waktu Check-in:</strong> {{ $reservasi->waktu_check_in }}</p>
-            @endif
-            @if($reservasi->waktu_check_out)
-                <p><strong>Waktu Check-out:</strong> {{ $reservasi->waktu_check_out }}</p>
-            @endif
-        </div>
-        @endif
-    </div>
-
-    <script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>    
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+    <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPenawaran = {{ $penawaran->harga }};
             const bidang = '{{ $penawaran->perusahaan->bidang }}';
@@ -219,12 +199,72 @@
                     waktuCheckOutElement.addEventListener('change', calculateTotalHarga);
                 }
             }
+
+            $('#pay-button').click(function(event) {
+                event.preventDefault();
+
+                $.post("{{ route('reservasi.pay') }}", {
+                        _method: 'POST',
+                        _token: '{{ csrf_token() }}',
+                        id_wisatawan: $('input[name=id_wisatawan]').val(),
+                        id_penawaran: $('input[name=id_penawaran]').val(),
+                        nama_perusahaan: $('input[name=nama_perusahaan]').val(),
+                        nama_pemesan: $('input[name=nama_pemesan]').val(),
+                        nama_item: $('input[name=nama_item]').val(),
+                        qty: $('input[name=qty]').val(),
+                        harga_item: $('input[name=harga_item]').val(),
+                        tanggal_check_in: $('input[name=tanggal_check_in]').val(),
+                        tanggal_check_out: $('input[name=tanggal_check_out]').val(),
+                        waktu_check_in: $('input[name=waktu_check_in]').val(),
+                        waktu_check_out: $('input[name=waktu_check_out]').val(),
+                        total_harga: $('input[name=total_harga]').val()
+                    },
+                    function(data, status) {
+                        if (data.status === 'success') {
+                            snap.pay(data.snap_token, {
+                                onSuccess: function(result) {
+                                    $.post("{{ route('reservasi.updateStatus') }}", {
+                                        _method: 'POST',
+                                        _token: '{{ csrf_token() }}',
+                                        reservasi_id: data.reservasi_id,
+                                        status: 'success'
+                                    }, function(updateData, updateStatus) {
+                                        alert('Payment success!');
+                                        location.reload();
+                                    });
+                                },
+                                onPending: function(result) {
+                                    alert('Waiting for your payment!');
+                                    location.reload();
+                                },
+                                onError: function(result) {
+                                    $.post("{{ route('reservasi.delete') }}", {
+                                        _method: 'DELETE',
+                                        _token: '{{ csrf_token() }}',
+                                        reservasi_id: data.reservasi_id
+                                    }, function(deleteData, deleteStatus) {
+                                        alert('Payment failed!');
+                                        location.reload();
+                                    });
+                                },
+                                onClose: function() {
+                                    $.post("{{ route('reservasi.delete') }}", {
+                                        _method: 'DELETE',
+                                        _token: '{{ csrf_token() }}',
+                                        reservasi_id: data.reservasi_id
+                                    }, function(deleteData, deleteStatus) {
+                                        alert('You closed the popup without finishing the payment');
+                                        location.reload();
+                                    });
+                                }
+                            });
+                        } else {
+                            alert('Failed to initialize payment. Please try again.');
+                        }
+                    });
+            });
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script
-        src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}"
-        data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
 </body>
+
 </html>
