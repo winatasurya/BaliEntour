@@ -42,10 +42,6 @@
             <p class="text-gray-600">{{ $perusahaan->deskripsi }}</p>
         </div>
 
-        <!-- Check Availability Button -->
-        <div class="mt-4">
-            <button class="bg-purple-500 text-white px-4 py-2 rounded-lg">Check availability</button>
-        </div>
 
         <!-- Reviews Section -->
         <div class="mt-8">
@@ -63,39 +59,6 @@
                     <p class="text-gray-600 mt-2">Seru sekali bisa kasih makan hewan secara langsung. Wahana juga
                         banyak.</p>
                     <p class="text-gray-500 mt-1">DN • Pasangan</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-96">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Mantul pesan dan digunakan di hari yang sama aman banget jadi ga perlu
-                        takut ya sobat tiket</p>
-                    <p class="text-gray-500 mt-1">Ratna Dhanyanti • Keluarga</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-96">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Sangat kerennn dan istimewa</p>
-                    <p class="text-gray-500 mt-1">Dewi Dewi • Keluarga</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Pengalaman yang luar biasa, saya sangat menyukainya.</p>
-                    <p class="text-gray-500 mt-1">Agus Santoso • Solo</p>
-                </div>
-                <div class="p-4 border rounded-lg shadow flex-none w-80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-lg font-bold">5.0/5</span>
-                        <span class="text-gray-500">7 Jul 2024</span>
-                    </div>
-                    <p class="text-gray-600 mt-2">Tempat yang sangat menyenangkan untuk keluarga.</p>
-                    <p class="text-gray-500 mt-1">Budi Hartono • Keluarga</p>
                 </div>
             </div>
         </div>
@@ -159,75 +122,57 @@
 
     @include('landing.footer')
 
-    <!-- Modal for Adding a Review -->
-    <div id="reviewModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
-        <div class="flex items-center justify-center min-h-screen px-4">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
-                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Tambahkan Review</h3>
-                    <form class="mt-4">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Nama</label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="name" type="text" placeholder="Nama">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="rating">Rating</label>
-                            <select
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="rating">
-                                <option value="5">5</option>
-                                <option value="4">4</option>
-                                <option value="3">3</option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="review">Review</label>
-                            <textarea
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="review" placeholder="Tulis review Anda di sini..." rows="4"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="date">Tanggal</label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="date" type="date">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2"
-                                for="relationship">Hubungan</label>
-                            <select
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="relationship">
-                                <option value="Pasangan">Pasangan</option>
-                                <option value="Keluarga">Keluarga</option>
-                                <option value="Solo">Solo</option>
-                                <option value="Teman">Teman</option>
-                            </select>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button">
-                                Submit
-                            </button>
-                            <button id="closeModalButton"
-                                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="button">
-                                Batal
-                            </button>
-                        </div>
-                    </form>
-                </div>
+   <!-- Modal for Adding a Review -->
+<div id="reviewModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+    <div class="flex items-center justify-center min-h-screen px-4">
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all max-w-lg w-full">
+            <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Tambahkan Review</h3>
+                <form class="mt-4">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Nama</label>
+                        <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="name" type="text" placeholder="Nama">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="rating">Rating</label>
+                        <select
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="rating">
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="review">Review</label>
+                        <textarea
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="review" placeholder="Tulis review Anda di sini..." rows="4"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                            Submit
+                        </button>
+                        <button id="closeModalButton"
+                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                            Batal
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
     <script>
         const openModalButton = document.getElementById('openModalButton');
