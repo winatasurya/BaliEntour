@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorewisatawanRequest;
 use App\Models\perusahaan;
+use App\Models\rating;
 use App\Models\wisatawan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,14 +20,20 @@ class WisatawanController extends Controller
         $user = auth()->user();
         $wisatawan = $user->wisatawan;
 
-        return view('user', compact('user','wisatawan'));
+        return view('user', compact('user', 'wisatawan'));
     }
 
     public function lihatPerusahaan(Perusahaan $perusahaan)
     {
         $perusahaan->load('penawaran');
-        return view('landing.detail', compact('perusahaan'));
+        $ratings = rating::where('id_perusahaan', $perusahaan->id)->get();
+        $totalRatings = rating::where('id_perusahaan', $perusahaan->id)->sum('nilai');
+        $banyakRatings = rating::where('id_perusahaan', $perusahaan->id)->count();
+
+        $rate = $banyakRatings > 0 ? number_format($totalRatings / $banyakRatings, 1) : 0;
+        return view('landing.detail', compact('perusahaan', 'ratings', 'rate'));
     }
+
 
     /**
      * Show the form for creating a new resource.
