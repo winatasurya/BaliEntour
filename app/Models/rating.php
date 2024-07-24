@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class rating extends Model
 {
@@ -17,16 +16,14 @@ class rating extends Model
         'nilai',
         'komentar',
     ];
-
-    // Relasi dengan model User
-    public function user()
+    public function perusahaan()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Perusahaan::class, 'id_perusahaan');
     }
 
-    public function penawaran() :HasMany
+    public function wisatawan()
     {
-        return $this->HasMany(penawaran::class, 'id_perusahaan');
+        return $this->belongsTo(Wisatawan::class, 'id_wisatawan');
     }
 
 }

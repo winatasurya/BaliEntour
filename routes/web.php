@@ -8,6 +8,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PenawaranController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VerifyEmailController;
 
@@ -56,16 +57,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Wisatawan
     Route::resource('wisatawan', WisatawanController::class);
 
+    // Route payment
+    Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
+    Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
+    Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
+
     // Route dashboard wisatawan
     Route::get('/wisatawan', [WisatawanController::class, 'index'])->name('wisatawan');
     Route::post('/change-password', [PasswordController::class, 'changePassword'])->name('change.password');
 
     // Route lihat perusahaan
     Route::get('/show/{perusahaan}', [WisatawanController::class, 'lihatPerusahaan'])->name('lihat.perusahaan');
+    Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
     Route::get('/reservasi/{penawaran}', [PaymentController::class, 'index'])->name('reservasi');
-    Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
-    Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
-    Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
 });
 
 Route::view('/about', 'aboutus')->name('about');
