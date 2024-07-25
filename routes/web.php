@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
@@ -75,6 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
     Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
     Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
+    Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
 });
 
 Route::view('/about', 'aboutus')->name('about');
