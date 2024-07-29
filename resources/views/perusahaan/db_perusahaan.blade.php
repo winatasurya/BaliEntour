@@ -54,14 +54,19 @@
         }
 
         .title h1 {
-    text-align: center;
-    font-size: 2.5rem; /* Relative unit for responsive design */
-    font-weight: bold; /* Bold font for emphasis */
-    margin-top: 2rem; /* Add top margin to create space from the top */
-    margin-bottom: 1rem; /* Optional: Add bottom margin for spacing */
-    padding: 0; /* Remove default padding */
+            text-align: center;
+            font-size: 2.5rem;
+            /* Relative unit for responsive design */
+            font-weight: bold;
+            /* Bold font for emphasis */
+            margin-top: 2rem;
+            /* Add top margin to create space from the top */
+            margin-bottom: 1rem;
+            /* Optional: Add bottom margin for spacing */
+            padding: 0;
+            /* Remove default padding */
 
-}
+        }
 
 
 
@@ -69,16 +74,18 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            
+
         }
 
         .container img {
-    width: 50%;
-    object-fit: cover;
-    border: 5px solid #ddd; /* Thin gray border around the image */
-    border-radius: 5px; /* Optional: Rounded corners for the image */
-    
-}
+            width: 50%;
+            object-fit: cover;
+            border: 5px solid #ddd;
+            /* Thin gray border around the image */
+            border-radius: 5px;
+            /* Optional: Rounded corners for the image */
+
+        }
 
         .deskripsi {
             display: flex;
@@ -220,7 +227,8 @@
                 <div class="card">
                     <a href="{{ route('penawaran.show', $penawaran->id) }}">
                         @if ($penawaran->foto)
-                            <img class="card-img" src="{{ asset('img/' . $penawaran->foto) }}" alt="{{ $penawaran->nama_penawaran }}">
+                            <img class="card-img" src="{{ asset('img/' . $penawaran->foto) }}"
+                                alt="{{ $penawaran->nama_penawaran }}">
                         @else
                             <img class="card-img" src="img/paja.jpg" alt="Default Image">
                         @endif
@@ -237,8 +245,63 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="akomodasiModal" tabindex="-1" role="dialog" aria-labelledby="akomodasiModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="akomodasiModalLabel">Tambah Akomodasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="akomodasiForm" action="{{ route('penawaran.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="nama_penawaran">Nama Penawaran</label>
+                            <input type="text" class="form-control" id="nama_penawaran" name="nama_penawaran"
+                                required>
+                            @error('nama_penawaran')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="harga">Harga Per Item</label>
+                            <input type="number" class="form-control" id="harga" name="harga" required>
+                            @error('harga')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
+                            @error('deskripsi')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="foto">Foto Akomodasi</label>
+                            <input type="file" class="form-control-file" id="foto" name="foto"
+                                accept="image/*" required>
+                            @error('foto')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="submitAkomodasi">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var map = L.map('map').setView([{{ $perusahaan->latitude }}, {{ $perusahaan->longitude }}], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -248,6 +311,23 @@
             L.marker([{{ $perusahaan->latitude }}, {{ $perusahaan->longitude }}]).addTo(map)
                 .bindPopup('<b>{{ $user->name }}</b><br>{{ $perusahaan->deskripsi }}')
                 .openPopup();
+        });
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('a:contains("Tambah Akomodasi")').click(function(e) {
+                e.preventDefault();
+                $('#akomodasiModal').modal('show');
+            });
+            $('#submitAkomodasi').click(function() {
+                $('#akomodasiForm').submit();
+            });
+            setTimeout(function() {
+                $('.alert-success').alert('close');
+            }, 5000);
         });
     </script>
 </body>

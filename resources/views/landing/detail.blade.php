@@ -8,6 +8,17 @@
     <title>{{ $perusahaan->user->name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        function updateLocation() {
+            var lat = document.getElementById('latitude').value;
+            var lng = document.getElementById('longitude').value;
+            document.getElementById('mapEmbed').src = `https://maps.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLocation(); // Update map on page load
+        });
+    </script>
 </head>
 
 <body>
@@ -98,23 +109,27 @@
         <!-- Google Maps Embed -->
         <div class="mt-8">
             <h2 class="text-xl font-bold">Lokasi</h2>
-            <div class="mt-4 relative">
-                <div class="overflow-hidden rounded-lg shadow" style="max-width: 100%; max-height: 300px;">
-                    <iframe id="mapEmbed"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.274252759748!2d115.1384535!3d-8.665447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2477f04748e85%3A0x65b83481caecd509!2sAtlas%20Beach%20Club!5e0!3m2!1sid!2sid!4v1720359560772!5m2!1sid!2sid"
-                        width="100%" height="100%" style="border: 0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+            @if ($perusahaan->latitude && $perusahaan->longitude)
+                <div class="mt-4 relative">
+                    <div class="overflow-hidden rounded-lg shadow" style="max-width: 100%; max-height: 300px;">
+                        <iframe id="mapEmbed"
+                            width="100%" height="300" frameborder="0" style="border:0" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <input type="hidden" id="latitude" value="{{ $perusahaan->latitude }}">
+                    <input type="hidden" id="longitude" value="{{ $perusahaan->longitude }}">
+                    <div class="mt-2 flex items-center">
+                        <span class="text-gray-600">{{ $perusahaan->alamat }}</span>
+                    </div>
+                    <div class="mt-2 flex space-x-4">
+                        <a href="#" class="text-blue-500 hover:underline">Lihat Peta</a>
+                        <a href="#" class="text-blue-500 hover:underline">Panduan ke Lokasi</a>
+                    </div>
                 </div>
-                <div class="mt-2 flex items-center">
-                    <span class="text-gray-600">Jalan Kapten Harun Kabir, Cibeureum, Bogor Regency, West Java,
-                        Indonesia, Cisarua, Bogor, Jawa Barat, Indonesia</span>
-                </div>
-                <div class="mt-2 flex space-x-4">
-                    <a href="#" class="text-blue-500 hover:underline">Lihat Peta</a>
-                    <a href="#" class="text-blue-500 hover:underline">Panduan ke Lokasi</a>
-                </div>
-            </div>
+            @else
+                <div class="mt-4 text-gray-600">Lokasi tidak tersedia</
+            @endif
         </div>
 
         <!-- Booking Info -->
@@ -129,8 +144,76 @@
             </div>
         @endforeach
     </div>
+    <footer class="relative bg-blueGray-200 pt-8 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap text-left lg:text-left">
+                <div class="w-full lg:w-6/12 px-4">
+                    <h4 class="text-3xl font-semibold text-blueGray-700">Let's keep in Bali Entertainment Tourism!</h4>
+                    <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+                        Find us on any of these platforms, we respond 1-2 business days.
+                    </h5>
+                    <div class="mt-6 lg:mb-0 mb-6">
+                        <a href="https://www.instagram.com/politeknik_negeri_bali" target="_blank">
+                            <button
+                                class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                                type="button">
+                                <i class="fab fa-instagram"></i>
+                            </button>
+                        </a>
+                        <a href="https://www.facebook.com/PoltekBali" target="_blank">
+                            <button
+                                class="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                                type="button">
+                                <i class="fab fa-facebook-square"></i>
+                            </button>
+                        </a>
+                        <a href="https://www.youtube.com/@PoliteknikNegeriBaliOfficial" target="_blank">
+                            <button
+                                class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                                type="button">
+                                <i class="fab fa-youtube"></i>
+                            </button>
+                        </a>
+                        <a href="https://www.pnb.ac.id/" target="_blank">
+                            <button
+                                class="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                                type="button">
+                                <i class="fab fa-google"></i>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    @include('landing.footer')
+            <!-- Contact Us -->
+            <div class="flex flex-col sm:flex-row items-center justify-start mt-4">
+                <div class="flex items-center mb-2 sm:mb-0">
+                    <i class="fas fa-map-marker-alt text-blueGray-600 text-lg mr-2"></i>
+                    <span class="text-sm text-blueGray-600">Location: Kampus Bukit, Jimbaran, Badung, Bali 80364</span>
+                </div>
+                <div class="flex items-center mb-2 sm:mb-0 ml-0 sm:ml-4">
+                    <i class="fas fa-phone-alt text-blueGray-600 text-lg mr-2"></i>
+                    <span class="text-sm text-blueGray-600">Phone: 082147351926</span>
+                </div>
+                <div class="flex items-center mb-2 sm:mb-0 ml-0 sm:ml-4">
+                    <i class="fas fa-envelope text-blueGray-600 text-lg mr-2"></i>
+                    <span class="text-sm text-blueGray-600">Email: balientour@gmail.com</span>
+                </div>
+            </div>
+            <hr class="my-6 border-blueGray-300">
+            <div class="flex flex-wrap items-center md:justify-between justify-center">
+                <div class="w-full md:w-4/12 px-4 mx-auto text-center">
+                    <div class="text-sm text-blueGray-500 font-semibold py-1">
+                        Copyright © <span id="get-current-year">2024</span>
+                        <a href="https://www.creative-tim.com/product/notus-js"
+                            class="text-blueGray-500 hover:text-gray-800" target="_blank"> PNB by
+                            <a href="https://www.creative-tim.com?ref=njs-profile"
+                                class="text-blueGray-500 hover:text-blueGray-800"> Bali EnTour</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal for Adding a Review -->
     <div id="reviewModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
