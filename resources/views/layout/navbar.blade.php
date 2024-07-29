@@ -1,6 +1,6 @@
 <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 ">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="{{ route('welcome')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{asset('img/1.png')}}" class="h-8" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Bali EnTour</span>
             </a>
@@ -38,6 +38,9 @@
                             <a href="{{ route('logout') }}"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
                         </li>
+                        <li>
+                             <a href="{{ route('welcome')}}" class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
+                         </li>
                     </ul>
                 </div>
                 <!-- <button data-collapse-toggle="navbar-user" type="button"
