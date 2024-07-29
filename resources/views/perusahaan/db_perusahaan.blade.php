@@ -14,12 +14,12 @@
         body {
             background-color: #f1f1f1;
             margin: 0;
-            padding: 30px;
+            padding: 0px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-    
+
         .navbar {
             padding: 10px;
             position: fixed;
@@ -32,7 +32,7 @@
             justify-content: space-between;
             align-items: center;
         }
-    
+
         .back-button {
             display: inline-block;
             padding: 5px;
@@ -40,11 +40,11 @@
             background-color: rgba(248, 249, 250, 0.7);
             transition: background-color 0.3s;
         }
-    
+
         .back-button:hover {
             background-color: rgba(233, 236, 239, 0.9);
         }
-    
+
         .main-content {
             width: 100%;
             margin-top: 60px;
@@ -52,34 +52,45 @@
             flex-direction: column;
             align-items: center;
         }
-    
+
         .title h1 {
-            text-align: center;
-            font-size: 40px;
-        }
-    
+    text-align: center;
+    font-size: 2.5rem; /* Relative unit for responsive design */
+    font-weight: bold; /* Bold font for emphasis */
+    margin-top: 2rem; /* Add top margin to create space from the top */
+    margin-bottom: 1rem; /* Optional: Add bottom margin for spacing */
+    padding: 0; /* Remove default padding */
+
+}
+
+
+
         .container {
             width: 100%;
             display: flex;
             justify-content: center;
+            
         }
-    
+
         .container img {
-            width: 50%;
-            object-fit: cover;
-        }
+    width: 50%;
+    object-fit: cover;
+    border: 5px solid #ddd; /* Thin gray border around the image */
+    border-radius: 5px; /* Optional: Rounded corners for the image */
     
+}
+
         .deskripsi {
             display: flex;
             justify-content: center;
-            padding: 0 20px;
+            padding: 20px;
         }
-    
+
         .deskripsi p {
             text-align: justify;
             font-size: 20px;
         }
-    
+
         .header {
             width: 85vw;
             display: flex;
@@ -87,11 +98,11 @@
             align-items: center;
             margin: 20px 0;
         }
-    
+
         .header h2 {
             font-size: 24px;
         }
-    
+
         .header a {
             background-color: #007bff;
             color: white;
@@ -99,7 +110,7 @@
             border-radius: 5px;
             text-decoration: none;
         }
-    
+
         .card-container {
             display: flex;
             overflow-x: auto;
@@ -108,7 +119,7 @@
             align-items: center;
             padding: 20px 0;
         }
-    
+
         .card {
             background-color: #fff;
             border-radius: 10px;
@@ -117,27 +128,29 @@
             text-align: center;
             flex-shrink: 0;
         }
-    
+
         .card-img {
             width: 100%;
             height: 200px;
             object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
         }
-    
+
         .card-title {
             padding: 15px;
             font-size: 1.2em;
             color: #333;
         }
-    
+
         .info {
-            width: 100%; /* Changed from 90% to 100% */
+            width: 100%;
             display: flex;
             justify-content: center;
             padding: 10px 20px;
             margin-top: 20px;
         }
-    
+
         .lokasi .contact {
             display: flex;
             align-items: center;
@@ -146,11 +159,11 @@
         .lokasi {
             width: 100%;
         }
-    
+
         .form p {
             font-size: 30px;
         }
-    
+
         .contact {
             display: flex;
             justify-content: center;
@@ -158,15 +171,13 @@
             width: 50%;
             color: white;
         }
-    
+
         #map {
-            height: 600px; /* Adjust this value to make the map bigger */
-            width: 100%; /* Ensures the map takes full width */
-            margin-top: 20px; /* Optional: Adjust margin if needed */
+            height: 600px;
+            width: 100%;
+            margin-top: 20px;
         }
     </style>
-    
-    
 </head>
 
 <body>
@@ -191,9 +202,9 @@
             <h1>{{ $user->name }}</h1>
             <div class="container">
                 @if ($perusahaan->logo)
-                    <img src="{{ asset('img/' . $perusahaan->logo) }}" alt="">
+                    <img src="{{ asset('img/' . $perusahaan->logo) }}" alt="Logo Perusahaan">
                 @else
-                    <img src="{{ asset('img/gambar_perusahaan/plain_profile.jpg') }}" alt="">
+                    <img src="{{ asset('img/gambar_perusahaan/plain_profile.jpg') }}" alt="Logo Perusahaan">
                 @endif
             </div>
         </div>
@@ -209,16 +220,15 @@
                 <div class="card">
                     <a href="{{ route('penawaran.show', $penawaran->id) }}">
                         @if ($penawaran->foto)
-                            <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset('img/'. $penawaran->foto) }}" alt="Image 1">
+                            <img class="card-img" src="{{ asset('img/' . $penawaran->foto) }}" alt="{{ $penawaran->nama_penawaran }}">
                         @else
-                            <img class="w-full h-32 object-cover rounded-t-lg" src="img/paja.jpg" alt="Image 1">
+                            <img class="card-img" src="img/paja.jpg" alt="Default Image">
                         @endif
                         <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
                     </a>
                 </div>
             @endforeach
         </div>
-
     </div>
     <div class="info">
         <div class="lokasi">

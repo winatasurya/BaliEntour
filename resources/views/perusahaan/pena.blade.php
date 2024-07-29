@@ -47,7 +47,8 @@
 
             <div class="flex space-x-4">
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Update</button>
-                <a href="{{ route('db_perusahaan')}}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('db_perusahaan')}}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Kembali</a>
+            </div>
             </div>
         </form>
     </div>
