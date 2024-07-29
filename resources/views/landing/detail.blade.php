@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $perusahaan->nama }}</title>
+    <title>{{ $perusahaan->user->name }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -18,23 +18,23 @@
         <div class="container mx-auto mt-16 px-4">
             <div class="flex space-x-4 overflow-x-auto scrollable-container">
                 <!-- Images -->
-                <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/12.jpg') }}" alt="Image 1">
-                <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/14.jpg') }}" alt="Image 2">
-                <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/14.jpg') }}" alt="Image 3">
-                <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/12.jpg') }}" alt="Image 4">
-                <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/13.jpg') }}" alt="Image 5">
+                @if ($perusahaan->logo)
+                    <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/' . $perusahaan->logo) }}" alt="Image 1">
+                @else
+                    <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/gambar_perusahaan/plain_profile.jpg') }}" alt="Image 1">
+                @endif
+
+                @foreach ($perusahaan->penawaran as $penawaran)
+                    @if ($penawaran->foto)
+                        <img class="w-1/1 h-64 object-cover rounded-lg" src="{{ asset('img/' . $penawaran->foto) }}" alt="Image 1">
+                    @endif
+                @endforeach
             </div>
         </div>
 
         <!-- Title and Details -->
         <div class="mt-4">
-            <h1 class="text-2xl font-bold">{{ $perusahaan->nama }}</h1>
-            <div class="flex items-center mt-2">
-                <span class="text-purple-500 mr-2">★</span>
-                <span class="ml-2 text-gray-600">
-                    <i class="fas fa-map-marker-alt"></i> {{ $perusahaan->lokasi }}
-                </span>
-            </div>
+            <h1 class="text-2xl font-bold">{{ $perusahaan->user->name }}</h1>
         </div>
 
         <!-- Description -->
@@ -48,12 +48,38 @@
             @if ($ratings->isEmpty())
                 <p class="text-gray-600">Belum ada review.</p>
             @else
-                <span class="text-2xl font-bold">{{ $rate }}/5</span>
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold">{{ $rate }}/5</span>
+                    <div class="ml-2 flex">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= floor($rate))
+                                <i class="fas fa-star text-yellow-500"></i>
+                            @elseif ($i == ceil($rate) && $rate - floor($rate) >= 0.5)
+                                <i class="fas fa-star-half-alt text-yellow-500"></i>
+                            @else
+                                <i class="fas fa-star text-gray-300"></i>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
                 <div class="mt-4 flex space-x-4 overflow-x-auto scrollable-container">
                     @foreach ($ratings as $rating)
                         <div class="p-4 border rounded-lg shadow flex-none w-80">
                             <div class="flex items-center justify-between">
-                                <span class="text-lg font-bold">Rate: {{ $rating->nilai }}/5</span>
+                                <div class="flex items-center">
+                                    <span class="text-lg font-bold">Rate: {{ $rating->nilai }}/5</span>
+                                    <div class="ml-2 flex">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= floor($rating->nilai))
+                                                <i class="fas fa-star text-yellow-500"></i>
+                                            @elseif ($i == ceil($rating->nilai) && $rating->nilai - floor($rating->nilai) >= 0.5)
+                                                <i class="fas fa-star-half-alt text-yellow-500"></i>
+                                            @else
+                                                <i class="fas fa-star text-gray-300"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                </div>
                                 <span class="text-gray-500">{{ $rating->created_at->format('d M Y') }}</span>
                             </div>
                             <p class="text-gray-600 mt-2">{{ $rating->komentar }}</p>
@@ -63,7 +89,6 @@
                 </div>
             @endif
         </div>
-        
 
         <!-- Button to Open Modal -->
         <div class="mt-4">
@@ -88,21 +113,6 @@
                 <div class="mt-2 flex space-x-4">
                     <a href="#" class="text-blue-500 hover:underline">Lihat Peta</a>
                     <a href="#" class="text-blue-500 hover:underline">Panduan ke Lokasi</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Info Lainnya Section -->
-        <div class="mt-8">
-            <h2 class="text-xl font-bold">Info Lainnya</h2>
-            <div class="mt-4 space-y-4">
-                <div>
-                    <h3 class="text-lg font-semibold">Penukaran Tiket</h3>
-                    <p class="text-gray-600 mt-2">Informasi penukaran tiket yang perlu diperhatikan oleh pengunjung.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold">Syarat & Ketentuan</h3>
-                    <p class="text-gray-600 mt-2">Syarat dan ketentuan yang berlaku untuk pengunjung.</p>
                 </div>
             </div>
         </div>
