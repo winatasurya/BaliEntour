@@ -9,6 +9,22 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-container {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .form-container {
+            flex: 1;
+        }
+        @media (max-width: 768px) {
+            .carousel-container, .form-container {
+                flex: 1 1 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -21,105 +37,109 @@
                 </svg>
             </a>
             <div class="row d-flex justify-content-center">
-                <div class="col-lg-8 col-12">
-                    <h2 class="fs-5 py-4 text-center">Reservasi {{ $penawaran->nama_penawaran }}</h2>
-                    
-                    <!-- Carousel -->
-                    <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                <h2 class="fs-5 py-4 text-center">Reservasi {{ $penawaran->nama_penawaran }}</h2>
+                <div class="col-lg-12 col-12 d-flex flex-wrap">
+                    <div class="carousel-container">
+                        <!-- Carousel -->
+                        <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 3">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 4">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 5">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 1">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 3">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 4">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 5">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                     
-                    <div class="card border rounded shadow">
-                        <div class="card-body">
-                            <form id="reservationForm">
-                                <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
-                                <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
-                                <input type="hidden" name="nama_perusahaan" value="{{ $penawaran->perusahaan->user->name }}">
-                                <input type="hidden" name="nama_item" value="{{ $penawaran->nama_penawaran }}">
-                                <input type="hidden" id="qty" name="qty">
+                    <div class="form-container">
+                        <div class="card border rounded shadow">
+                            <div class="card-body">
+                                <form id="reservationForm">
+                                    <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
+                                    <input type="hidden" name="nama_perusahaan" value="{{ $penawaran->perusahaan->user->name }}">
+                                    <input type="hidden" name="nama_item" value="{{ $penawaran->nama_penawaran }}">
+                                    <input type="hidden" id="qty" name="qty">
 
-                                <div class="row mb-3">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="nama_wisatawan" class="form-label">Nama Wisatawan</label>
-                                        <input type="text" id="nama_wisatawan" name="nama_pemesan" value="{{ auth()->user()->name }}" class="form-control" readonly>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6 mb-2">
+                                            <label for="nama_wisatawan" class="form-label">Nama Wisatawan</label>
+                                            <input type="text" id="nama_wisatawan" name="nama_pemesan" value="{{ auth()->user()->name }}" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label for="harga_item_display" class="form-label">Harga per
+                                                @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
+                                                    Hari
+                                                @else
+                                                    Jam
+                                                @endif
+                                            </label>
+                                            <input type="text" id="harga_item_display" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="form-control" readonly>
+                                            <input type="hidden" id="harga_item" name="harga_item" value="{{ $penawaran->harga }}">
+                                        </div>
+                                        @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
+                                            <div class="col-md-6 mb-2">
+                                                <label for="tanggal_check_in" class="form-label">Tanggal Check-in</label>
+                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="tanggal_check_out" class="form-label">Tanggal Check-out</label>
+                                                <input type="date" id="tanggal_check_out" name="tanggal_check_out" class="form-control" required>
+                                            </div>
+                                        @else
+                                            <div class="col-md-6 mb-2">
+                                                <label for="tanggal_check_in" class="form-label">Tanggal Reservasi</label>
+                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="waktu_check_in" class="form-label">Waktu Check-in</label>
+                                                <input type="time" id="waktu_check_in" name="waktu_check_in" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-6 mb-2">
+                                                <label for="waktu_check_out" class="form-label">Waktu Check-out</label>
+                                                <input type="time" id="waktu_check_out" name="waktu_check_out" class="form-control" required>
+                                            </div>
+                                        @endif
+                                        <div class="col-md-6 mb-2">
+                                            <label for="total_harga_display" class="form-label">Total Harga</label>
+                                            <input type="text" id="total_harga_display" class="form-control" readonly>
+                                            <input type="hidden" id="total_harga" name="total_harga">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="harga_item_display" class="form-label">Harga per
-                                            @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
-                                                Hari
-                                            @else
-                                                Jam
-                                            @endif
-                                        </label>
-                                        <input type="text" id="harga_item_display" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="form-control" readonly>
-                                        <input type="hidden" id="harga_item" name="harga_item" value="{{ $penawaran->harga }}">
+                                    <div class="col-12">
+                                        <button class="btn btn-primary" id="pay-button">Bayar Reservasi</button>
                                     </div>
-                                    @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
-                                        <div class="col-md-6 mb-2">
-                                            <label for="tanggal_check_in" class="form-label">Tanggal Check-in</label>
-                                            <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <label for="tanggal_check_out" class="form-label">Tanggal Check-out</label>
-                                            <input type="date" id="tanggal_check_out" name="tanggal_check_out" class="form-control" required>
-                                        </div>
-                                    @else
-                                        <div class="col-md-6 mb-2">
-                                            <label for="tanggal_check_in" class="form-label">Tanggal Reservasi</label>
-                                            <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <label for="waktu_check_in" class="form-label">Waktu Check-in</label>
-                                            <input type="time" id="waktu_check_in" name="waktu_check_in" class="form-control" required>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <label for="waktu_check_out" class="form-label">Waktu Check-out</label>
-                                            <input type="time" id="waktu_check_out" name="waktu_check_out" class="form-control" required>
-                                        </div>
-                                    @endif
-                                    <div class="col-md-6 mb-2">
-                                        <label for="total_harga_display" class="form-label">Total Harga</label>
-                                        <input type="text" id="total_harga_display" class="form-control" readonly>
-                                        <input type="hidden" id="total_harga" name="total_harga">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary" id="pay-button">Bayar Reservasi</button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
