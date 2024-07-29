@@ -6,7 +6,7 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-        body{
+        body {
             background-color: #f5f5dc;
             background-size: cover;
             background-position: center;
@@ -56,7 +56,12 @@
             background-color: #0056b3;
         }
         .order-history {
-            margin-top: 30px;
+            width: 55%;
+            margin: 30px auto 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .order-history table {
             width: 100%;
@@ -72,10 +77,13 @@
         .order-history th {
             background-color: #f2f2f2;
         }
-        h4 a{
+        .table-responsive {
+            overflow-x: auto;
+        }
+        h4 a {
             color: #74512D;
         }
-        h4 a:hover{
+        h4 a:hover {
             color: #543310;
         }
         .navbar {
@@ -104,7 +112,7 @@
             color: white;
             padding: 15px;
             border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             z-index: 1001;
             display: none;
         }
@@ -224,7 +232,7 @@
                 <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $wisatawan->tgl_lahir }}" required>
             </div>
             <div class="form-group">
-                <label for="wa_wisatawan">Whatshapp</label>
+                <label for="wa_wisatawan">WhatsApp</label>
                 <input type="text" id="wa_wisatawan" name="wa_wisatawan" value="{{ $wisatawan->wa_wisatawan }}" required onkeypress="return isNumber(event)">
             </div>
             <div class="form-group">
@@ -235,8 +243,11 @@
                 <button type="submit">Simpan Perubahan</button>
             </div>
         </form>
-        <div class="order-history">
-            <h3>Order History</h3>
+        <h4><a id="changePasswordBtn">Change Password</a></h4>
+    </div>
+    <div class="order-history">
+        <h3>Order History</h3>
+        <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
@@ -244,6 +255,11 @@
                         <th>Date</th>
                         <th>Status</th>
                         <th>Total</th>
+                        <th>Column 5</th>
+                        <th>Column 6</th>
+                        <th>Column 7</th>
+                        <th>Column 8</th>
+                        <!-- Tambahkan lebih banyak kolom sesuai kebutuhan -->
                     </tr>
                 </thead>
                 <tbody>
@@ -252,11 +268,15 @@
                         <td>2024-01-01</td>
                         <td>Completed</td>
                         <td>$100.00</td>
+                        <td>Data 5</td>
+                        <td>Data 6</td>
+                        <td>Data 7</td>
+                        <td>Data 8</td>
+                        <!-- Tambahkan lebih banyak data sesuai kebutuhan -->
                     </tr>
                 </tbody>
             </table>
         </div>
-        <h4><a id="changePasswordBtn" >Change Password</a></h4>
     </div>
     <div id="passwordModal" class="modal">
         <div class="modal-content">
@@ -287,11 +307,11 @@
         var span = document.getElementsByClassName("close")[0];
 
         function isNumber(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
         }
         document.addEventListener('DOMContentLoaded', function() {
             var alert = document.getElementById('custom-alert');
