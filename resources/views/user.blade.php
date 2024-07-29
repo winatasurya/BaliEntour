@@ -251,29 +251,34 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Order ID</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Column 5</th>
-                        <th>Column 6</th>
-                        <th>Column 7</th>
-                        <th>Column 8</th>
-                        <!-- Tambahkan lebih banyak kolom sesuai kebutuhan -->
+                        <th>No Transaksi</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Nama Penawaran</th>
+                        <th>Tanggal pemesanan</th>
+                        <th>Harga Penawaran</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Total Harga</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12345</td>
-                        <td>2024-01-01</td>
-                        <td>Completed</td>
-                        <td>$100.00</td>
-                        <td>Data 5</td>
-                        <td>Data 6</td>
-                        <td>Data 7</td>
-                        <td>Data 8</td>
-                        <!-- Tambahkan lebih banyak data sesuai kebutuhan -->
-                    </tr>
+                    @foreach($wisatawan->reservasi as $reservasi)
+                        <tr>
+                            <td>{{ $reservasi->no_transaksi }}</td>
+                            <td>{{ $reservasi->nama_perusahaan }}</td>
+                            <td>{{ $reservasi->nama_item }}</td>
+                            <td>{{ \Carbon\Carbon::parse($reservasi->created_at)->format('d-m-Y') }}</td>
+                            <td><span class="harga">{{ $reservasi->harga_item }}</span></td>
+                            @if ($reservasi->waktu_check_out)
+                                <td>{{ $reservasi->waktu_check_in }}</td>
+                                <td>{{ $reservasi->waktu_check_out }}</td>
+                            @else
+                                <td>{{ $reservasi->tanggal_check_in }}</td>
+                                <td>{{ $reservasi->tanggal_check_out }}</td>
+                            @endif
+                            <td><span class="harga">{{ $reservasi->total_harga }}</span></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -313,6 +318,22 @@
             }
             return true;
         }
+
+        function formatRupiah(angka) {
+            var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return 'Rp ' + rupiah;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var alert = document.getElementById('custom-alert');
             if (alert) {
@@ -325,7 +346,14 @@
                     }, 500);
                 }, 5000);
             }
+
+            // Format harga di tabel menjadi format rupiah
+            var hargaElements = document.querySelectorAll('.harga');
+            hargaElements.forEach(function(element) {
+                element.textContent = formatRupiah(element.textContent);
+            });
         });
+
         btn.onclick = function() {
             modal.style.display = "block";
         }

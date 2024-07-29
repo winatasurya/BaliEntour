@@ -12,4 +12,9 @@ class reservasi extends Model
     protected $table = 'reservasi';
 
     protected $guarded = [];
+
+    public function wisatawan()
+    {
+        return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id');
+    }
 }
