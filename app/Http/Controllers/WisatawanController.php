@@ -18,7 +18,7 @@ class WisatawanController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $wisatawan = $user->wisatawan;
+        $wisatawan = $user->wisatawan()->with('reservasi')->first();
 
         return view('user', compact('user', 'wisatawan'));
     }

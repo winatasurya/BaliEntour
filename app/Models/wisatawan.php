@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class wisatawan extends Model
 {
@@ -29,6 +30,11 @@ class wisatawan extends Model
     public function rating() :HasOne
     {
         return $this->hasOne(rating::class, 'id_users');
+    }
+
+    public function reservasi():HasMany
+    {
+        return $this->hasMany(Reservasi::class, 'id_wisatawan', 'id');
     }
 
     protected static function boot()
