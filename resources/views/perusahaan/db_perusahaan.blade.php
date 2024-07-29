@@ -208,7 +208,11 @@
             @foreach ($penawaran as $penawaran)
                 <div class="card">
                     <a href="{{ route('penawaran.show', $penawaran->id) }}">
-                        <img src="img/paja.jpg" alt="Hotel Room 1" class="card-img">
+                        @if ($penawaran->foto)
+                            <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset('img/'. $penawaran->foto) }}" alt="Image 1">
+                        @else
+                            <img class="w-full h-32 object-cover rounded-t-lg" src="img/paja.jpg" alt="Image 1">
+                        @endif
                         <h2 class="card-title">{{ $penawaran->nama_penawaran }}</h2>
                     </a>
                 </div>

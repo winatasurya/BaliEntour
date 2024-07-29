@@ -36,14 +36,14 @@
                 <div class="w-full p-4">
                     <a href="{{ route('lihat.perusahaan', $perusahaanItem->perusahaan->id) }}"
                         class="card bg-white border border-gray-200 rounded-lg shadow-md no-underline block">
-                        @if ($perusahaanItem->logo)
-                            <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset('img/'. $perusahaanItem->logo) }}" alt="Image 2">
+                        @if ($perusahaanItem->perusahaan->logo)
+                            <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset('img/'. $perusahaanItem->perusahaan->logo) }}" alt="Image 2">
                         @else
                             <img class="w-full h-32 object-cover rounded-t-lg" src="{{ asset('img/gambar_perusahaan/plain_profile.jpg') }}" alt="Image 2">
                         @endif
                         <div class="p-4">
                             <h5 class="text-lg font-semibold">{{ $perusahaanItem->name }}</h5>
-                            <p class="text-gray-600 truncate">{{ $perusahaanItem->deskripsi }}</p>
+                            <p class="text-gray-600 truncate">{{ $perusahaanItem->perusahaan->deskripsi }}</p>
                         </div>
                         <div class="px-4 pb-4">
                             <span class="text-yellow-500">★★★★☆</span>
