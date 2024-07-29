@@ -15,14 +15,24 @@ class DashboardController extends Controller
             $query->where('perizinan', 'setuju');
         })->with('perusahaan')->orderByRaw('RAND()')->limit(5)->get();
 
-        return view('welcome', compact('perusahaan'));
+        $perusahaans = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->with('perusahaan')->get();
+
+        // Tambahkan URL gambar ke setiap perusahaan
+        $perusahaans->each(function ($user) {
+            $user->perusahaan->logo_url = asset('img/' . $user->perusahaan->logo);
+        });
+
+        return view('welcome', compact('perusahaan', 'perusahaans'));
     }
+
 
     public function allplace(Request $request)
     {
         $search = $request->input('search');
         $bidang = $request->input('bidang');
-        
+
         $perusahaan = User::whereHas('perusahaan', function ($query) use ($search, $bidang) {
             $query->where('perizinan', 'setuju');
 

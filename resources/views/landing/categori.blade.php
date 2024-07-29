@@ -46,11 +46,11 @@
                 </a>
             </div>
             <div class="service-item text-center bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300">
-                <a href="support.html" class="block">
+                <a href="{{route('about')}}" class="block">
                     <div class="flex justify-center items-center mx-auto mb-4 w-12 h-12 rounded-full bg-indigo-500 text-white">
                         <img src="img/landingpage/call.png" alt="24/7 Support" class="w-6 h-6">
                     </div>
-                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">24/7 Support</h3>
+                    <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">About Us</h3>
                 </a>
             </div>
         </div>
