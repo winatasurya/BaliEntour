@@ -234,7 +234,7 @@
   </div>
 </section>
 
-@include('landing.footer')
+
 
 </body>
 </html>
