@@ -12,7 +12,7 @@
 <body class="bg-gray-100 p-6">
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-3xl font-bold mb-4">Edit Penawaran</h1>
-        <form action="{{ route('penawaran.update', $penawaran->id) }}" method="POST" enctype="multipart/form-data" id="penawaranForm">
+        <form action="{{ route('penawaran.update', $penawaran->id) }}" method="POST" enctype="multipart/form-data" >
             @csrf
             @method('PUT')
 
