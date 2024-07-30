@@ -17,4 +17,8 @@ class reservasi extends Model
     {
         return $this->belongsTo(Wisatawan::class, 'id_wisatawan', 'id');
     }
+    public function penawaran()
+{
+    return $this->belongsTo(Penawaran::class, 'id_penawaran', 'id');
+}
 }

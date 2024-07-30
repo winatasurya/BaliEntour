@@ -105,4 +105,12 @@ class PenawaranController extends Controller
         // Redirect back with success message
         return redirect()->route('penawaran.show', $penawaran->id)->with('success', 'Penawaran berhasil diperbarui!');
     }
+    public function destroySubfoto($id)
+{
+    $subfoto = SubfotoPenawaran::findOrFail($id);
+    Storage::disk('public')->delete($subfoto->subfoto);
+    $subfoto->delete();
+
+    return back()->with('success', 'Subfoto deleted successfully.');
+}
 }

@@ -54,6 +54,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/perusahaan/{perusahaan}/edit', [PerusahaanController::class, 'edit'])->name('perusahaan.edit');
     Route::put('/perusahaan/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.ubah');
     Route::get('/penawaran/{penawaran}', [PenawaranController::class, 'edit'])->name('penawaran.show');
+    Route::delete('subfoto/{id}', [PenawaranController::class, 'destroySubfoto'])->name('subfoto.destroy');
     Route::put('/penawaran/{penawaran}/update', [PenawaranController::class, 'update'])->name('penawaran.update');
     Route::post('/penawaran', [PenawaranController::class, 'store'])->name('penawaran.store');
 

@@ -61,28 +61,34 @@
                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
                                     aria-label="Slide 5"></button>
                             </div>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
-                                        alt="Image 1">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <!-- Foto utama penawaran -->
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                            alt="{{ $penawaran->nama_penawaran }}">
+                                    </div>
+                                    <!-- Subfoto penawaran -->
+                                    @foreach ($penawaran->subfoto as $subfoto)
+                                        <div class="carousel-item">
+                                            <img src="{{ asset('img/' . $subfoto->subfoto) }}" class="d-block w-100"
+                                                alt="Subfoto {{ $loop->iteration }}">
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
-                                        alt="Image 2">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
-                                        alt="Image 3">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
-                                        alt="Image 4">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
-                                        alt="Image 5">
-                                </div>
+                                <!-- Controls -->
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
+
                             <button class="carousel-control-prev" type="button"
                                 data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -168,7 +174,8 @@
                                     </div>
                                     <div class="col-12 ">
                                         <button class="btn btn-primary" id="pay-button">Bayar Reservasi</button>
-                                        <button class="btn btn-primary" id="check-availability" type="button">Cek Ketersediaan Ruang</button>
+                                        <button class="btn btn-primary" id="check-availability" type="button">Cek
+                                            Ketersediaan Ruang</button>
                                     </div>
                                 </form>
 
@@ -407,7 +414,8 @@
                                         reservasi_id: data.reservasi_id
                                     }, function(deleteData, deleteStatus) {
                                         alert(
-                                            'You closed the popup without finishing the payment');
+                                            'You closed the popup without finishing the payment'
+                                            );
                                         location.reload();
                                     });
                                 }

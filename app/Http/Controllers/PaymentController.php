@@ -18,52 +18,55 @@ class PaymentController extends Controller
         \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
     }
 
+    // PenawaranController.php
+
     public function index($id)
     {
-        $penawaran = Penawaran::with(['perusahaan.user'])->findOrFail($id);
+        $penawaran = Penawaran::with(['perusahaan.user', 'subfoto'])->findOrFail($id);
         return view('landing.payment', compact('penawaran'));
     }
 
+
     public function checkAvailability(Request $request)
-{
-    $penawaran = Penawaran::find($request->id_penawaran);
-    $reservasiQuery = Reservasi::where('id_penawaran', $request->id_penawaran);
+    {
+        $penawaran = Penawaran::find($request->id_penawaran);
+        $reservasiQuery = Reservasi::where('id_penawaran', $request->id_penawaran);
 
-    if ($penawaran->perusahaan->bidang == 'Villa & Suites') {
-        $reservasiQuery->where(function ($query) use ($request) {
-            $query->whereBetween('tanggal_check_in', [$request->tanggal_check_in, $request->tanggal_check_out])
-                  ->orWhereBetween('tanggal_check_out', [$request->tanggal_check_in, $request->tanggal_check_out])
-                  ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_in])
-                  ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_out]);
-        });
-    } else {
-        $reservasiQuery->where('tanggal_check_in', $request->tanggal_check_in)
-                       ->where(function ($query) use ($request) {
-                           $query->whereBetween('waktu_check_in', [$request->waktu_check_in, $request->waktu_check_out])
-                                 ->orWhereBetween('waktu_check_out', [$request->waktu_check_in, $request->waktu_check_out])
-                                 ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_in])
-                                 ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_out]);
-                       });
+        if ($penawaran->perusahaan->bidang == 'Villa & Suites') {
+            $reservasiQuery->where(function ($query) use ($request) {
+                $query->whereBetween('tanggal_check_in', [$request->tanggal_check_in, $request->tanggal_check_out])
+                    ->orWhereBetween('tanggal_check_out', [$request->tanggal_check_in, $request->tanggal_check_out])
+                    ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_in])
+                    ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_out]);
+            });
+        } else {
+            $reservasiQuery->where('tanggal_check_in', $request->tanggal_check_in)
+                ->where(function ($query) use ($request) {
+                    $query->whereBetween('waktu_check_in', [$request->waktu_check_in, $request->waktu_check_out])
+                        ->orWhereBetween('waktu_check_out', [$request->waktu_check_in, $request->waktu_check_out])
+                        ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_in])
+                        ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_out]);
+                });
+        }
+
+        $reservasiCount = $reservasiQuery->count();
+        $availability = $penawaran->ruang - $reservasiCount;
+
+        $data = [];
+        if ($availability > 0) {
+            $data[] = [
+                'tanggal' => $request->tanggal_check_in,
+                'waktu_check_in' => $request->waktu_check_in,
+                'waktu_check_out' => $request->waktu_check_out,
+                'ruang_tersedia' => $availability
+            ];
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'availability' => $data
+        ]);
     }
-
-    $reservasiCount = $reservasiQuery->count();
-    $availability = $penawaran->ruang - $reservasiCount;
-
-    $data = [];
-    if ($availability > 0) {
-        $data[] = [
-            'tanggal' => $request->tanggal_check_in,
-            'waktu_check_in' => $request->waktu_check_in,
-            'waktu_check_out' => $request->waktu_check_out,
-            'ruang_tersedia' => $availability
-        ];
-    }
-
-    return response()->json([
-        'status' => 'success',
-        'availability' => $data
-    ]);
-}
 
 
     public function reservasi(Request $request)
@@ -77,7 +80,7 @@ class PaymentController extends Controller
             ]);
         }
 
-        $snapToken = DB::transaction(function() use ($request) {
+        $snapToken = DB::transaction(function () use ($request) {
             $reservasi = Reservasi::create([
                 'no_transaksi' => 'BLT-' . mt_rand(100000, 999999),
                 'id_wisatawan' => $request->id_wisatawan,
@@ -140,18 +143,18 @@ class PaymentController extends Controller
         if ($penawaran->perusahaan->bidang == 'Villa & Suites') {
             $reservasiQuery->where(function ($query) use ($request) {
                 $query->whereBetween('tanggal_check_in', [$request->tanggal_check_in, $request->tanggal_check_out])
-                      ->orWhereBetween('tanggal_check_out', [$request->tanggal_check_in, $request->tanggal_check_out])
-                      ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_in])
-                      ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_out]);
+                    ->orWhereBetween('tanggal_check_out', [$request->tanggal_check_in, $request->tanggal_check_out])
+                    ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_in])
+                    ->orWhereRaw('? BETWEEN tanggal_check_in AND tanggal_check_out', [$request->tanggal_check_out]);
             });
         } else {
             $reservasiQuery->where('tanggal_check_in', $request->tanggal_check_in)
-                           ->where(function ($query) use ($request) {
-                               $query->whereBetween('waktu_check_in', [$request->waktu_check_in, $request->waktu_check_out])
-                                     ->orWhereBetween('waktu_check_out', [$request->waktu_check_in, $request->waktu_check_out])
-                                     ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_in])
-                                     ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_out]);
-                           });
+                ->where(function ($query) use ($request) {
+                    $query->whereBetween('waktu_check_in', [$request->waktu_check_in, $request->waktu_check_out])
+                        ->orWhereBetween('waktu_check_out', [$request->waktu_check_in, $request->waktu_check_out])
+                        ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_in])
+                        ->orWhereRaw('? BETWEEN waktu_check_in AND waktu_check_out', [$request->waktu_check_out]);
+                });
         }
 
         $reservasiCount = $reservasiQuery->count();

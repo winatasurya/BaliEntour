@@ -299,7 +299,7 @@
                     @foreach ($reservasi as $order)
                         <tr>
                             <td>{{ $order->no_transaksi }}</td>
-                            <td>{{ $oPder->nama_pemesan }}</td>
+                            <td>{{ $order->nama_pemesan }}</td>
                             <td>{{ $order->nama_item }}</td>
                             <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y') }}</td>
                             <td><span class="harga">{{ $order->harga_item }}</span></td>
