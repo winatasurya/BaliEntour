@@ -123,6 +123,22 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        var companyIcon = L.icon({
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var userIcon = L.icon({
+            iconUrl: 'https://img.icons8.com/material-rounded/24/000000/map-pin.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         var perusahaanData = {!! json_encode($perusahaans) !!};
         console.log(perusahaanData);
 
@@ -137,20 +153,19 @@
                                    `No. WA: ${company.wa_perusahaan}<br>` +
                                    `Email: ${user.email}<br>`;
 
-                var marker = L.marker([company.latitude, company.longitude]).addTo(map);
+                var marker = L.marker([company.latitude, company.longitude], { icon: companyIcon }).addTo(map);
                 marker.bindPopup(popupContent);
             } else {
                 console.error(`Missing coordinates for user: ${user.name}`);
             }
         });
 
-
             // Fungsi untuk menangani lokasi yang ditemukan
             function onLocationFound(e) {
                 var radius = e.accuracy / 2;
 
                 // Tambahkan marker untuk lokasi pengguna
-                L.marker(e.latlng).addTo(map)
+                L.marker(e.latlng, { icon: userIcon }).addTo(map)
                     .bindPopup("You are here").openPopup();
 
                 // Tambahkan lingkaran untuk menunjukkan akurasi lokasi
