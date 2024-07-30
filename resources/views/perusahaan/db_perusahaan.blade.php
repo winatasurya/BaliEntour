@@ -76,26 +76,36 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .order-history table {
             width: 100%;
             border-collapse: collapse;
         }
-        .order-history table, .order-history th, .order-history td {
+
+        .order-history table,
+        .order-history th,
+        .order-history td {
             border: 1px solid #ddd;
         }
-        .order-history th, .order-history td {
+
+        .order-history th,
+        .order-history td {
             padding: 8px;
             text-align: left;
         }
+
         .order-history th {
             background-color: #f2f2f2;
         }
+
         .table-responsive {
             overflow-x: auto;
         }
+
         h4 a {
             color: #74512D;
         }
+
         h4 a:hover {
             color: #543310;
         }
@@ -270,46 +280,44 @@
     </div>
 
     <div class="order-history">
-            <h3>Order History</h3>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
+        <h3>Order History</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No Transaksi</th>
+                        <th>Nama Pemesan</th>
+                        <th>Nama Penawaran</th>
+                        <th>Tanggal Pemesanan</th>
+                        <th>Harga Penawaran</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Total Harga</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($reservasi as $order)
                         <tr>
-                            <th>No Transaksi</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Nama Penawaran</th>
-                            <th>Tanggal pemesanan</th>
-                            <th>Harga Penawaran</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Total Harga</th>
+                            <td>{{ $order->no_transaksi }}</td>
+                            <td>{{ $oPder->nama_pemesan }}</td>
+                            <td>{{ $order->nama_item }}</td>
+                            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d-m-Y') }}</td>
+                            <td><span class="harga">{{ $order->harga_item }}</span></td>
+                            @if ($order->waktu_check_out)
+                                <td>{{ $order->tanggal_check_in }} At {{ $order->waktu_check_in }}</td>
+                                <td>{{ $order->waktu_check_out }}</td>
+                            @else
+                                <td>{{ $order->tanggal_check_in }}</td>
+                                <td>{{ $order->tanggal_check_out }}</td>
+                            @endif
+                            <td><span class="harga">{{ $order->total_harga }}</span></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>BLT-496910</td>
-                            <td>Hotelagon</td>
-                            <td>Kamar Agon</td>
-                            <td>25-07-2024</td>
-                            <td>Rp 3.000.000.000</td>
-                            <td>2024-08-01</td>
-                            <td>2024-08-03</td>
-                            <td>Rp 6.000.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>BLT-589528</td>
-                            <td>Hotelagon</td>
-                            <td>Kamar Agon</td>
-                            <td>25-07-2024</td>
-                            <td>Rp 300.000</td>
-                            <td>2024-07-26</td>
-                            <td>2024-07-31</td>
-                            <td>Rp 1.500.000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+    </div>
+
 
     <div class="info">
         <div class="lokasi">
@@ -401,6 +409,28 @@
             setTimeout(function() {
                 $('.alert-success').alert('close');
             }, 5000);
+        });
+
+        function formatRupiah(angka) {
+            var number_string = angka.toString().replace(/[^,\d]/g, ''),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+
+            return 'Rp ' + rupiah;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var hargaElements = document.querySelectorAll('.harga');
+            hargaElements.forEach(function(element) {
+                element.textContent = formatRupiah(element.textContent);
+            });
         });
     </script>
 </body>

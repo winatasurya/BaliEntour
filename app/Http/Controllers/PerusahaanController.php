@@ -14,14 +14,15 @@ class PerusahaanController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $user = auth()->user();
-        $perusahaan = $user->perusahaan;
-        $penawaran = $perusahaan ? $perusahaan->penawaran : collect();
-        $all = perusahaan::query();
+{
+    $user = auth()->user();
+    $perusahaan = $user->perusahaan;
+    $penawaran = $perusahaan ? $perusahaan->penawaran : collect();
+    $reservasi = $user->wisatawan ? $user->wisatawan->reservasi : collect();
 
-        return view('perusahaan.db_perusahaan', compact('user', 'perusahaan', 'penawaran'));
-    }
+    return view('perusahaan.db_perusahaan', compact('user', 'perusahaan', 'penawaran', 'reservasi'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
