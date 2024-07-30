@@ -48,8 +48,9 @@ class PenawaranController extends Controller
     // Method to update a penawaran
     public function update(Request $request, $id)
     {
+        
         $penawaran = Penawaran::findOrFail($id);
-
+        
         // Validate incoming request data
         $data = $request->validate([
             'nama_penawaran' => ['required', 'max:255'],
@@ -59,7 +60,7 @@ class PenawaranController extends Controller
             'foto' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'],
             'subfotos.*' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg']
         ]);
-
+        
         // Update nama
         $penawaran->nama_penawaran = $data['nama_penawaran'];
 
@@ -77,6 +78,7 @@ class PenawaranController extends Controller
 
         // Update harga dan deskripsi
         $penawaran->harga = $data['harga'];
+        $penawaran->ruang = $data['ruang'];
         $penawaran->deskripsi = $data['deskripsi'];
 
         // Handle subfotos

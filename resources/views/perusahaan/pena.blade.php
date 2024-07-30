@@ -12,7 +12,7 @@
 <body class="bg-gray-100 p-6">
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 class="text-3xl font-bold mb-4">Edit Penawaran</h1>
-        <form action="{{ route('penawaran.update', $penawaran->id) }}" method="POST" enctype="multipart/form-data" >
+        <form action="{{ route('penawaran.update', $penawaran->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -29,7 +29,7 @@
 
             <div class="mb-4">
                 <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
-                <input type="text" id="harga" name="harga" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <input type="number" id="harga" name="harga" value="{{ $penawaran->harga }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
 
             <div class="mb-4">
@@ -50,8 +50,7 @@
 
             <div class="flex space-x-4">
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Update</button>
-                <a href="{{ route('db_perusahaan')}}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Kembali</a>
-            </div>
+                <a href="{{ route('db_perusahaan') }}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Kembali</a>
             </div>
         </form>
     </div>
@@ -64,14 +63,7 @@
             hargaInput.addEventListener('input', function(e) {
                 let value = e.target.value;
                 value = value.replace(/[^0-9]/g, ''); // Hapus karakter non-numerik
-                if (value < 0) value = 0; // Pastikan nilai tidak negatif
-                e.target.value = formatRupiah(value);
-            });
-
-            hargaInput.addEventListener('blur', function(e) {
-                let value = e.target.value.replace(/[^0-9]/g, '');
-                if (value < 0) value = 0; // Pastikan nilai tidak negatif
-                e.target.value = formatRupiah(value);
+                e.target.value = value;
             });
 
             ruangInput.addEventListener('input', function(e) {
@@ -80,22 +72,6 @@
                 if (value < 1) value = 1; // Pastikan nilai tidak negatif
                 e.target.value = Math.floor(value); // Pastikan nilai adalah bilangan bulat
             });
-
-            function formatRupiah(angka) {
-                let number_string = angka.toString().replace(/[^,\d]/g, ''),
-                    split = number_string.split(','),
-                    sisa = split[0].length % 3,
-                    rupiah = split[0].substr(0, sisa),
-                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-                if (ribuan) {
-                    let separator = sisa ? '.' : '';
-                    rupiah += separator + ribuan.join('.');
-                }
-
-                rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-                return rupiah;
-            }
         });
     </script>
 </body>

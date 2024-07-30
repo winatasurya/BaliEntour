@@ -15,6 +15,7 @@ class penawaran extends Model
         'id_perusahaan',
         'nama_penawaran',
         'harga',
+        'ruang',
         'deskripsi',
         'foto',
         'logo',
