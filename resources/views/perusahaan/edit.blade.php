@@ -20,7 +20,7 @@
         function updateLocation() {
             var lat = document.getElementById('latitude').value;
             var lng = document.getElementById('longitude').value;
-            document.getElementById('map').src = https://maps.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed;
+            document.getElementById('map').src = `https://maps.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
         }
     </script>
 </head>
