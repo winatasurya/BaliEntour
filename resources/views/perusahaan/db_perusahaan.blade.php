@@ -68,7 +68,37 @@
 
         }
 
-
+        .order-history {
+            width: 55%;
+            margin: 30px auto 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .order-history table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .order-history table, .order-history th, .order-history td {
+            border: 1px solid #ddd;
+        }
+        .order-history th, .order-history td {
+            padding: 8px;
+            text-align: left;
+        }
+        .order-history th {
+            background-color: #f2f2f2;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        h4 a {
+            color: #74512D;
+        }
+        h4 a:hover {
+            color: #543310;
+        }
 
         .container {
             width: 100%;
@@ -238,6 +268,49 @@
             @endforeach
         </div>
     </div>
+
+    <div class="order-history">
+            <h3>Order History</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>No Transaksi</th>
+                            <th>Nama Perusahaan</th>
+                            <th>Nama Penawaran</th>
+                            <th>Tanggal pemesanan</th>
+                            <th>Harga Penawaran</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Total Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BLT-496910</td>
+                            <td>Hotelagon</td>
+                            <td>Kamar Agon</td>
+                            <td>25-07-2024</td>
+                            <td>Rp 3.000.000.000</td>
+                            <td>2024-08-01</td>
+                            <td>2024-08-03</td>
+                            <td>Rp 6.000.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>BLT-589528</td>
+                            <td>Hotelagon</td>
+                            <td>Kamar Agon</td>
+                            <td>25-07-2024</td>
+                            <td>Rp 300.000</td>
+                            <td>2024-07-26</td>
+                            <td>2024-07-31</td>
+                            <td>Rp 1.500.000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     <div class="info">
         <div class="lokasi">
             <h2>Lokasi</h2>
