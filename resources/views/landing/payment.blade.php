@@ -14,11 +14,15 @@
             flex: 1;
             margin-right: 20px;
         }
+
         .form-container {
             flex: 1;
         }
+
         @media (max-width: 768px) {
-            .carousel-container, .form-container {
+
+            .carousel-container,
+            .form-container {
                 flex: 1 1 100%;
                 margin-right: 0;
                 margin-bottom: 20px;
@@ -30,10 +34,13 @@
 <body class="bg-gray-100">
     <main class="py-5">
         <div class="container">
-              <!-- Back button -->
-              <a href="{{ route('lihat.perusahaan', $penawaran->perusahaan->id) }}" class="position-absolute top-0 start-0 m-3 text-decoration-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M10.354 4.646a.5.5 0 0 0-.708 0L5.293 9.293a.5.5 0 1 0 .707.707L10 5.707V8.5a.5.5 0 1 0 1 0V4a.5.5 0 0 0-.5-.5H6a.5.5 0 1 0 0 1h4.5a.5.5 0 0 0 .5-.5z"/>
+            <!-- Back button -->
+            <a href="{{ route('lihat.perusahaan', $penawaran->perusahaan->id) }}"
+                class="position-absolute top-0 start-0 m-3 text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10.354 4.646a.5.5 0 0 0-.708 0L5.293 9.293a.5.5 0 1 0 .707.707L10 5.707V8.5a.5.5 0 1 0 1 0V4a.5.5 0 0 0-.5-.5H6a.5.5 0 1 0 0 1h4.5a.5.5 0 0 0 .5-.5z" />
                 </svg>
             </a>
             <div class="row d-flex justify-content-center">
@@ -43,54 +50,68 @@
                         <!-- Carousel -->
                         <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
                             <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                                    aria-label="Slide 4"></button>
+                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                                    aria-label="Slide 5"></button>
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 1">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                        alt="Image 1">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 2">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                        alt="Image 2">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 3">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                        alt="Image 3">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 4">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                        alt="Image 4">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100" alt="Image 5">
+                                    <img src="{{ asset('img/' . $penawaran->foto) }}" class="d-block w-100"
+                                        alt="Image 5">
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
                     </div>
-                    
+
                     <div class="form-container">
                         <div class="card border rounded shadow">
                             <div class="card-body">
                                 <form id="reservationForm">
                                     <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
-                                    <input type="hidden" name="nama_perusahaan" value="{{ $penawaran->perusahaan->user->name }}">
+                                    <input type="hidden" name="nama_perusahaan"
+                                        value="{{ $penawaran->perusahaan->user->name }}">
                                     <input type="hidden" name="nama_item" value="{{ $penawaran->nama_penawaran }}">
                                     <input type="hidden" id="qty" name="qty">
 
                                     <div class="row mb-3">
                                         <div class="col-md-6 mb-2">
                                             <label for="nama_wisatawan" class="form-label">Nama Wisatawan</label>
-                                            <input type="text" id="nama_wisatawan" name="nama_pemesan" value="{{ auth()->user()->name }}" class="form-control" readonly>
+                                            <input type="text" id="nama_wisatawan" name="nama_pemesan"
+                                                value="{{ auth()->user()->name }}" class="form-control" readonly>
                                         </div>
                                         <div class="col-md-6 mb-2">
                                             <label for="harga_item_display" class="form-label">Harga per
@@ -100,42 +121,74 @@
                                                     Jam
                                                 @endif
                                             </label>
-                                            <input type="text" id="harga_item_display" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="form-control" readonly>
-                                            <input type="hidden" id="harga_item" name="harga_item" value="{{ $penawaran->harga }}">
+                                            <input type="text" id="harga_item_display"
+                                                value="{{ number_format($penawaran->harga, 0, ',', '.') }}"
+                                                class="form-control" readonly>
+                                            <input type="hidden" id="harga_item" name="harga_item"
+                                                value="{{ $penawaran->harga }}">
                                         </div>
                                         @if ($penawaran->perusahaan->bidang == 'Villa & Suites')
                                             <div class="col-md-6 mb-2">
-                                                <label for="tanggal_check_in" class="form-label">Tanggal Check-in</label>
-                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                                <label for="tanggal_check_in" class="form-label">Tanggal
+                                                    Check-in</label>
+                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in"
+                                                    class="form-control" required>
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <label for="tanggal_check_out" class="form-label">Tanggal Check-out</label>
-                                                <input type="date" id="tanggal_check_out" name="tanggal_check_out" class="form-control" required>
+                                                <label for="tanggal_check_out" class="form-label">Tanggal
+                                                    Check-out</label>
+                                                <input type="date" id="tanggal_check_out" name="tanggal_check_out"
+                                                    class="form-control" required>
                                             </div>
                                         @else
                                             <div class="col-md-6 mb-2">
-                                                <label for="tanggal_check_in" class="form-label">Tanggal Reservasi</label>
-                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in" class="form-control" required>
+                                                <label for="tanggal_check_in" class="form-label">Tanggal
+                                                    Reservasi</label>
+                                                <input type="date" id="tanggal_check_in" name="tanggal_check_in"
+                                                    class="form-control" required>
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <label for="waktu_check_in" class="form-label">Waktu Check-in</label>
-                                                <input type="time" id="waktu_check_in" name="waktu_check_in" class="form-control" required>
+                                                <input type="time" id="waktu_check_in" name="waktu_check_in"
+                                                    class="form-control" required>
                                             </div>
                                             <div class="col-md-6 mb-2">
-                                                <label for="waktu_check_out" class="form-label">Waktu Check-out</label>
-                                                <input type="time" id="waktu_check_out" name="waktu_check_out" class="form-control" required>
+                                                <label for="waktu_check_out" class="form-label">Waktu
+                                                    Check-out</label>
+                                                <input type="time" id="waktu_check_out" name="waktu_check_out"
+                                                    class="form-control" required>
                                             </div>
                                         @endif
                                         <div class="col-md-6 mb-2">
                                             <label for="total_harga_display" class="form-label">Total Harga</label>
-                                            <input type="text" id="total_harga_display" class="form-control" readonly>
+                                            <input type="text" id="total_harga_display" class="form-control"
+                                                readonly>
                                             <input type="hidden" id="total_harga" name="total_harga">
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-12 ">
                                         <button class="btn btn-primary" id="pay-button">Bayar Reservasi</button>
+                                        <button class="btn btn-primary" id="check-availability" type="button">Cek Ketersediaan Ruang</button>
                                     </div>
                                 </form>
+
+                                <!-- Table to show available rooms -->
+                                <div class="mt-4">
+                                    <h5>Ruang Tersedia</h5>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr id="table-header">
+                                                <!-- Header columns will be set dynamically -->
+                                            </tr>
+                                        </thead>
+                                        <tbody id="availabilityTableBody">
+                                            <tr>
+                                                <td colspan="4" class="text-center">Isi form untuk melihat
+                                                    ketersediaan ruang</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,9 +197,13 @@
         </div>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>    
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const hargaPenawaran = {{ $penawaran->harga }};
@@ -200,7 +257,8 @@
                     }
                 }
 
-                document.getElementById('total_harga_display').value = totalHarga > 0 ? formatRupiah(totalHarga) : '';
+                document.getElementById('total_harga_display').value = totalHarga > 0 ? formatRupiah(totalHarga) :
+                    '';
                 document.getElementById('total_harga').value = totalHarga;
                 document.getElementById('qty').value = qty;
             }
@@ -224,6 +282,76 @@
                     waktuCheckOutElement.addEventListener('change', calculateTotalHarga);
                 }
             }
+
+            function checkAvailability() {
+                const tanggalCheckIn = document.getElementById('tanggal_check_in').value;
+                const tanggalCheckOut = document.getElementById('tanggal_check_out') ? document.getElementById(
+                    'tanggal_check_out').value : null;
+                const waktuCheckIn = document.getElementById('waktu_check_in') ? document.getElementById(
+                    'waktu_check_in').value : null;
+                const waktuCheckOut = document.getElementById('waktu_check_out') ? document.getElementById(
+                    'waktu_check_out').value : null;
+
+                $.post("{{ route('reservasi.checkAvailability') }}", {
+                    _token: '{{ csrf_token() }}',
+                    id_penawaran: $('input[name=id_penawaran]').val(),
+                    tanggal_check_in: tanggalCheckIn,
+                    tanggal_check_out: tanggalCheckOut,
+                    waktu_check_in: waktuCheckIn,
+                    waktu_check_out: waktuCheckOut,
+                }, function(data) {
+                    const tableBody = document.getElementById('availabilityTableBody');
+                    const tableHeader = document.getElementById('table-header');
+                    tableBody.innerHTML = '';
+                    tableHeader.innerHTML = '';
+
+                    if (bidang === 'Villa &amp; Suites') {
+                        tableHeader.innerHTML = `
+                    <th>Tanggal Check-in</th>
+                    <th>Tanggal Check-out</th>
+                    <th>Ruang Tersedia</th>
+                `;
+                    } else {
+                        tableHeader.innerHTML = `
+                    <th>Tanggal Check-in</th>
+                    <th>Waktu Check-in</th>
+                    <th>Waktu Check-out</th>
+                    <th>Ruang Tersedia</th>
+                `;
+                    }
+
+                    if (data.status === 'success' && data.availability.length > 0) {
+                        data.availability.forEach(item => {
+                            const row = document.createElement('tr');
+                            if (bidang === 'Villa &amp; Suites') {
+                                row.innerHTML = `
+                            <td>${item.tanggal}</td>
+                            <td>Tidak Ada</td>
+                            <td>${item.ruang_tersedia}</td>
+                        `;
+                            } else {
+                                row.innerHTML = `
+                            <td>${item.tanggal}</td>
+                            <td>Tidak Ada</td>
+                            <td>Tidak Ada</td>
+                            <td>${item.ruang_tersedia}</td>
+                        `;
+                            }
+                            tableBody.appendChild(row);
+                        });
+                    } else {
+                        const row = document.createElement('tr');
+                        row.innerHTML =
+                            `<td colspan="4" class="text-center">Tidak ada data ketersediaan</td>`;
+                        tableBody.appendChild(row);
+                    }
+                });
+            }
+
+            document.getElementById('check-availability').addEventListener('click', function(event) {
+                event.preventDefault();
+                checkAvailability();
+            });
 
             $('#pay-button').click(function(event) {
                 event.preventDefault();
@@ -278,11 +406,14 @@
                                         _token: '{{ csrf_token() }}',
                                         reservasi_id: data.reservasi_id
                                     }, function(deleteData, deleteStatus) {
-                                        alert('You closed the popup without finishing the payment');
+                                        alert(
+                                            'You closed the popup without finishing the payment');
                                         location.reload();
                                     });
                                 }
                             });
+                        } else if (data.status === 'error') {
+                            alert(data.message);
                         } else {
                             alert('Failed to initialize payment. Please try again.');
                         }

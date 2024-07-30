@@ -41,6 +41,19 @@ class AdminController extends Controller
         return view('admin.content.daftar', compact('users', 'totalUsers'));
     }
 
+    public function getPerusahaanDetails($id)
+{
+    $user = User::with('perusahaan')->find($id);
+    return response()->json([
+        'name' => $user->name,
+        'bidang' => $user->perusahaan->bidang,
+        'deskripsi' => $user->perusahaan->deskripsi,
+        'logo' => $user->perusahaan->logo,
+        'latitude' => $user->perusahaan->latitude,
+        'longitude' => $user->perusahaan->longitude,
+    ]);
+}
+
     public function antrian()
     {
         $users = User::whereHas('perusahaan', function ($query) {

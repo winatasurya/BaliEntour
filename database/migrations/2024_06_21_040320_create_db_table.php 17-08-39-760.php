@@ -47,6 +47,7 @@ return new class extends Migration {
       $table->string('nama_penawaran');
       $table->float('harga');
       $table->text('deskripsi');
+      $table->integer('ruang')->default(1);
       $table->string('foto')->nullable();
       $table->timestamps();
     });

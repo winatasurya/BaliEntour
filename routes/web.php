@@ -75,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reservasi/{penawaran}', [PaymentController::class, 'index'])->name('reservasi');
     Route::post('/reservasi/pay', [PaymentController::class, 'reservasi'])->name('reservasi.pay');
     Route::post('/reservasi/updateStatus', [PaymentController::class, 'updateStatus'])->name('reservasi.updateStatus');
+    Route::post('/reservasi/check-availability', [PaymentController::class, 'checkAvailability'])->name('reservasi.checkAvailability');
     Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
     Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
 });
@@ -82,8 +83,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::view('/about', 'aboutus')->name('about');
 
 Route::resource('admin', AdminController::class);
-Route::view('/main', 'admin.main')->name('main');
 Route::get('/daftarperusahaan', [AdminController::class, 'perusahaan'])->name('daftarperusahaan');
+Route::get('/admin/perusahaan/{id}', [AdminController::class, 'getPerusahaanDetails']);
 Route::get('/antrian', [AdminController::class, 'antrian'])->name('antrian');
 Route::get('/daftarwisatawan', [AdminController::class, 'wisatawan'])->name('daftarwisatawan');
 Route::view('/admin', 'admin.content.admin')->name('admin');

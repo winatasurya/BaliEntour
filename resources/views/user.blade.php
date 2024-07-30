@@ -270,7 +270,7 @@
                             <td>{{ \Carbon\Carbon::parse($reservasi->created_at)->format('d-m-Y') }}</td>
                             <td><span class="harga">{{ $reservasi->harga_item }}</span></td>
                             @if ($reservasi->waktu_check_out)
-                                <td>{{ $reservasi->waktu_check_in }}</td>
+                                <td>{{ $reservasi->tanggal_check_in }} At {{ $reservasi->waktu_check_in }}</td>
                                 <td>{{ $reservasi->waktu_check_out }}</td>
                             @else
                                 <td>{{ $reservasi->tanggal_check_in }}</td>

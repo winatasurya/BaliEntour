@@ -129,18 +129,13 @@
         perusahaanData.forEach(function(user) {
             var company = user.perusahaan;
             if (company.latitude && company.longitude) {
-                // Gunakan URL gambar yang sudah dibangun di Laravel
-                var logoUrl = company.logo_url;
-                var popupContent = "<div class='popup-content'>" +
-                                   "<div class='leaflet-popup-slideshow'>" +
-                                   "<img " + logoUrl + " class='popup-image' alt='Logo Perusahaan'>" +
-                                   "<div class='popup-navigation'>" +
-                                   "<button class='prev-btn'>←</button>" +
-                                   "<button class='next-btn'>→</button>" +
-                                   "</div>" +
-                                   "</div>" +
-                                   "<b>" + user.name + "</b><br>" +
-                                   "Tel: " + company.wa_perusahaan + "<br>";
+                var routeUrl = '{{ route("lihat.perusahaan", ":id") }}';
+                routeUrl = routeUrl.replace(':id', company.id);
+
+                var popupContent = `<a href="${routeUrl}">${user.name}</a><br><br>` +
+                                   `${company.bidang}<br>` +
+                                   `No. WA: ${company.wa_perusahaan}<br>` +
+                                   `Email: ${user.email}<br>`;
 
                 var marker = L.marker([company.latitude, company.longitude]).addTo(map);
                 marker.bindPopup(popupContent);
@@ -148,6 +143,7 @@
                 console.error(`Missing coordinates for user: ${user.name}`);
             }
         });
+
 
             // Fungsi untuk menangani lokasi yang ditemukan
             function onLocationFound(e) {
