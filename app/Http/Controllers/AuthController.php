@@ -92,6 +92,8 @@ class AuthController extends Controller
                         'failed' => 'Perusahaan Anda belum mendapatkan izin untuk login.'
                     ]);
                 }
+            } elseif ($user->role === 'admin') {
+                return redirect()->route('admin');
             }
         } else {
             return back()->withErrors([

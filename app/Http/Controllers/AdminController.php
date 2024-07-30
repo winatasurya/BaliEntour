@@ -7,16 +7,25 @@ use App\Http\Requests\UpdateadminRequest;
 use App\Models\admin;
 use App\Models\User;
 use App\Models\perusahaan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        if (!Auth::check() || Auth::user()->role != 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
     public function index()
     {
-        //
+        $totalWisatawan = User::whereHas('wisatawan')->with('wisatawan')->count();
+        $totalperusahaan = User::whereHas('perusahaan', function ($query) { $query->where('perizinan', 'setuju'); })->count();
+        $totalantrian = User::whereHas('perusahaan', function ($query) { $query->where('perizinan', 'tidak'); })->count();
+
+        return view('admin.content.admin', compact('totalWisatawan', 'totalperusahaan', 'totalantrian'));
     }
 
     public function wisatawan()
@@ -42,17 +51,17 @@ class AdminController extends Controller
     }
 
     public function getPerusahaanDetails($id)
-{
-    $user = User::with('perusahaan')->find($id);
-    return response()->json([
-        'name' => $user->name,
-        'bidang' => $user->perusahaan->bidang,
-        'deskripsi' => $user->perusahaan->deskripsi,
-        'logo' => $user->perusahaan->logo,
-        'latitude' => $user->perusahaan->latitude,
-        'longitude' => $user->perusahaan->longitude,
-    ]);
-}
+    {
+        $user = User::with('perusahaan')->find($id);
+        return response()->json([
+            'name' => $user->name,
+            'bidang' => $user->perusahaan->bidang,
+            'deskripsi' => $user->perusahaan->deskripsi,
+            'logo' => $user->perusahaan->logo,
+            'latitude' => $user->perusahaan->latitude,
+            'longitude' => $user->perusahaan->longitude,
+        ]);
+    }
 
     public function antrian()
     {
@@ -67,41 +76,26 @@ class AdminController extends Controller
         return view('admin.content.antrian', compact('users', 'totalUsers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreadminRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(admin $admin)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(admin $admin)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateadminRequest $request, perusahaan $perusahaan)
     {
         //
@@ -118,10 +112,7 @@ class AdminController extends Controller
         return redirect()->back()->with('error', 'Perusahaan tidak ditemukan.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroyPerusahaan(user $user)
+    public function destroyPerusahaan(User $user)
     {
         $perusahaan = $user->perusahaan;
 
@@ -133,7 +124,7 @@ class AdminController extends Controller
 
         return back()->with('delete', 'Perusahaan berhasil dihapus!');
     }
-    
+
     public function destroyWisatawan(User $user)
     {
         $wisatawan = $user->wisatawan;
@@ -142,7 +133,7 @@ class AdminController extends Controller
             Storage::disk('public')->delete($wisatawan->gambar);
         }
 
-        $user->delete(); 
+        $user->delete();
 
         return back()->with('delete', 'Wisatawan berhasil dihapus!');
     }
