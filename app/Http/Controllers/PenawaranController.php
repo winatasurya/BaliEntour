@@ -42,6 +42,7 @@ class PenawaranController extends Controller
     // Method to show details of a specific penawaran
     public function edit(Penawaran $penawaran)
     {
+        $penawaran->load('subfoto');
         return view('perusahaan.pena', ['penawaran' => $penawaran]);
     }
 

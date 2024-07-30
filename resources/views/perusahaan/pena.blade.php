@@ -79,6 +79,16 @@
                 @enderror
             </div>
 
+            <!-- New subfoto input -->
+            <div class="mb-4">
+                <label for="subfotos" class="block text-sm font-medium text-gray-700">Subfoto (Max 5)</label>
+                <input type="file" id="subfotos" name="subfotos[]"
+                    class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    multiple accept="image/*">
+                @error('subfotos.*')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
             
             <div class="flex space-x-4">
                 <button type="submit"
@@ -110,16 +120,6 @@
         </div>
     
     
-        <!-- New subfoto input -->
-        <div class="mb-4">
-            <label for="subfotos" class="block text-sm font-medium text-gray-700">Subfoto (Max 5)</label>
-            <input type="file" id="subfotos" name="subfotos[]"
-                class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
-                multiple accept="image/*">
-            @error('subfotos.*')
-                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-            @enderror
-        </div>
     </div>
 
     <script>

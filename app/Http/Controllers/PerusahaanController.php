@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Penawaran;
 use App\Models\Perusahaan;
 use App\Models\reservasi;
-use App\Models\SubfotoPenawaran;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -36,60 +35,48 @@ class PerusahaanController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Perusahaan $perusahaan)
-{
-    $user = Auth::user();
-    $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
-    $penawaran = Penawaran::with('subfoto_penawaran')->where('id_perusahaan', $perusahaan->id)->firstOrFail();
+    {
+        // Get the currently authenticated user
+        $user = Auth::user();
+        // Fetch the company associated with the user
+        $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
 
-    return view('penawaran.edit', compact('penawaran'));
-}
-
-public function update(Request $request, Perusahaan $perusahaan)
-{
-    $request->validate([
-        'nama_penawaran' => 'required|string|max:255',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'harga' => 'required|numeric',
-        'ruang' => 'required|numeric|min:1',
-        'deskripsi' => 'required|string',
-        'subfotos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
-
-    $penawaran = Penawaran::findOrFail($request->penawaran_id);
-
-    $penawaran->update([
-        'nama_penawaran' => $request->nama_penawaran,
-        'harga' => $request->harga,
-        'ruang' => $request->ruang,
-        'deskripsi' => $request->deskripsi,
-    ]);
-
-    if ($request->hasFile('foto')) {
-        Storage::disk('public')->delete($penawaran->foto);
-        $penawaran->foto = $request->file('foto')->store('penawaran_fotos', 'public');
+        return view('perusahaan.edit', compact('perusahaan'));
     }
 
-    if ($request->hasFile('subfotos')) {
-        foreach ($request->file('subfotos') as $subfoto) {
-            $path = $subfoto->store('subfotos', 'public');
-            SubfotoPenawaran::create([
-                'id_penawaran' => $penawaran->id,
-                'subfoto' => $path,
-            ]);
+    public function update(Request $request, Perusahaan $perusahaan)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'wa_perusahaan' => 'required|string|max:20',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'deskripsi' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('id_users', $user->id)->firstOrFail();
+
+        $user->name = $request->input('name');
+        $user->save();
+
+        $perusahaan->wa_perusahaan = $request->input('wa_perusahaan');
+        $perusahaan->deskripsi = $request->input('deskripsi');
+        $perusahaan->latitude = $request->input('latitude');
+        $perusahaan->longitude = $request->input('longitude');
+
+        if ($request->hasFile('logo')) {
+            if ($perusahaan->logo) {
+                Storage::disk('public')->delete($perusahaan->logo);
+            }
+
+            $path = $request->file('logo')->store('gambar_perusahaan', 'public');
+            $perusahaan->logo = $path;
         }
+
+        $perusahaan->save();
+
+        return redirect()->route('perusahaan.index')->with('success', 'Data perusahaan berhasil diperbarui.');
     }
-
-    $penawaran->save();
-
-    return redirect()->route('penawaran.index')->with('success', 'Penawaran updated successfully.');
-}
-
-public function destroySubfoto($id)
-{
-    $subfoto = SubfotoPenawaran::findOrFail($id);
-    Storage::disk('public')->delete($subfoto->subfoto);
-    $subfoto->delete();
-
-    return back()->with('success', 'Subfoto deleted successfully.');
-}
 }

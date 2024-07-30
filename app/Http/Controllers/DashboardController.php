@@ -44,7 +44,7 @@ class DashboardController extends Controller
             if ($bidang) {
                 $query->where('bidang', $bidang);
             }
-        })->with('perusahaan')->paginate(10);
+        })->with(['perusahaan', 'perusahaan.rating'])->paginate(10);
 
         $bidangs = Perusahaan::select('bidang')->distinct()->get();
 
