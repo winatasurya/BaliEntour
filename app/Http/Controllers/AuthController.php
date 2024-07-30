@@ -19,15 +19,15 @@ class AuthController extends Controller
         $data = $request->validate([
             'name' => ['required', 'max:255'],
             'email' => ['required', 'max:255', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:5' ,'confirmed'],
+            'password' => ['required', 'min:5', 'confirmed'],
             'role' => ['required']
         ]);
         if ($data['role'] === 'perusahaan') {
             $perusahaanData = $request->validate([
-                'wa_perusahaan' => ['required','max:20'],
+                'wa_perusahaan' => ['required', 'max:20'],
                 'deskripsi' => ['required', 'max:65535'],
                 'bidang' => ['required'],
-                'logo' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'] 
+                'logo' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg']
             ]);
         }
 
@@ -46,7 +46,7 @@ class AuthController extends Controller
                 'bidang' => $perusahaanData['bidang'],
                 'logo' => $logo
             ]);
-        } elseif ($user->role === 'wisatawan'){
+        } elseif ($user->role === 'wisatawan') {
             Wisatawan::create([
                 'id_users' => $user->id,
             ]);
@@ -62,26 +62,36 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        # Validate
+        // Validate
         $data = $request->validate([
             'email' => ['required', 'max:255', 'email'],
             'password' => ['required'],
         ]);
 
         $user = User::where('email', $data['email'])->first();
-        
+
         if ($user && !$user->hasVerifiedEmail()) {
             event(new Registered($user));
             return redirect()->route('verification.notice', ['email' => $user->email])->with('warning', 'Anda harus memverifikasi email terlebih dahulu. Email verifikasi telah dikirim ulang.');
         }
 
         // Try to login user
-        if (Auth::attempt($data)){
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
+
             if ($user->role === 'wisatawan') {
-                return redirect()->route('wisatawan')->with('success', 'Selamat Datang ');;
+                return redirect()->route('wisatawan')->with('success', 'Selamat Datang');
             } elseif ($user->role === 'perusahaan') {
-                return redirect()->route('db_perusahaan');
+                // Check if the company's 'perizinan' status is 'setuju'
+                $perusahaan = Perusahaan::where('id_users', $user->id)->first();
+                if ($perusahaan && $perusahaan->perizinan === 'setuju') {
+                    return redirect()->route('db_perusahaan');
+                } else {
+                    Auth::logout();
+                    return back()->withErrors([
+                        'failed' => 'Perusahaan Anda belum mendapatkan izin untuk login.'
+                    ]);
+                }
             }
         } else {
             return back()->withErrors([
@@ -90,9 +100,10 @@ class AuthController extends Controller
         }
     }
 
+
     // Logout user
     public function logout(Request $request)
-    {   
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
