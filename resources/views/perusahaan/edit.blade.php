@@ -4,100 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Perusahaan</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script>
-        function isNumber(evt) {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            return true;
-        }
-
-        function updateLocation() {
-            var lat = document.getElementById('latitude').value;
-            var lng = document.getElementById('longitude').value;
-            document.getElementById('map').src = `https://maps.google.com/maps?q=${lat},${lng}&hl=es;z=14&output=embed`;
-        }
-    </script>
+    <title>Edit Penawaran</title>
+    <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1>Edit Perusahaan</h1>
-        <form action="{{ route('perusahaan.ubah', $perusahaan->id) }}" method="POST" enctype="multipart/form-data">
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold mb-4">Edit Penawaran</h1>
+        <form action="{{ route('penawaran.update', $penawaran->id) }}" method="POST" enctype="multipart/form-data" id="penawaranForm">
             @csrf
             @method('PUT')
 
-            <div class="form-group">
-                <label for="name">Nama Perusahaan</label>
-                <input type="text" class="form-control" id="name" name="name"
-                    value="{{ old('name', $perusahaan->user->name) }}" required>
-                @error('name')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-4">
+                <label for="nama_penawaran" class="block text-sm font-medium text-gray-700">Nama Penawaran</label>
+                <input type="text" id="nama_penawaran" name="nama_penawaran" value="{{ $penawaran->nama_penawaran }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
 
-            <div class="form-group">
-                <label for="wa_perusahaan">WhatsApp Perusahaan</label>
-                <input type="text" class="form-control" id="wa_perusahaan" name="wa_perusahaan"
-                    value="{{ old('wa_perusahaan', $perusahaan->wa_perusahaan) }}" required
-                    onkeypress="return isNumber(event)">
-                @error('wa_perusahaan')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-4">
+                <label for="foto" class="block text-sm font-medium text-gray-700">Foto</label>
+                <input type="file" id="foto" name="foto" class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500">
+                <img src="{{ asset('img/' . $penawaran->foto) }}" alt="{{ $penawaran->nama_penawaran }}" class="w-full h-auto mt-2 rounded-lg">
             </div>
 
-            <div class="form-group">
-                <label for="logo">Logo Perusahaan</label>
-                <input type="file" class="form-control-file" id="logo" name="logo">
-                @if ($perusahaan->logo)
-                    <img src="{{ asset('img/' . $perusahaan->logo) }}" alt="Logo" class="img-fluid mt-2"
-                        style="max-width: 150px;">
-                @endif
-                @error('logo')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-4">
+                <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
+                <input type="text" id="harga" name="harga" value="{{ number_format($penawaran->harga, 0, ',', '.') }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
 
-            <div class="form-group">
-                <label for="deskripsi">Deskripsi</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required>{{ old('deskripsi', $perusahaan->deskripsi) }}</textarea>
-                @error('deskripsi')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-4">
+                <label for="ruang" class="block text-sm font-medium text-gray-700">Ruang</label>
+                <input type="number" id="ruang" name="ruang" value="{{ $penawaran->ruang }}" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
             </div>
 
-            <div class="form-group">
-                <label for="latitude">Latitude</label>
-                <input type="text" class="form-control" id="latitude" name="latitude"
-                    value="{{ old('latitude', $perusahaan->latitude) }}" required>
-                @error('latitude')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <div class="mb-4">
+                <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                <textarea id="deskripsi" name="deskripsi" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">{{ $penawaran->deskripsi }}</textarea>
             </div>
 
-            <div class="form-group">
-                <label for="longitude">Longitude</label>
-                <input type="text" class="form-control" id="longitude" name="longitude"
-                    value="{{ old('longitude', $perusahaan->longitude) }}" required>
-                @error('longitude')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
+            <!-- New subfoto input -->
+            <div class="mb-4">
+                <label for="subfotos" class="block text-sm font-medium text-gray-700">Subfotos (Max 5)</label>
+                <input type="file" id="subfotos" name="subfotos[]" class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500" multiple>
             </div>
 
-            <button type="button" class="btn btn-info" onclick="updateLocation()">Update Peta</button>
-            <iframe id="map"
-                src="https://maps.google.com/maps?q={{ $perusahaan->latitude ?? '-8.589058' }},{{ $perusahaan->longitude ?? '115.262529' }}&hl=es;z=14&output=embed"
-                width="100%" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('db_perusahaan') }}" class="btn btn-secondary">Kembali</a>
+            <div class="flex space-x-4">
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Update</button>
+                <a href="{{ route('db_perusahaan')}}" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Kembali</a>
+            </div>
+            </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hargaInput = document.getElementById('harga');
+            const ruangInput = document.getElementById('ruang');
+
+            hargaInput.addEventListener('input', function(e) {
+                let value = e.target.value;
+                value = value.replace(/[^0-9]/g, ''); // Hapus karakter non-numerik
+                if (value < 0) value = 0; // Pastikan nilai tidak negatif
+                e.target.value = formatRupiah(value);
+            });
+
+            hargaInput.addEventListener('blur', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');
+                if (value < 0) value = 0; // Pastikan nilai tidak negatif
+                e.target.value = formatRupiah(value);
+            });
+
+            ruangInput.addEventListener('input', function(e) {
+                let value = e.target.value;
+                value = value.replace(/[^0-9]/g, ''); // Hapus karakter non-numerik dan non-desimal
+                if (value < 1) value = 1; // Pastikan nilai tidak negatif
+                e.target.value = Math.floor(value); // Pastikan nilai adalah bilangan bulat
+            });
+
+            function formatRupiah(angka) {
+                let number_string = angka.toString().replace(/[^,\d]/g, ''),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                if (ribuan) {
+                    let separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+                return rupiah;
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -40,7 +40,7 @@ class PenawaranController extends Controller
     }
 
     // Method to show details of a specific penawaran
-    public function showi(Penawaran $penawaran)
+    public function edit(Penawaran $penawaran)
     {
         return view('perusahaan.pena', ['penawaran' => $penawaran]);
     }
@@ -54,6 +54,7 @@ class PenawaranController extends Controller
         $data = $request->validate([
             'nama_penawaran' => ['required', 'max:255'],
             'harga' => ['required', 'numeric'],
+            'ruang' => ['required', 'numeric'],
             'deskripsi' => ['required'],
             'foto' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg'],
             'subfotos.*' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webp,jpeg']
