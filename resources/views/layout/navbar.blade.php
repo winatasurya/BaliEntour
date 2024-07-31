@@ -35,13 +35,17 @@
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                         </li> -->
+                        <li>
+                            <a href="{{ route('admin') }}"
+                                class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Home</a>
+                        </li>
                     <li>
                         <a href="{{ route('logout') }}"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Logout</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('welcome') }}"
-                            class="block py-2 px-3 rounded md:bg-transparent md:p-0">Home</a>
+                            class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+                        <form action="{{ route('logout') }}" method="post" style="display: none" id="logout-form">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </div>

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateadminRequest;
 use App\Models\admin;
 use App\Models\User;
 use App\Models\perusahaan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,21 +22,58 @@ class AdminController extends Controller
 
     public function index()
     {
-        $totalWisatawan = User::whereHas('wisatawan')->with('wisatawan')->count();
-        $totalperusahaan = User::whereHas('perusahaan', function ($query) { $query->where('perizinan', 'setuju'); })->count();
-        $totalantrian = User::whereHas('perusahaan', function ($query) { $query->where('perizinan', 'tidak'); })->count();
+        $totalwisatawan = User::whereHas('wisatawan')->with('wisatawan')->count();
+        $totalperusahaan = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'setuju');
+        })->count();
+        $totalantrian = User::whereHas('perusahaan', function ($query) {
+            $query->where('perizinan', 'tidak');
+        })->count();
 
-        return view('admin.content.admin', compact('totalWisatawan', 'totalperusahaan', 'totalantrian'));
+        return view('admin.content.admin', compact('totalwisatawan', 'totalperusahaan', 'totalantrian'));
     }
 
     public function wisatawan()
     {
-        $users = User::whereHas('wisatawan')->with('wisatawan')->paginate(10);
+        $users = User::whereHas('wisatawan', function ($query) {
+        })->with('wisatawan')->paginate(10);
 
-        $totalUsers = User::whereHas('wisatawan')->with('wisatawan')->count();
+        $totalUsers = User::whereHas('wisatawan', function ($query) {
+        })->count();
+        return view('admin.content.daftaruser', compact('users', 'totalUsers'));
+    }
+
+    public function searchWisatawan(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $users = User::whereHas('wisatawan', function ($query) use ($searchQuery) {
+            $query->where('name', 'like', "%$searchQuery%")
+                ->orWhere('email', 'like', "%$searchQuery%");
+        })->with('wisatawan')->paginate(10);
+
+        $totalUsers = User::whereHas('wisatawan', function ($query) use ($searchQuery) {
+            $query->where('name', 'like', "%$searchQuery%")
+                ->orWhere('email', 'like', "%$searchQuery%");
+        })->with('wisatawan')->count();
 
         return view('admin.content.daftaruser', compact('users', 'totalUsers'));
     }
+    public function getWisatawanDetails($id)
+    {
+        $user = User::with('wisatawan')->find($id);
+        if ($user) {
+            return response()->json([
+                'name' => $user->name,
+                'email' => $user->email,
+                'tgl_lahir' => $user->wisatawan->tgl_lahir,
+                'wa_wisatawan' => $user->wisatawan->wa_wisatawan,
+                'gambar' => $user->wisatawan->gambar,
+            ]);
+        }
+        return response()->json(['error' => 'Wisatawan not found'], 404);
+    }
+
 
     public function perusahaan()
     {
@@ -46,6 +84,29 @@ class AdminController extends Controller
         $totalUsers = User::whereHas('perusahaan', function ($query) {
             $query->where('perizinan', 'setuju');
         })->count();
+
+        return view('admin.content.daftar', compact('users', 'totalUsers'));
+    }
+
+    public function searchPerusahaan(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $users = User::whereHas('perusahaan', function ($query) use ($searchQuery) {
+            $query->where('perizinan', 'setuju')
+                ->where(function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', "%$searchQuery%")
+                        ->orWhere('email', 'like', "%$searchQuery%");
+                });
+        })->with('perusahaan')->paginate(10);
+
+        $totalUsers = User::whereHas('perusahaan', function ($query) use ($searchQuery) {
+            $query->where('perizinan', 'setuju')
+                ->where(function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', "%$searchQuery%")
+                        ->orWhere('email', 'like', "%$searchQuery%");
+                });
+        })->with('perusahaan')->count();
 
         return view('admin.content.daftar', compact('users', 'totalUsers'));
     }
@@ -75,6 +136,30 @@ class AdminController extends Controller
 
         return view('admin.content.antrian', compact('users', 'totalUsers'));
     }
+
+    public function searchAntrian(Request $request)
+    {
+        $searchQuery = $request->input('query');
+
+        $users = User::whereHas('perusahaan', function ($query) use ($searchQuery) {
+            $query->where('perizinan', 'tidak')
+                ->where(function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', "%$searchQuery%")
+                        ->orWhere('email', 'like', "%$searchQuery%");
+                });
+        })->with('perusahaan')->paginate(10);
+
+        $totalUsers = User::whereHas('perusahaan', function ($query) use ($searchQuery) {
+            $query->where('perizinan', 'tidak')
+                ->where(function ($query) use ($searchQuery) {
+                    $query->where('name', 'like', "%$searchQuery%")
+                        ->orWhere('email', 'like', "%$searchQuery%");
+                });
+        })->with('perusahaan')->count();
+
+        return view('admin.content.antrian', compact('users', 'totalUsers'));
+    }
+
 
     public function create()
     {

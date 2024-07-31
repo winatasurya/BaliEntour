@@ -15,6 +15,8 @@ use App\Http\Controllers\VerifyEmailController;
 // halaman awal
 Route::get('/', [DashboardController::class, 'index'])->name('welcome');
 
+Route::view('/about', 'aboutus')->name('about');
+
 // Route guest
 Route::middleware('guest')->group(function(){
     // Route untuk register
@@ -79,18 +81,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/reservasi/delete', [PaymentController::class, 'delete'])->name('reservasi.delete');
     Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
 
-
     // Route admin
     Route::resource('admin', AdminController::class);
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     Route::get('/daftarperusahaan', [AdminController::class, 'perusahaan'])->name('daftarperusahaan');
+    Route::get('/admin/perusahaan/search', [AdminController::class, 'searchPerusahaan'])->name('admin.perusahaan.search');
     Route::get('/admin/perusahaan/{id}', [AdminController::class, 'getPerusahaanDetails']);
     Route::get('/antrian', [AdminController::class, 'antrian'])->name('antrian');
+    Route::get('/admin/antrian/search', [AdminController::class, 'searchAntrian'])->name('admin.antrian.search');
     Route::get('/daftarwisatawan', [AdminController::class, 'wisatawan'])->name('daftarwisatawan');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/admin/wisatawan/search', [AdminController::class, 'searchWisatawan'])->name('admin.wisatawan.search');
+    Route::get('/admin/wisatawan/{id}', [AdminController::class, 'getWisatawanDetails'])->name('admin.wisatawan.details');
     Route::delete('/admin/wisatawan/{user}', [AdminController::class, 'destroyWisatawan'])->name('admin.destroy.wisatawan');
     Route::delete('/admin/peusahaan/{user}', [AdminController::class, 'destroyPerusahaan'])->name('admin.destroy.perusahaan');
     Route::patch('/admin/approve/{user}', [AdminController::class, 'approve'])->name('admin.approve');
 });
-
-Route::view('/about', 'aboutus')->name('about');
 

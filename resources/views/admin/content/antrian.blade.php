@@ -129,10 +129,10 @@
             <h1>Daftar Antrian Perusahaan</h1>
             <div class="search-container">
                 <span>{{ $users->count() }} / {{ $totalUsers }} Perusahaan</span>
-                <div>
-                    <input type="text" placeholder="Cari Perusahaan...">
-                    <button class="btn btn-blue">Cari</button>
-                </div>
+                <form action="{{ route('admin.antrian.search') }}" method="GET">
+                    <input type="text" name="query" placeholder="Cari perusahaan...">
+                    <button type="submit" class="btn btn-blue" style="background: blue">Cari</button>
+                </form>
             </div>
             <div class="table-container">
                 <table style="">
