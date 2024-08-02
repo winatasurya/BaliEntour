@@ -102,7 +102,7 @@
                         <div class="card border rounded shadow">
                             <div class="card-body">
                                 <form id="reservationForm">
-                                    <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="id_wisatawan" value="{{ auth()->user()->wisatawan->id }}">
                                     <input type="hidden" name="id_penawaran" value="{{ $penawaran->id }}">
                                     <input type="hidden" name="nama_perusahaan"
                                         value="{{ $penawaran->perusahaan->user->name }}">

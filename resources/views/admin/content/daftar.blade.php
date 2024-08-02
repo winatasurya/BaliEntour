@@ -195,7 +195,6 @@
           <p><strong>Nama Perusahaan:</strong> <span id="modalNamaPerusahaan"></span></p>
           <p><strong>Bidang:</strong> <span id="modalBidang"></span></p>
           <p><strong>Deskripsi:</strong> <span id="modalDeskripsi"></span></p>
-          <p><strong>Logo:</strong> <img id="modalLogo" src="" alt="Logo" style="max-width: 100px;"/></p>
           <p><strong>Lokasi:</strong></p>
           <div id="map" style="height: 300px;"></div>
         </div>
@@ -218,7 +217,6 @@
         document.getElementById('modalNamaPerusahaan').innerText = data.name;
         document.getElementById('modalBidang').innerText = data.bidang;
         document.getElementById('modalDeskripsi').innerText = data.deskripsi;
-        document.getElementById('modalLogo').src = `/storage/logos/${data.logo}`;
 
         // Initialize map
         var map = L.map('map').setView([data.latitude, data.longitude], 13);
